@@ -1,0 +1,100 @@
+<div class="registration-container">
+  <img src="assets/imagen/logoLOG.png" alt="Logo" class="logo">
+  <h2>{{titulo}}</h2>
+
+  <form (ngSubmit)="crearEditarPersona()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cedula_persona">Cédula:</label>
+        <input type="text" id="cedula_persona" [(ngModel)]="persona.cedula_persona" name="cedula_persona" required
+          (keydown)="onKeyPressNumeros($event)" maxlength="10">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" [(ngModel)]="persona.nombre" name="nombre" required
+          (keydown)="onKeyPress($event)">
+      </div>
+      <div class="form-group">
+        <label for="nombre2">Segundo Nombre:</label>
+        <input type="text" id="nombre2" [(ngModel)]="persona.nombre2" name="nombre2" required
+          (keydown)="onKeyPress($event)">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" [(ngModel)]="persona.apellido" name="apellido" required
+          (keydown)="onKeyPress($event)">
+      </div>
+      <div class="form-group">
+        <label for="apellido2">Segundo Apellido:</label>
+        <input type="text" id="apellido2" [(ngModel)]="persona.apellido2" name="apellido2" required
+          (keydown)="onKeyPress($event)">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="genero">Género:</label>
+        <select id="genero" [(ngModel)]="persona.genero" name="genero" required>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+          <option value="noContestar">Prefiero no contestar</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" [(ngModel)]="persona.telefono" name="telefono" required
+          (keydown)="onKeyPressNumeros($event)" maxlength="10">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" [(ngModel)]="persona.direccion" name="direccion" required>
+      </div>
+
+
+      <div class="form-group">
+        <label for="fechaNacimiento">Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" [(ngModel)]="persona.fechaNacimiento" name="fechaNacimiento" required
+          (change)="calcularEdad()" class="date-input">
+      </div>
+
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="id_provincia">Provincia:</label>
+        <div class="provincia-container">
+          <select id="id_provincia" [(ngModel)]="provinciaSeleccionada" name="id_provincia" class="provincia-select">
+            <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{ provincia.nombre }}
+            </option>
+          </select>
+          <button type="button" (click)="filtrarCantonesPorProvincia()" class="filter-button-small"
+            [class.clicked]="isFilterClicked">
+            <i class="fas fa-search"></i>
+            <span class="filter-indicator" *ngIf="provinciaSeleccionada">&#10004;</span>
+          </button>
+        </div>
+        <p class="selected-province-message">{{ selectedProvinceMessage }}</p>
+      </div>
+      <div class="form-group">
+        <label for="id_canton">Cantón:</label>
+        <select id="id_canton" [(ngModel)]="persona.id_canton" name="id_canton" [disabled]="!isProvinciaSelected"
+          required>
+          <option *ngFor="let canton of cantonesFiltrados" [value]="canton.id_canton">{{ canton.nombre }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <button type="button" (click)="irARegistroC()">Siguiente</button>
+    </div>
+  </form>
+</div>

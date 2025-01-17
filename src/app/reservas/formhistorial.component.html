@@ -1,0 +1,46 @@
+<div style="background-color: #F9F9F9;">
+    <br>
+    <div class="principal" style="margin-left: 15cap;">
+        <main class="table">   
+            <section class="table_body">
+                <br>           
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Subtotal</th>
+                            <th>Total</th>
+                            <th>Fecha Entrada</th>
+                            <th>Fecha Salida</th>
+                            <th>Descargar PDF </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let combinedData of resultadosCombinados">
+                        <tr >
+                            <td>{{ combinedData?.reserva?.idReserva }}</td>
+                            <td>{{ combinedData?.cliente?.cedula_persona }}</td>
+                            <td>{{ combinedData?.persona?.nombre }}</td>
+                            <td>{{ combinedData?.persona?.apellido }}</td>
+                            <td>{{ combinedData?.habitacion?.precio }}</td>
+                            <td>{{ combinedData?.reserva?.total }}</td>
+                            <td>{{combinedData.reserva?.fechaEntrada}}</td>
+                            <td>{{combinedData.reserva?.fechaSalida}}</td>
+                            <td>
+                                <div class="" routerLinkActive="active">
+                                    <button type="button" class="btnDescargar" (click)="descargarPDF(combinedData)">Descargar PDF</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </section>
+        </main>
+    </div>
+    <br>
+</div>
+

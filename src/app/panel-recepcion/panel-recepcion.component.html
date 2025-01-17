@@ -1,0 +1,83 @@
+<div class="card border-primary mb-3">
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado</h5>
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary mr-5" (click)="cargarInformacion(); cargarRecepcionistas()" [disabled]="loading">
+        <span *ngIf="!loading">Actualizar</span>
+        <span *ngIf="loading">
+          <img src="https://iris.aerocivil.gov.co/Content/Images/loading-38.gif" alt="Cargando..." width="20" height="20">
+        </span>
+      </button>
+    </div> 
+    <div class="my-2 text-left mr-auto mb-3">
+      <label for="buscarId">Buscar por ID:</label>
+      <input type="text" id="buscarId" [(ngModel)]="idABuscar" inputmode="numeric" pattern="[0-9]*" (input)="buscarEnTiempoReal()" (keydown)="onKeyDown($event)" />
+      <select [(ngModel)]="entidadSeleccionada">
+        <option value="habitaciones">Habitaciones</option>
+        <option value="recepcionistas">Recepcionistas</option>
+      </select>
+    </div>
+    <div class="tabla-contenedor">
+      <div class="container" *ngIf="mostrarTabla">
+        <h2>Lista de Recepcionistas</h2>
+        <table class="table table-recepcionistas">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Contraseña</th>
+              <th>Cédula</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let recepcionista of recepcionistas">
+              <td>{{ recepcionista.idRecepcionista }}</td>
+              <td>{{ recepcionista.usuario }}</td>
+              <td>{{ recepcionista.contrasena }}</td>
+              <td>{{ recepcionista.cedula_persona }}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-danger btn-sm" (click)="eliminarRecepcionista(recepcionista.idRecepcionista )">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-divider"></div>   
+        <h2>Lista de Habitaciones</h2>   
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped" *ngIf="mostrarTabla">
+            <thead>
+              <tr>
+                <th style="color: black;">ID</th>
+                <th style="color: black;">Número de Habitación</th>
+                <th style="color: black;">Piso</th>
+                <th style="color: black;">Precio</th>
+                <th style="color: black;">Descripción</th>
+                <th style="color: black;">Estado</th>
+                <th style="color: black;">Imagen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let habitacion of habitaciones">
+                <td>{{ habitacion.idHabitaciones }}</td>
+                <td>{{ habitacion.nHabitacion }}</td>
+                <td>{{ habitacion.nPiso }}</td>
+                <td>{{ habitacion.precio }}</td>
+                <td>{{ habitacion.descriphabi }}</td>
+                <td>{{ habitacion.estado }}</td>
+                <td>
+                  <img src="{{ habitacion.foto }}" alt="Imagen de la habitación" width="50" height="50">
+                </td>
+                <td class="text-center">
+                  <button type="button" name="button" [routerLink]="['/habitaciones/form', habitacion.idHabitaciones]" class="btn btn-info">Editar</button>
+                </td>
+                <td class="text-center">
+                  <button type="button" (click)="eliminarHabitacion(habitacion.idHabitaciones)" class="btn btn-danger">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

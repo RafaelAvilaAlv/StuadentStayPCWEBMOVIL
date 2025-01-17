@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()">
+
+  <label for="usuario">Usuario:</label>
+  <input type="text" id="usuario" name="usuario" [(ngModel)]="usuario" required>
+
+  <label for="contrasena">Contraseña:</label>
+  <input type="password" id="contrasena" name="contrasena" [(ngModel)]="contrasena" required>
+
+  <button type="submit">Iniciar Sesión</button>
+</form>

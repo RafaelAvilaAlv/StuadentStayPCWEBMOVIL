@@ -1,0 +1,76 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.login-card {
+  width: 300px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.logo {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #4285f4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #357ae8;
+}
+
+.error-message {
+  color: #d32f2f;
+  margin-top: 10px;
+}
+
+.redirection-buttons {
+  /* Otros estilos para el contenedor si es necesario */
+}
+
+.register-link {
+  color: #4285f4;
+  /* Cambia el color a uno de tu elección */
+  text-decoration: underline;
+  /* Agrega subrayado al texto */
+  cursor: pointer;
+  /* Cambia el cursor al estilo de un enlace */
+}
+
+.register-link:hover {
+  text-decoration: none;
+  /* Elimina el subrayado al pasar el mouse sobre el enlace */
+}

@@ -1,0 +1,29 @@
+<p>Recepcionistas works!</p>
+
+<div class="card border-primary mb-3">
+  <div class="card-header">Recepcionistas</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de Recepcionistas</h5>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Cédula Persona</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let recepcionista of recepcionistas">
+          <td>{{ recepcionista.idRecepcionista }}</td>
+          <td>{{ recepcionista.usuario }}</td>
+          <td>{{ recepcionista.cedula_persona }}</td>
+          <td>
+            <button (click)="editarRecepcionista(recepcionista.id_recepcionista)">Editar</button>
+            <button (click)="eliminarRecepcionista(recepcionista.id_recepcionista)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

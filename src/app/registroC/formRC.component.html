@@ -1,0 +1,27 @@
+<div class="registration-container">
+  <img src="assets/imagen/logoLOG.png" alt="Logo" class="logo">
+  <h2>REGISTRO</h2>
+  <form [formGroup]="formRC">
+    <label for="usuario">Usuario:</label>
+    <input type="text" id="usuario" formControlName="usuario" required>
+
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" id="contrasena" formControlName="contrasena" required>
+
+
+    <label for="foto">Foto:</label>
+    <div class="file-input-container">
+      <input type="file" id="foto" class="form-control-file" formControlName="foto" (change)="selectFile($event)"
+        required>
+
+      <label for="preview">Vista previa</label>
+      <div class="img-preview-container">
+        <img [src]="previewImage" alt="Vista Previa" class="img-preview">
+      </div>
+    </div>
+
+
+    <button type="button" (click)="registrarCliente()">Registrar</button>
+
+  </form>
+</div>

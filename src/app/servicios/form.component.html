@@ -1,0 +1,50 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="https://static.vecteezy.com/system/resources/previews/000/463/619/original/hotel-services-flat-icons-set-vector.jpg"
+                alt="Descripción de la imagen" class="img-fluid">
+        </div>
+
+        <div class="col-sm-8">
+            <div class="card bg-light text-dark">
+                <div class="card-header text-center">
+                    <h2>{{titulo}}</h2>
+                </div>
+                <div class="card-body">
+                    <form ngNativeValidate (ngSubmit)="create()">
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-sm-3"><strong>TIPO DE SERVICIO</strong></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" [(ngModel)]="servicio.titulo" name="titulo"
+                                    placeholder="Ingrese el tipo de servicio" required="true">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-form-label col-sm-3"><strong>DESCRIPCCION</strong></label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" [(ngModel)]="servicio.descripciontipo" name="descripcion"
+                                    placeholder="Ingrese la descripción" required="true"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagen" class="col-form-label col-sm-2"><strong>Imagen</strong></label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control-file" (change)="onFileSelected($event)"
+                                    accept="image/*" id="imagen" name="imagen">
+                                <img [src]="previewImage" alt="Vista previa de la imagen" class="img-thumbnail mt-2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button class="btn btn-primary" role="button" (click)="convertfoto()">CREAR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>

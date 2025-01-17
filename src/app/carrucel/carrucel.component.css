@@ -1,0 +1,21 @@
+.carousel-item.active {
+  height: 100vh;
+}
+
+
+.carousel-item:nth-child(1) {
+
+  background-repeat: no-repeat;
+  background-size: 100cap;
+  background-position: center center;
+}
+
+@media (min-width: 992px) {
+  #introCarousel {
+    margin-top: -58.59px;
+  }
+}
+
+.navbar .nav-link {
+  color: #121111 !important;
+}

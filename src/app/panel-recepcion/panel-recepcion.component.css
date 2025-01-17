@@ -1,0 +1,126 @@
+.card {
+  width: 90%;
+  margin: 40px auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.card-body {
+ 
+  color: #333;
+
+}
+
+.card-title {
+ 
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.my-2 {
+  margin: 15px 0;
+}
+
+.text-left {
+  text-align: left;
+}
+
+#buscarId {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.btn-link {
+  color: #3498db;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.table-container {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  overflow: hidden;
+  /* Esto evita que los bordes redondeados se extiendan más allá del contenido */
+}
+
+.table-container h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: left;
+  font-size: 18px;
+}
+
+th {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.btn-info,
+.btn-danger {
+  padding: 12px 18px;
+  margin: 2px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.table-divider {
+  border-top: 2px solid #1f1919;
+  /* Cambia el color y estilo del borde según tus preferencias */
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.table-recepcionistas {
+  margin-bottom: 20px;
+  /* Ajusta el margen inferior según tus preferencias */
+}
+
+.table-habitaciones {
+  margin-top: 20px;
+  /* Ajusta el margen superior según tus preferencias */
+}
+
+.tabla-contenedor {
+    
+  width: 100%;
+   
+  height: 900px; /* Establece la altura máxima del contenedor para que aparezca la barra de desplazamiento vertical */
+   
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si el contenido es más alto que el contenedor */
+   
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si el contenido es más ancho que el contenedor */
+    
+  }
+  

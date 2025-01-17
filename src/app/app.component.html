@@ -1,0 +1,5 @@
+<app-header *ngIf="usuario() ==='cliente'" ></app-header>
+<app-formrrcepcionista *ngIf="usuario() ==='recep'" ></app-formrrcepcionista>
+<app-form-admin-login *ngIf="usuario() ==='admin'" ></app-form-admin-login>     
+<router-outlet></router-outlet>
+<app-footer *ngIf="footer()" body style="min-height: 100vh;"></app-footer>

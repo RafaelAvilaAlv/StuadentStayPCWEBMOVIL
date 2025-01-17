@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-around" style="height: 100vh; border: 2px solid black; padding: 20px;">
+    <div class="card mx-auto" style="width: 45%; border-radius: 15px; border: none;">
+        <img src="{{habitaciones.foto}}" class="card-img-top rounded" style="height: 350px;">
+        <div class="card-body">
+            <h5 class="card-title text-center font-weight-bold">DESCRIPCIÓN</h5>
+            <p class="card-text text-center font-italic">{{habitaciones.descriphabi}}</p>
+            <h5 class="card-title text-center font-weight-bold">PRECIO</h5>
+            <p class="card-text text-center">{{habitaciones.precio}} $</p>
+            <div class="d-flex justify-content-center mt-3">
+                <i class="bi bi-wifi" style="font-size: 50px;"></i>
+                <i class="bi bi-egg-fried ml-4" style="font-size: 50px;"></i>
+                <i class="bi bi-controller ml-4" style="font-size: 50px;"></i>
+            </div>
+        </div>
+    </div>
+
+    <form class="formulario" ngNativeValidate (ngSubmit)="create()" style="width: 45%;" [formGroup]="form">
+        <label for="nro_personas" class="label_form font-weight-bold">Número de personas</label>
+        <div class="input-group mb-3">
+            <select class="form-control" placeholder="Número de personas" [(ngModel)]="opcionSeleccionada"
+                name="nPersona" aria-label="Número de personas" aria-describedby="basic-addon1"
+                formControlName="numeroPer">
+                <option value=0 disabled selected>Seleccione una opción</option>
+                <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
+            </select>
+        </div>
+        <div class="form_group" id="fechain_grupo">
+            <label for="fecha_inicio" class="label_form font-weight-bold">Fecha de Entrada</label>
+            <div class="input-group mb-3">
+                <input type="date" class="form-control" placeholder="Fecha Inicio" [(ngModel)]="fechaEntrada"
+                    name="fechaEntrada" id="fechaEntrada" aria-label="Fecha Inicio"
+                    (ngModelChange)="calcularDiferenciaDeDias()" aria-describedby="basic-addon1"
+                    formControlName="fechaini">
+            </div>
+        </div>
+        <div class="form_group" id="fechafin_grupo">
+            <label for="fecha_fin" class="label_form font-weight-bold">Fecha de Salida</label>
+            <div class="input-group mb-3">
+                <input type="date" class="form-control" placeholder="Fecha Fin" [(ngModel)]="fechaSalida"
+                    name="fechaSalida" aria-label="Fecha Fin" id="fechaSalida"
+                    (ngModelChange)="calcularDiferenciaDeDias()" aria-describedby="basic-addon1"
+                    formControlName="fechafin">
+            </div>
+        </div>
+        <div class="form_group" id="dias_grupo">
+            <label for="nro_dias" class="label_form font-weight-bold">Días total</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Días" [(ngModel)]="dias" name="dias"
+                    aria-label="Días" aria-describedby="basic-addon1" [value]="diferenciadias" formControlName="dias1"
+                    readonly>
+            </div>
+        </div>
+        <label for="nro_personas" class="label_form font-weight-bold">Método de Pago</label>
+        <div class="input-group mb-3">
+            <select class="form-control" [(ngModel)]="pagoSeleccionado" name="metodoPago" aria-label="metodoPago"
+                aria-describedby="basic-addon1" (change)="onSelectionChange($event)" formControlName="metodoPago">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option *ngFor="let pago of pagoOpciones" [value]="pago">{{pago}}</option>
+            </select>
+        </div>
+        <div class="form_group" id="usuario_grupo">
+            <label for="total" class="label_form font-weight-bold">TOTAL A PAGAR</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="TOTAL" [(ngModel)]="total" name="total"
+                    aria-label="TOTAL" aria-describedby="basic-addon1" [value]="total" formControlName="total" readonly>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="">
+                <button type="submit" class="btnAcept">Reservar</button>
+            </div>
+            <div class="" routerLinkActive="active">
+                <button *ngIf="btnFactura" type="button" class="btnFac" routerLink="/reservas/form-factura">Generar
+                    Factura</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<div id="htmlData2" style="width: 1000px; margin-left: 25cap; margin-right: 25cap ;">
+    <html lang="es">
+
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+            integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Factura</title>
+    </head>
+
+    <body >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10 ">
+                    <h1>Factura</h1>
+                </div>
+                <div class="col-xs-2">
+                    <img class="img img-responsive" src="assets/imagen/logoLOG.png" alt="Logotipo">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-10">
+                    <h1 class="h6">Cedula: {{ combinedData?.persona?.cedula_persona }}</h1>
+                    <h1 class="h6">Nombre y Apellidos: {{ combinedData?.persona?.nombre}} {{ combinedData?.persona?.nombre1 }} {{ combinedData?.persona?.apellido }}
+                        {{ combinedData?.persona?.apellido2 }}</h1>
+                    <h1 class="h6">Dirección: {{ combinedData?.persona?.direccion }}</h1>
+                    <h1 class="h6">Correo: {{ combinedData?.cliente?.usuario }}</h1>
+                    <h1 class="h6">Telefono: {{ combinedData?.persona?.telefono }}</h1>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <strong>Fecha</strong>
+                    <br>{{ combinedData?.encabezado?.fechaFactura }}<br>
+                    <strong>Factura No.</strong>
+                    <br>
+                    {{ combinedData?.encabezado?.idEncabezado }}
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-condensed table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ combinedData?.habitacion?.descriphabi }}</td>
+                                <td>{{ combinedData?.reserva?.dias }}</td>
+                                <td>{{ combinedData?.habitacion?.precio }}</td>
+                                <td>{{ combinedData?.encabezado?.total }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right">Subtotal con descuento</td>
+                                <td>{{ combinedData?.habitaciones?.precio }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Impuestos</td>
+                                <td>0%</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">
+                                    <h4>Total</h4>
+                                </td>
+                                <td>
+                                    <h4>{{ combinedData?.encabezado?.total }}</h4>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <p class="h5">Gracias por su compra</p>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    </html>
+</div>
+<div class="form_group btn_reservar">
+    <button type="submit" class="btnDescargar" (click)="downloadPDF()">Descargar
+        <i class="fas fa-download"></i>
+    </button>
+</div>
+

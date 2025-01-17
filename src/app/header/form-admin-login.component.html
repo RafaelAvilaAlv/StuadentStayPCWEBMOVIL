@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-link  " style="z-index: 2000;">
+  <div class="container-fluid" routerLinkActive="active">
+    <a class="navbar-brand " aria-current="page" routerLink="/carrucel">
+      <img src="assets/imagen/logoLOG.png" style="width: 100px; height: 29px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/panel-recepcion']">Listado</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/recepcionista/form']">Recepcionista</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/habitaciones/form']">Habitaciones</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/servicios/form']">Servicios</a>
+        </li>        
+      </ul>
+      <ul class="navbar-nav list-inline">
+        <!-- Icons -->
+        <li class="">
+          <a class="nav-link" href="https://www.youtube.com/@tecnologicodelazuay8305" rel="nofollow"
+            target="_blank">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </li>
+        <li class="">
+          <a class="nav-link" href="https://www.facebook.com/TecAzuay" rel="nofollow" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/TecAzuay" rel="nofollow" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/Sanchez70/ProyectoWeb" rel="nofollow" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li class="nav-item" style="padding-left: 98%; margin-top: 7%;">
+          <button class="btn" type="submit" (click)="apagar()" style="border: none;background-color: #F9F9F9;">Cerrar
+            Sesión</button>
+        </li>
+      </ul>
+    
+    </div>
+  </div>
+</nav>

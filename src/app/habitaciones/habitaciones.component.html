@@ -1,0 +1,71 @@
+<div style="background-color: #F9F9F9;">
+
+  <div class="col">
+    <div class="card-container"
+      style="display: flex; gap: 20px; overflow-x: auto; padding: 20px ;flex-wrap: wrap; margin-left: 8cap;">
+      <div class="card mb-3 rounded-lg" style="max-width: 640px;"
+        *ngFor="let habitaciones of habitaciones; let i = index">
+        <div class="flex p-6 font-mono">
+          <div
+            class="flex-none w-48 mb-10 relative z-10 before:absolute before:top-1 before:left-1 before:w-full before:h-full before:bg-white-400 rounded-lg">
+            <div style="position: relative; overflow: hidden; border-radius: 1rem; width: 250px; height: 250px;">
+              <img src="{{habitaciones.foto}}" class="absolute inset-0 w-full h-full object-fill rounded-lg"
+                loading="lazy" />
+            </div>
+          </div>
+
+          <form class="flex-auto pl-6 rounded-lg" style="width: 640px;">
+
+            <div
+              class="relative flex flex-wrap items-baseline pb-6 before:bg-black-300 before:absolute before:-top-6 before:bottom-0 before:-left-60 before:-right-6">
+              <h1 class="relative w-full flex-none mb-2 text-2xl font-semibold text-black " style="left: 3rem;">
+                Categoría: {{ nomCat[i] }}
+              </h1>
+              <div class="relative text-lg text-black" style="left: 3rem;">
+                Precio: ${{habitaciones.precio}}
+              </div>
+              <div class="relative uppercase text-teal-400 ml-3" style="left: 3rem;">
+                {{habitaciones.estado}}
+              </div>
+            </div>
+            <div class=" space-x-3 mx-10" style=" width: 300px; height: 50px;">
+              <p class="text-xs leading-6 text-slate-500">
+                {{habitaciones.descriphabi}}
+              </p>
+            </div>
+            <div>
+              <div class="flex items-baseline space-x-8 my-4 mx-10 ">
+                <div class="space-x-1  flex text-sm font-medium" style="left: 10rem;">
+                  <label>
+                    <div
+                      class="relative w-20 h-10 flex items-center justify-center text-black peer-checked:bg-black peer-checked:text-white before:absolute before:z-[-1] before:top-0.5 before:left-0.5 before:w-full before:h-full peer-checked:before:bg-teal-400">
+                      <i class="fas fa-wifi" style="font-size: 30px;"></i>
+                    </div>
+                  </label>
+                  <label>
+                    <div
+                      class="relative w-10 h-10 flex items-center justify-center text-black peer-checked:bg-black peer-checked:text-white before:absolute before:z-[-1] before:top-0.5 before:left-0.5 before:w-full before:h-full peer-checked:before:bg-teal-400z">
+                      <i class="fas fa-bed" style="font-size: 30px;"></i>
+                    </div>
+                  </label>
+                  <label>
+                    <div
+                      class="relative w-20 h-10 flex items-center justify-center text-black peer-checked:bg-black peer-checked:text-white before:absolute before:z-[-1] before:top-0.5 before:left-0.5 before:w-full before:h-full peer-checked:before:bg-teal-400">
+                      <i class="fas fa-utensils" style="font-size: 30px;"></i>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="flex space-x-20 " routerLinkActive="active" style="margin-left: 20cap;">
+                <button class="btonReservas" type="button"
+                  [routerLink]="['/reservas/form-reservas',habitaciones.idHabitaciones]">
+                  Reservar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

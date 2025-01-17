@@ -1,0 +1,19 @@
+<h2>Listado de Personas</h2>
+
+<ul>
+  <li *ngFor="let persona of personas">
+    {{ persona.nombre }} {{ persona.apellido }} - <button
+      (click)="eliminarPersona(persona.cedula_persona)">Eliminar</button>
+  </li>
+</ul>
+<a routerLink="/persona/form">Crear Persona</a>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const crearPersonaLink = document.querySelector('a[routerLink="/persona/form"]');
+
+    if (crearPersonaLink) {
+      crearPersonaLink.click();
+    }
+  });
+</script>
