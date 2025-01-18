@@ -14,9 +14,9 @@ export class LoginService {
   //private apiUrlcli = 'http://192.168.40.228:8081/api/clientes';
   //private apiUrladm = 'http://192.168.40.228:8081/api/administrador';
   //private apiUrlrecep = 'http://192.168.40.228:8081/api/recepcionistas';
-  private apiUrlcli = 'http://localhost:8081/api/clientes';
+  private apiUrlcli = 'http://localhost:8081/api/estudiantes';
   private apiUrladm = 'http://localhost:8081/api/administrador';
-  private apiUrlrecep = 'http://localhost:8081/api/recepcionistas';
+  private apiUrlrecep = 'http://localhost:8081/api/propietarios';
 
   constructor(private http: HttpClient) { }
 

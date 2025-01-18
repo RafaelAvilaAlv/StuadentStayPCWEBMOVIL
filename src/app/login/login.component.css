@@ -1,76 +1,95 @@
+/* Fondo general con degradado azul y celeste */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f2f2f2;
-}
-
-.login-card {
-  width: 300px;
+  background: linear-gradient(175deg, #24335b, #2983ad, #e39453); /* Azul oscuro a celeste claro */
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
-  background-color: #fff;
 }
 
-.logo {
+/* Tarjeta del login */
+.login-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   width: 100%;
-  height: 80px;
+  max-width: 400px;
+  text-align: center;
+  color: #333333;
+  border: 1px solid #e4e4e4;
+}
+
+/* Logo */
+.logo {
+  width: 100px;
   margin-bottom: 20px;
 }
 
-.form-group {
-  text-align: left;
+/* Título */
+.login-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Campos de texto */
+.form-group input {
+  width: 100%;
+  padding: 12px;
   margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #fdfdfd;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
+.form-group input:focus {
+  border-color: #1e3a8a;
+  box-shadow: 0 0 8px rgba(30, 58, 138, 0.2);
 }
 
-input {
+/* Botón */
+.btn {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #4285f4;
-  color: #fff;
+  padding: 12px;
+  font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(90deg, #1e3a8a, #4fc3f7); /* Azul a celeste */
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
 }
 
-button:hover {
-  background-color: #357ae8;
+.btn:hover {
+  background: linear-gradient(90deg, #4fc3f7, #1e3a8a); /* Invertir degradado */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
 }
 
-.error-message {
-  color: #d32f2f;
-  margin-top: 10px;
-}
-
+/* Redirección */
 .redirection-buttons {
-  /* Otros estilos para el contenedor si es necesario */
+  margin-top: 20px;
 }
 
 .register-link {
-  color: #4285f4;
-  /* Cambia el color a uno de tu elección */
-  text-decoration: underline;
-  /* Agrega subrayado al texto */
+  color: #1e3a8a;
+  font-size: 14px;
   cursor: pointer;
-  /* Cambia el cursor al estilo de un enlace */
+  transition: color 0.3s;
 }
 
 .register-link:hover {
-  text-decoration: none;
-  /* Elimina el subrayado al pasar el mouse sobre el enlace */
+  color: #4fc3f7;
+  text-decoration: underline;
 }
