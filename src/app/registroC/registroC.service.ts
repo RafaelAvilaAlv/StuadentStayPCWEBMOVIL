@@ -10,7 +10,7 @@ import { RegistroC } from './registroC';
 export class RegistroCService {
   private apiUrl = 'http://localhost:8081/api';
   //private apiUrl = 'http://192.168.40.228:8081/api';
-  private urlEndPoint = `${this.apiUrl}/clientes`;
+  private urlEndPoint = `${this.apiUrl}/estudiantes`;
 
   constructor(private http: HttpClient) { }
 
