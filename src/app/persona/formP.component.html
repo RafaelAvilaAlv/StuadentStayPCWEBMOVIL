@@ -3,40 +3,44 @@
   <h2>{{titulo}}</h2>
 
   <form (ngSubmit)="crearEditarPersona()">
+    <!-- Cédula -->
     <div class="form-row">
       <div class="form-group">
         <label for="cedula_persona">Cédula:</label>
         <input type="text" id="cedula_persona" [(ngModel)]="persona.cedula_persona" name="cedula_persona" required
-          (keydown)="onKeyPressNumeros($event)" maxlength="10">
+          (keydown)="onKeyPressNumeros($event)" maxlength="10" placeholder="Ingresa tu cédula">
       </div>
     </div>
 
+    <!-- Nombres -->
     <div class="form-row">
       <div class="form-group">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" [(ngModel)]="persona.nombre" name="nombre" required
-          (keydown)="onKeyPress($event)">
+          (keydown)="onKeyPress($event)" placeholder="Ingresa tu nombre">
       </div>
       <div class="form-group">
         <label for="nombre2">Segundo Nombre:</label>
         <input type="text" id="nombre2" [(ngModel)]="persona.nombre2" name="nombre2" required
-          (keydown)="onKeyPress($event)">
+          (keydown)="onKeyPress($event)" placeholder="Ingresa tu segundo nombre">
       </div>
     </div>
 
+    <!-- Apellidos -->
     <div class="form-row">
       <div class="form-group">
         <label for="apellido">Apellido:</label>
         <input type="text" id="apellido" [(ngModel)]="persona.apellido" name="apellido" required
-          (keydown)="onKeyPress($event)">
+          (keydown)="onKeyPress($event)" placeholder="Ingresa tu apellido">
       </div>
       <div class="form-group">
         <label for="apellido2">Segundo Apellido:</label>
         <input type="text" id="apellido2" [(ngModel)]="persona.apellido2" name="apellido2" required
-          (keydown)="onKeyPress($event)">
+          (keydown)="onKeyPress($event)" placeholder="Ingresa tu segundo apellido">
       </div>
     </div>
 
+    <!-- Género y Teléfono -->
     <div class="form-row">
       <div class="form-group">
         <label for="genero">Género:</label>
@@ -49,52 +53,52 @@
       <div class="form-group">
         <label for="telefono">Teléfono:</label>
         <input type="text" id="telefono" [(ngModel)]="persona.telefono" name="telefono" required
-          (keydown)="onKeyPressNumeros($event)" maxlength="10">
+          (keydown)="onKeyPressNumeros($event)" maxlength="10" placeholder="Ingresa tu número de teléfono">
       </div>
     </div>
 
+    <!-- Dirección y Fecha de Nacimiento -->
     <div class="form-row">
       <div class="form-group">
         <label for="direccion">Dirección:</label>
-        <input type="text" id="direccion" [(ngModel)]="persona.direccion" name="direccion" required>
+        <input type="text" id="direccion" [(ngModel)]="persona.direccion" name="direccion" required
+          placeholder="Ingresa tu dirección">
       </div>
-
-
       <div class="form-group">
         <label for="fechaNacimiento">Nacimiento:</label>
         <input type="date" id="fechaNacimiento" [(ngModel)]="persona.fechaNacimiento" name="fechaNacimiento" required
           (change)="calcularEdad()" class="date-input">
       </div>
-
     </div>
 
+    <!-- Provincia y Cantón -->
     <div class="form-row">
       <div class="form-group">
         <label for="id_provincia">Provincia:</label>
         <div class="provincia-container">
           <select id="id_provincia" [(ngModel)]="provinciaSeleccionada" name="id_provincia" class="provincia-select">
-            <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{ provincia.nombre }}
-            </option>
+            <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{ provincia.nombre }}</option>
           </select>
-          <button type="button" (click)="filtrarCantonesPorProvincia()" class="filter-button-small"
-            [class.clicked]="isFilterClicked">
+          <button type="button" (click)="filtrarCantonesPorProvincia()" class="filter-button-small" [class.clicked]="isFilterClicked">
             <i class="fas fa-search"></i>
             <span class="filter-indicator" *ngIf="provinciaSeleccionada">&#10004;</span>
           </button>
         </div>
         <p class="selected-province-message">{{ selectedProvinceMessage }}</p>
       </div>
+
       <div class="form-group">
         <label for="id_canton">Cantón:</label>
-        <select id="id_canton" [(ngModel)]="persona.id_canton" name="id_canton" [disabled]="!isProvinciaSelected"
-          required>
+        <select id="id_canton" [(ngModel)]="persona.id_canton" name="id_canton" [disabled]="!isProvinciaSelected" required>
           <option *ngFor="let canton of cantonesFiltrados" [value]="canton.id_canton">{{ canton.nombre }}</option>
         </select>
       </div>
     </div>
 
+    <!-- Botón de Siguiente -->
     <div class="form-row">
-      <button type="button" (click)="irARegistroC()">Siguiente</button>
+      <button type="button" (click)="irARegistroC()" class="next-button">Siguiente</button>
     </div>
   </form>
 </div>
+
