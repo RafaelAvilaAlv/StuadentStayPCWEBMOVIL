@@ -4,18 +4,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Cambiado a min-height */
   background: linear-gradient(175deg, #24335b, #2983ad, #e39453); /* Azul oscuro a celeste claro */
   font-family: 'Roboto', sans-serif;
   color: #ffffff;
   padding: 20px;
   margin: 0;
+  box-sizing: border-box;
+  overflow: auto; /* Cambiado a auto para permitir desplazamiento */
 }
 
 /* Estilo del logo */
 .logo {
-  max-width: 150px;
+  max-width: 120px; /* Reducido para ajustarse mejor */
+  height: auto; /* Ajuste automático de la altura */
   margin-bottom: 20px;
+  margin-top: 10px; /* Ajuste de margen superior */
   border-radius: 8px;
 }
 
@@ -35,6 +39,8 @@ form {
   width: 100%;
   max-width: 600px;
   color: #333333; /* Texto interno en color oscuro */
+  box-sizing: border-box;
+  margin-bottom: 20px; /* Espacio adicional debajo del formulario */
 }
 
 /* Etiquetas */
@@ -102,10 +108,12 @@ button:hover {
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .form-group {
   width: 48%;
+  margin-bottom: 12px;
 }
 
 /* Contenedor de selección de provincia */
@@ -155,10 +163,23 @@ form {
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;
-    gap: 0;
+    gap: 20px;
   }
 
   .form-group {
     width: 100%;
+  }
+
+  .logo {
+    max-width: 100px; /* Hacerlo aún más pequeño en pantallas pequeñas */
+  }
+
+  h2 {
+    margin-bottom: 15px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px 14px;
   }
 }
