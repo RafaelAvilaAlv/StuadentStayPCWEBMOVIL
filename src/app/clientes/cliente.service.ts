@@ -9,7 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 export class ClienteService {
 
   //private urlEndPoint: string = 'http://192.168.40.228:8081/api/clientes';
-  private urlEndPoint = 'http://localhost:8081/api/estudiantes';
+  private urlEndPoint = 'http://localhost:8081/api/clientes';
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
 
   constructor( private http: HttpClient) { }
