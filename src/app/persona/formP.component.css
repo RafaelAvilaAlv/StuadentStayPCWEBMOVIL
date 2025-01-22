@@ -1,33 +1,51 @@
+/* Contenedor principal del formulario */
 .registration-container {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin-top: 50px;
-  position: relative;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(175deg, #24335b, #2983ad, #e39453); /* Azul oscuro a celeste claro */
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  padding: 20px;
+  margin: 0;
 }
 
+/* Estilo del logo */
+.logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+/* Título principal */
 h2 {
   text-align: center;
-  color: #4285f4;
+  color: #ffffff; /* Cambiado a blanco para mejor contraste */
+  margin-bottom: 20px;
 }
 
+/* Estilo del formulario */
 form {
+  background: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  padding: 20px;
   width: 100%;
+  max-width: 600px;
+  color: #333333; /* Texto interno en color oscuro */
 }
 
+/* Etiquetas */
 label {
-  margin-top: 10px;
   font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 14px;
 }
 
+/* Campos de entrada */
 input,
 select,
 textarea {
@@ -35,104 +53,112 @@ textarea {
   padding: 12px;
   margin-bottom: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
+/* Botones generales */
 button {
   background-color: #4285f4;
   color: #fff;
-  padding: 14px;
+  padding: 12px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   width: 100%;
+  transition: background-color 0.3s ease;
 }
 
+/* Botones al pasar el cursor */
 button:hover {
   background-color: #3c78d8;
 }
 
-.provincia-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.provincia-select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.selected-province-message {
-  margin-top: 10px;
-  font-size: 12px;
-  color: #888;
-}
-
-.filter-button-small {
-  width: 30px;
-  height: 30px;
-  padding: 4px;
-}
-
-
+/* Estilo adicional para botones pequeños */
 .small-rounded-button {
   background-color: #4285f4;
   color: #fff;
-  padding: 10px;
+  padding: 8px;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   cursor: pointer;
-  width: 100%;
+  width: auto;
 }
 
+.filter-button-small {
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Filas y columnas en el formulario */
 .form-row {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .form-group {
   width: 48%;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
+/* Contenedor de selección de provincia */
 .provincia-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .provincia-select {
-  width: 80%;
+  flex: 1;
 }
 
 .selected-province-message {
-  margin-top: 10px;
   font-size: 12px;
-  color: #888;
+  color: #666666;
 }
 
-.filter-button-small {
-  width: 30px;
-  height: 30px;
-  padding: 4px;
-}
-
-.logo {
-  max-width: 200px;
-  margin-bottom: 20px;
-}
-
+/* Entrada de fecha */
 .date-input {
   flex-grow: 1;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  padding: 12px;
+  font-size: 14px;
+}
+
+/* Resaltar mensajes */
+.alert-message {
+  color: #d9534f; /* Rojo para alertas */
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Sombra en el formulario */
+form {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-group {
+    width: 100%;
+  }
 }
