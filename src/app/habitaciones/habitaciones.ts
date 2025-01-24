@@ -7,5 +7,7 @@ export class Habitaciones {
     foto: string = '';
     descriphabi: string = '';
     estado: string = '';
+    latitud: string= '';
+    longitud: string= '';
 
 }
