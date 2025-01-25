@@ -5,14 +5,13 @@ import { catchError } from 'rxjs/operators';
 import { Persona } from './persona';
 import { Cantones } from '../cantones/canton';
 import { Provincia } from '../provincias/provincia';
+import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonaService {
-  //private apiUrl = 'http://192.168.40.228:8081/api';
-  private apiUrl = 'http://localhost:8081/api';
-  private urlEndPoint = `${this.apiUrl}/personas`;
+  private urlEndPoint: string = `${appConfig.baseUrl}/personas`;
   private httpHeaders = { 'Content-Type': 'application/json' };
 
   constructor(private http: HttpClient) { }
@@ -50,11 +49,12 @@ export class PersonaService {
 
 
   getCantones(): Observable<Cantones[]> {
-    return this.http.get<Cantones[]>('http://localhost:8081/api/Cantons');
+
+    return this.http.get<Cantones[]>(`${this.urlEndPoint}/Cantons`);
   }
 
   getProvincias(): Observable<Provincia[]> {
-    return this.http.get<Provincia[]>('http://localhost:8081/api/provincias');
+    return this.http.get<Provincia[]>(`${this.urlEndPoint}/provincias`);
   }
 
   getPersonaID(cedula: string): Observable<Persona[]> {

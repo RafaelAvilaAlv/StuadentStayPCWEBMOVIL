@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-
-  //private urlEndPoint: string = 'http://192.168.40.228:8081/api/clientes';
-  private urlEndPoint = 'http://localhost:8081/api/clientes';
-  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
-
+  private urlEndPoint: string = appConfig.baseUrl;
+  private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
+  
   constructor( private http: HttpClient) { }
 
   getClientes(): Observable<Cliente[]>{

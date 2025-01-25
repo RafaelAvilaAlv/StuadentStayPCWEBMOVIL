@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { EncabezadoFactura } from './encabezado-factura';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EncabezadoFacturaService {
-  //private urlEndPoint:string = 'http://192.168.40.228:8081/api/encabezadofactura';
-  //private urlEndPoint: string = 'http://192.168.0.119:8081/api/encabezadofactura';
-  private urlEndPoint: string = 'http://localhost:8081/api/encabezadofactura';
+  private urlEndPoint: string = `${appConfig.baseUrl}/encabezadofactura`;
   private httpHeaders = new HttpHeaders({ 'Content-type': 'application/json' })
   constructor(private http: HttpClient) { }
   getReserva(): Observable<EncabezadoFactura[]> {

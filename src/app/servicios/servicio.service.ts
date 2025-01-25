@@ -3,14 +3,13 @@ import { Servicio } from './servicio';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioService {
-
-  //private urlEndPoint: string = 'http://192.168.40.228:8081/api/tiposervicio';
-  private urlEndPoint: string = 'http://localhost:8081/api/tiposervicio';
+  private urlEndPoint: string = `${appConfig.baseUrl}/tiposervicio`;
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
   constructor(private http: HttpClient) { }
 
