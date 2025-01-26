@@ -65,11 +65,27 @@
             </div>
           </form>
 
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA37JOX_CiMyGLFo-JJ1hdlOQK4ZoMx9qc"></script>
-          <div id="map" style="width: 100%; height: 500px;"></div>
+          <div id="map-{{habitaciones.idHabitaciones}}" style="width: 100%; height: 500px;"></div>
 
+          <script>
+            function initMap() {
+              const lat = parseFloat("{{habitaciones.latitud}}");
+              const lng = parseFloat("{{habitaciones.longitud}}");
 
-        
+              const map = new google.maps.Map(document.getElementById('map-{{habitaciones.idHabitaciones}}'), {
+                center: { lat: lat, lng: lng },
+                zoom: 15
+              });
+
+              const marker = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: map,
+                title: 'Ubicación de la habitación'
+              });
+            }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA37JOX_CiMyGLFo-JJ1hdlOQK4ZoMx9qc&callback=initMap" async defer></script>
+
 
         </div>
       </div>
