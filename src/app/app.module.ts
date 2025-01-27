@@ -55,6 +55,8 @@ import { RecepcionistaComponent } from './recepcionista/recepcionista.component'
 import { FilterPipe } from './filter.pipe';
 import { FormhistorialComponent } from './reservas/formhistorial.component';
 import { FormFacturaHistorialComponent } from './reservas/form-factura-historial.component';
+import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
+import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 
 
 const routes: Routes = [
@@ -126,7 +128,9 @@ const routes: Routes = [
     FormFacturaComponent,
     FilterPipe,
     FormhistorialComponent,
-    FormFacturaHistorialComponent
+    FormFacturaHistorialComponent,
+    ClientesListaComponent,
+    ClienteDetalleComponent
   ],
   imports: [
     BrowserModule,

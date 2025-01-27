@@ -3,43 +3,44 @@
   <img src="{{cliente.foto}}" class="card-img-top rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
 </div> 
 
-<div class="card text-center border-primary mt-3 mx-auto " style="max-width: 400px;">    
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item bg-primary text-white">
-        <h5 class="mb-0">Nombres y apellidos</h5>
-        <p class="mb-0">{{persona.nombre}} {{persona.nombre2}} {{persona.apellido}} {{persona.apellido2}}</p>
-      </li>
-      <li class="list-group-item">
-        <h5 class="mb-0">Cédula</h5>
-        <p class="mb-0">{{cliente.cedula_persona}}</p>
-      </li>
-      <li class="list-group-item bg-light">
-        <h5 class="mb-0">Correo</h5>
-        <p class="mb-0">{{cliente.usuario}}</p>
-      </li>
-      <li class="list-group-item">
-        <h5 class="mb-0">Contraseña</h5>
-        <p class="mb-0">{{cliente.contrasena}}</p>
-      </li>
-      <li class="list-group-item bg-light">
-        <h5 class="mb-0">Edad</h5>
-        <p class="mb-0">{{persona.edad}}</p>
-      </li>
-      <li class="list-group-item">
-        <h5 class="mb-0">Género</h5>
-        <p class="mb-0">{{persona.genero}}</p>
-      </li>
-      <li class="list-group-item bg-light">
-        <h5 class="mb-0">Teléfono</h5>
-        <p class="mb-0">{{persona.telefono}}</p>
-      </li>
-      <li class="list-group-item">
-        <h5 class="mb-0">Dirección</h5>
-        <p class="mb-0">{{persona.direccion}}</p>
-      </li>
-    </ul>
-    <div class="card-body text-center">
-      <button type="button" name="buttonEdit" [routerLink]="['/clientes/form', cliente.idCliente]" class="btn btn-primary">Editar</button>
-    </div>
+<div class="card text-center border-primary mt-3 mx-auto" style="max-width: 400px;">    
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item bg-primary text-white">
+      <h5 class="mb-0">Nombres y apellidos</h5>
+      <p class="mb-0">{{persona.nombre}} {{persona.nombre2}} {{persona.apellido}} {{persona.apellido2}}</p>
+    </li>
+    <li class="list-group-item">
+      <h5 class="mb-0">Cédula</h5>
+      <p class="mb-0">{{cliente.cedula_persona}}</p>
+    </li>
+    <li class="list-group-item bg-light">
+      <h5 class="mb-0">Correo</h5>
+      <p class="mb-0">{{cliente.usuario}}</p>
+    </li>
+    <li class="list-group-item">
+      <h5 class="mb-0">Contraseña</h5>
+      <p class="mb-0">{{cliente.contrasena}}</p>
+    </li>
+    <li class="list-group-item bg-light">
+      <h5 class="mb-0">Edad</h5>
+      <p class="mb-0">{{persona.edad}}</p>
+    </li>
+    <li class="list-group-item">
+      <h5 class="mb-0">Género</h5>
+      <p class="mb-0">{{persona.genero}}</p>
+    </li>
+    <li class="list-group-item bg-light">
+      <h5 class="mb-0">Teléfono</h5>
+      <p class="mb-0">{{persona.telefono}}</p>
+    </li>
+    <li class="list-group-item">
+      <h5 class="mb-0">Dirección</h5>
+      <p class="mb-0">{{persona.direccion}}</p>
+    </li>
+  </ul>
+  <div class="card-body text-center">
+    <button type="button" name="buttonEdit" [routerLink]="['/clientes/form', cliente.idCliente]" class="btn btn-primary">Editar</button>
+  </div>
 </div>
-<p> v</p>
+
+<p>v</p>

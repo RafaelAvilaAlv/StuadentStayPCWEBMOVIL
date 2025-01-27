@@ -152,6 +152,25 @@ button:hover {
   font-size: 14px;
 }
 
+/* Sección de contacto de emergencia */
+h3 {
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #333333;
+}
+
+.contact-emergency-section {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  margin-top: 12px;
+}
+
 /* Sombra en el formulario */
 form {
   background: rgba(255, 255, 255, 0.9);

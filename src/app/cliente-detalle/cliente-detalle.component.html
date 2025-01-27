@@ -1,0 +1,26 @@
+<div class="card text-center border-primary mt-3 mx-auto" style="max-width: 400px;">
+    <div class="card-header text-center">
+      <h5 class="card-title">{{ cliente.usuario }}</h5>
+      <img src="{{ cliente.foto }}" class="card-img-top rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-primary text-white">
+        <h5 class="mb-0">Nombres y apellidos</h5>
+        <p class="mb-0">{{ cliente.persona.nombre }} {{ cliente.persona.nombre2 }} {{ cliente.persona.apellido }} {{ cliente.persona.apellido2 }}</p>
+      </li>
+      <li class="list-group-item">
+        <h5 class="mb-0">Cédula</h5>
+        <p class="mb-0">{{ cliente.cedula_persona }}</p>
+      </li>
+      <li class="list-group-item bg-light">
+        <h5 class="mb-0">Correo</h5>
+        <p class="mb-0">{{ cliente.usuario }}</p>
+      </li>
+      <li class="list-group-item">
+        <h5 class="mb-0">Edad</h5>
+        <p class="mb-0">{{ cliente.persona.edad }}</p>
+      </li>
+      <!-- Agregar más detalles según sea necesario -->
+    </ul>
+  </div>
+  

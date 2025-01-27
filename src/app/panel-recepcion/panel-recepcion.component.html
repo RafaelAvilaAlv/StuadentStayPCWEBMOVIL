@@ -14,12 +14,12 @@
       <input type="text" id="buscarId" [(ngModel)]="idABuscar" inputmode="numeric" pattern="[0-9]*" (input)="buscarEnTiempoReal()" (keydown)="onKeyDown($event)" />
       <select [(ngModel)]="entidadSeleccionada">
         <option value="habitaciones">Habitaciones</option>
-        <option value="recepcionistas">Recepcionistas</option>
+        <option value="recepcionistas">Propietarios</option>
       </select>
     </div>
     <div class="tabla-contenedor">
       <div class="container" *ngIf="mostrarTabla">
-        <h2>Lista de Recepcionistas</h2>
+        <h2>Lista de Propietarios</h2>
         <table class="table table-recepcionistas">
           <thead>
             <tr>
@@ -35,6 +35,9 @@
               <td>{{ recepcionista.usuario }}</td>
               <td>{{ recepcionista.contrasena }}</td>
               <td>{{ recepcionista.cedula_persona }}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-info btn-sm" [routerLink]="['/recepcionistas/detalle', recepcionista.idRecepcionista]">Ver Detalles</button>
+              </td>
               <td class="text-center">
                 <button type="button" class="btn btn-danger btn-sm" (click)="eliminarRecepcionista(recepcionista.idRecepcionista )">Eliminar</button>
               </td>

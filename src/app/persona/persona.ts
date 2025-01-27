@@ -14,9 +14,17 @@ export class Persona {
   id_canton!: string;
   fechaNacimiento!: Date;
   cantones?: Cantones[];
+  
+  // Nuevos atributos para contacto de emergencia
+  nombreContactoEmergencia!: string;
+  telefonoContactoEmergencia!: string;
+  parentescoContactoEmergencia!: string;
 
   constructor() {
     this.cantones = [];
+    this.nombre = '';
+    this.apellido = '';
+    this.edad = 0;
+    
   }
 }
-

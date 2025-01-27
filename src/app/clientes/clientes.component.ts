@@ -12,48 +12,61 @@ import { AuthService } from '../auth.service';
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
 })
-export class ClientesComponent implements OnInit{
-  
-  id:number= this.inicio.idUsuario;
-  cedula:any = this.inicio.cedulaUser;
-  public cliente:Cliente = new Cliente()
-  public persona: Persona = new Persona()
-  clientes:Cliente[]=[];
+export class ClientesComponent implements OnInit {
+
+  id: number = this.inicio.idUsuario;
+  cedula: any = this.inicio.cedulaUser;
+  public cliente: Cliente = new Cliente();
+  public persona: Persona = new Persona();
+  clientes: Cliente[] = [];
 
   constructor(
-    private clienteService: ClienteService, 
+    private clienteService: ClienteService,
     private personaService: PersonaService,
-    private router:Router,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private inicio: AuthService) { }
-  
+    private inicio: AuthService
+  ) {}
+
   ngOnInit(): void {
-    
     this.cargarCliente();
-
+    this.loadAllClientes();  // Llama el nuevo método para cargar todos los clientes
   }
-  
-  cargarCliente(): void {
 
+  // Método para cargar un cliente específico
+  cargarCliente(): void {
     this.clienteService.getCliente(this.id).subscribe(
-      (cliente) => {
+      (cliente: Cliente) => {  // Definir tipo de cliente
         this.cliente = cliente;
         this.cargarPersona();
       },
-      (error) => {
-       // console.error(error);
+      (error: any) => {  // Definir tipo de error
+        console.error(error);
       }
     );
   }
 
-  cargarPersona(): void{
+  // Método para cargar todos los clientes
+  loadAllClientes(): void {
+    this.clienteService.getAllClientes().subscribe(
+      (clientes: Cliente[]) => {  // Definir tipo de clientes
+        this.clientes = clientes;
+      },
+      (error: any) => {  // Definir tipo de error
+        console.error('Error fetching all clients', error);
+      }
+    );
+  }
+
+  // Método para cargar la persona asociada al cliente
+  cargarPersona(): void {
     this.personaService.getPersona(this.cedula).subscribe(
-      (persona) => {
+      (persona: Persona) => {  // Definir tipo de persona
         this.persona = persona;
       },
-      (error) => {
-       // console.error(error);
+      (error: any) => {
+        console.error(error);
       }
-    )
+    );
   }
 }

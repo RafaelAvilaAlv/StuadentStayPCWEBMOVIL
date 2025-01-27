@@ -1,0 +1,68 @@
+/* Contenedor general para las tarjetas */
+.clientes-container {
+    display: flex; /* Usamos flexbox para alinear las tarjetas horizontalmente */
+    flex-wrap: wrap; /* Permitir que las tarjetas se ajusten en múltiples filas si no caben */
+    gap: 20px; /* Espaciado entre tarjetas */
+    padding: 20px;
+    justify-content: center; /* Centrar las tarjetas horizontalmente */
+    background-color: #f8f9fa;
+  }
+  
+  /* Estilo de cada tarjeta */
+  .cliente-card {
+    width: 300px; /* Ancho fijo para cada tarjeta */
+    background-color: white;
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cliente-card:hover {
+    transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+  }
+  
+  /* Encabezado de la tarjeta */
+  .card-header {
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+  }
+  
+  .card-header img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  /* Cuerpo de la tarjeta */
+  .card-body {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .card-body p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .card-body p strong {
+    color: #007bff;
+  }
+  
+  /* Responsividad para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .clientes-container {
+      gap: 15px; /* Reducir el espacio entre tarjetas en pantallas pequeñas */
+      padding: 10px;
+    }
+  
+    .cliente-card {
+      width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+    }
+  }
+  
