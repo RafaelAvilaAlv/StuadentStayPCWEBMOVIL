@@ -1,36 +1,50 @@
 <div>
-    <!-- Campo de búsqueda -->
-    <div class="my-2 text-left mr-auto mb-3">
-      <label for="buscarClienteId">Buscar por ID:</label>
-      <input 
-        type="text" 
-        id="buscarClienteId" 
-        [(ngModel)]="idClienteBuscar" 
-        inputmode="numeric" 
-        pattern="[0-9]*" 
-        (input)="buscarClienteTiempoReal()" 
-        class="form-control w-50 d-inline-block" 
-        placeholder="Ingrese ID del cliente" 
-      />
-    </div>
-  
-    <!-- Contenedor de clientes -->
-    <div class="clientes-container">
-      <div *ngFor="let cliente of clientesFiltrados" class="cliente-card">
-        <!-- Encabezado con el nombre y la foto -->
-        <div class="card-header">
-          <h5 class="card-title">{{ cliente.usuario }}</h5>
-          <img [src]="cliente.foto" alt="Foto de {{ cliente.usuario }}" />
-        </div>
-    
-        <!-- Información del cliente -->
-        <div class="card-body">
-          <p><strong>Nombres:</strong> {{ cliente.persona?.nombre }} {{ cliente.persona?.apellido }}</p>
-          <p><strong>Cédula:</strong> {{ cliente.cedula_persona }}</p>
-          <p><strong>Correo:</strong> {{ cliente.usuario }}</p>
-          <p><strong>Edad:</strong> {{ cliente.persona?.edad }}</p>
-        </div>
+  <!-- Campo de búsqueda -->
+  <div class="my-2 text-left mr-auto mb-3">
+    <label for="buscarClienteId">Buscar por ID:</label>
+    <input 
+      type="text" 
+      id="buscarClienteId" 
+      [(ngModel)]="idClienteBuscar" 
+      inputmode="numeric" 
+      pattern="[0-9]*" 
+      (input)="buscarClienteTiempoReal()" 
+      class="form-control w-50 d-inline-block" 
+      placeholder="Ingrese ID del cliente" 
+    />
+  </div>
+
+  <!-- Contenedor de clientes -->
+  <div class="clientes-container">
+    <div *ngFor="let cliente of clientesFiltrados" class="cliente-card">
+      <!-- Encabezado con el nombre y la foto -->
+      <div class="card-header">
+        <h5 class="card-title">{{ cliente.usuario }}</h5>
+        <img [src]="cliente.foto" alt="Foto de {{ cliente.usuario }}" />
+      </div>
+
+      <!-- Información del cliente -->
+      <div class="card-body">
+        <p><strong>Nombre:</strong> {{ cliente.persona?.nombre }} {{ cliente.persona?.nombre2 }} {{ cliente.persona?.apellido }} {{ cliente.persona?.apellido2 }}</p>
+        <p><strong>Cédula:</strong> {{ cliente.cedula_persona }}</p>
+        <p><strong>Correo:</strong> {{ cliente.usuario }}</p>
+        <p><strong>Edad:</strong> {{ cliente.persona?.edad }}</p>
+        <p><strong>Género:</strong> {{ cliente.persona?.genero }}</p>
+        <p><strong>Teléfono:</strong> {{ cliente.persona?.telefono }}</p>
+        <p><strong>Dirección:</strong> {{ cliente.persona?.direccion }}</p>
+
+        <!-- Mostrar datos de contacto de emergencia solo si están disponibles -->
+        <p *ngIf="cliente.persona?.nombreContactoEmergencia && cliente.persona?.telefonoContactoEmergencia">
+          <strong>Contacto de emergencia:</strong> 
+          {{ cliente.persona?.nombreContactoEmergencia }} - 
+          {{ cliente.persona?.telefonoContactoEmergencia }} 
+          (Parentesco: {{ cliente.persona?.parentescoContactoEmergencia }})
+        </p>
+        <!-- Si no hay contacto de emergencia, mostrar mensaje alternativo -->
+        <p *ngIf="!cliente.persona?.nombreContactoEmergencia || !cliente.persona?.telefonoContactoEmergencia">
+          <strong>Contacto de emergencia:</strong> No disponible
+        </p>
       </div>
     </div>
   </div>
-  
+</div>

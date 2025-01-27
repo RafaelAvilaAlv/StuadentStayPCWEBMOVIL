@@ -1,94 +1,64 @@
-<div style="background-color: #F9F9F9;">
-
-  <div class="col">
-    <div class="card-container"
-      style="display: flex; gap: 20px; overflow-x: auto; padding: 20px ;flex-wrap: wrap; margin-left: 8cap;">
-      <div class="card mb-3 rounded-lg" style="max-width: 640px;"
-        *ngFor="let habitaciones of habitaciones; let i = index">
-        <div class="flex p-6 font-mono">
-          <div
-            class="flex-none w-48 mb-10 relative z-10 before:absolute before:top-1 before:left-1 before:w-full before:h-full before:bg-white-400 rounded-lg">
-            <div style="position: relative; overflow: hidden; border-radius: 1rem; width: 250px; height: 250px;">
-              <img src="{{habitaciones.foto}}" class="absolute inset-0 w-full h-full object-fill rounded-lg"
-                loading="lazy" />
-            </div>
-          </div>
-
-          <form class="flex-auto pl-6 rounded-lg" style="width: 640px;">
-
-            <div
-              class="relative flex flex-wrap items-baseline pb-6 before:bg-black-300 before:absolute before:-top-6 before:bottom-0 before:-left-60 before:-right-6">
-              <h1 class="relative w-full flex-none mb-2 text-2xl font-semibold text-black " style="left: 3rem;">
-                Categoría: {{ nomCat[i] }}
-              </h1>
-              <div class="relative text-lg text-black" style="left: 3rem;">
-                Precio: ${{habitaciones.precio}}
-              </div>
-              <div class="relative uppercase text-teal-400 ml-3" style="left: 3rem;">
-                {{habitaciones.estado}}
-              </div>
-            </div>
-            <div class=" space-x-3 mx-10" style=" width: 300px; height: 50px;">
-              <p class="text-xs leading-6 text-slate-500">
-                {{habitaciones.descriphabi}}
-              </p>
-            </div>
-            <div>
-              <div class="flex items-baseline space-x-8 my-4 mx-10 ">
-                <div class="space-x-1  flex text-sm font-medium" style="left: 10rem;">
-                  <label>
-                    <div
-                      class="relative w-20 h-10 flex items-center justify-center text-black peer-checked:bg-black peer-checked:text-white before:absolute before:z-[-1] before:top-0.5 before:left-0.5 before:w-full before:h-full peer-checked:before:bg-teal-400">
-                      <i class="fas fa-wifi" style="font-size: 30px;"></i>
-                    </div>
-                  </label>
-                  <label>
-                    <div
-                      class="relative w-10 h-10 flex items-center justify-center text-black peer-checked:bg-black peer-checked:text-white before:absolute before:z-[-1] before:top-0.5 before:left-0.5 before:w-full before:h-full peer-checked:before:bg-teal-400z">
-                      <i class="fas fa-bed" style="font-size: 30px;"></i>
-                    </div>
-                  </label>
-                  <label>
-                    <div
-                      class="relative w-20 h-10 flex items-center justify-center text-black peer-checked:bg-black peer-checked:text-white before:absolute before:z-[-1] before:top-0.5 before:left-0.5 before:w-full before:h-full peer-checked:before:bg-teal-400">
-                      <i class="fas fa-utensils" style="font-size: 30px;"></i>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <div class="flex space-x-20 " routerLinkActive="active" style="margin-left: 20cap;">
-                <button class="btonReservas" type="button"
-                  [routerLink]="['/reservas/form-reservas',habitaciones.idHabitaciones]">
-                  Reservar
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <div id="map-{{habitaciones.idHabitaciones}}" style="width: 100%; height: 500px;"></div>
-
-          <script>
-            function initMap() {
-              const lat = parseFloat("{{habitaciones.latitud}}");
-              const lng = parseFloat("{{habitaciones.longitud}}");
-
-              const map = new google.maps.Map(document.getElementById('map-{{habitaciones.idHabitaciones}}'), {
-                center: { lat: lat, lng: lng },
-                zoom: 15
-              });
-
-              const marker = new google.maps.Marker({
-                position: { lat: lat, lng: lng },
-                map: map,
-                title: 'Ubicación de la habitación'
-              });
-            }
-          </script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA37JOX_CiMyGLFo-JJ1hdlOQK4ZoMx9qc&callback=initMap" async defer></script>
-
-
+<div class="bg-gray-100 p-6 rounded-lg">
+  <!-- Estadísticas -->
+  <div class="mb-8">
+    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Estadísticas StudenStay</h3>
+    <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
+      <!-- Círculo de estadísticas -->
+      <div class="relative w-40 h-40">
+        <div
+          class="absolute inset-0 rounded-full"
+          [style.background]="
+            'conic-gradient(green ' + estadisticas.porcentajeDisponible + '%, red ' + estadisticas.porcentajeNoDisponible + '%)'"
+        ></div>
+        <div class="absolute inset-2 bg-white rounded-full flex items-center justify-center">
+          <span class="text-lg font-semibold text-gray-700">Habitaciones</span>
         </div>
       </div>
+
+      <!-- Información porcentual -->
+      <div class="ml-6">
+        <div class="flex items-center mb-2">
+          <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+          <span class="text-gray-700 font-semibold">Disponibles:</span>
+          <span class="text-green-600 font-bold ml-2">
+            {{ estadisticas.porcentajeDisponible | number: '1.0-2' }}%
+          </span>
+        </div>
+        <div class="flex items-center">
+          <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
+          <span class="text-gray-700 font-semibold">Ocupadas:</span>
+          <span class="text-red-600 font-bold ml-2">
+            {{ estadisticas.porcentajeNoDisponible | number: '1.0-2' }}%
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Habitaciones -->
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div
+      class="bg-white p-4 rounded-lg shadow-lg"
+      *ngFor="let habitaciones of habitaciones; let i = index"
+    >
+      <div class="relative w-full h-40 mb-4">
+        <img
+          src="{{ habitaciones.foto }}"
+          alt="Foto Habitación"
+          class="absolute inset-0 w-full h-full object-cover rounded-lg"
+        />
+      </div>
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">
+        Categoría: {{ nomCat[i] }}
+      </h3>
+      <p class="text-gray-600 mb-2">Precio: ${{ habitaciones.precio }}</p>
+      <p class="text-sm text-gray-500 mb-4">{{ habitaciones.descriphabi }}</p>
+      <button
+        class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+        [routerLink]="['/reservas/form-reservas', habitaciones.idHabitaciones]"
+      >
+        Reservar
+      </button>
     </div>
   </div>
 </div>
