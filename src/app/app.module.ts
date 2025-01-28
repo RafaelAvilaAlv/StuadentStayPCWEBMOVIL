@@ -57,6 +57,7 @@ import { FormhistorialComponent } from './reservas/formhistorial.component';
 import { FormFacturaHistorialComponent } from './reservas/form-factura-historial.component';
 import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
+import { MapaComponent } from './mapa/mapa.component';
 
 
 const routes: Routes = [
@@ -130,7 +131,8 @@ const routes: Routes = [
     FormhistorialComponent,
     FormFacturaHistorialComponent,
     ClientesListaComponent,
-    ClienteDetalleComponent
+    ClienteDetalleComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
