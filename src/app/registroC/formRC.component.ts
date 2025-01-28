@@ -1,4 +1,3 @@
-
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-formRC',
   templateUrl: './formRC.component.html',
-  styleUrl: './registroC.component.css'
+  styleUrls: ['./registroC.component.css']
 })
 export class FormRCComponent implements OnInit {
   @Input() formRC!: FormGroup;
@@ -39,10 +38,7 @@ export class FormRCComponent implements OnInit {
     });
   }
 
-
-
   registrarCliente(): void {
-
     if (this.formRC.invalid) {
       Swal.fire({
         icon: 'error',
@@ -59,25 +55,25 @@ export class FormRCComponent implements OnInit {
 
     this.registroC.usuario = usuario;
     this.registroC.contrasena = contrasena;
-    this.registroC.cedula_persona = this.cedulaPersona;
 
     this.registroCService.registrarCliente(this.registroC).subscribe(
       () => {
         Swal.fire({
           icon: 'success',
           title: 'Registro exitoso',
-          text: '¡Bienvenido a EzHotel!',
+          text: '¡Bienvenido a StudentStay!',
           showConfirmButton: false,
           timer: 2000
         });
+
+        // Llamamos al servicio para enviar el correo de confirmación
+        this.registroCService.enviarCorreoConfirmacion(usuario);
 
         setTimeout(() => {
           this.router.navigate(['/']);
         }, 2000);
       },
       (error) => {
-        // console.error('Error al registrar sus datos:', error);
-
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -87,8 +83,6 @@ export class FormRCComponent implements OnInit {
       }
     );
   }
-
-
 
   selectFile(event: any): void {
     const file: File = event.target.files[0];
@@ -101,16 +95,4 @@ export class FormRCComponent implements OnInit {
 
     reader.readAsDataURL(file);
   }
-
-  imagenPreview(event: any): void {
-    const file: File =
-      event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      this.imagenPreview = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
 }

@@ -2,17 +2,18 @@
   <img src="assets/imagen/logoLOG.png" alt="Logo" class="logo">
   <h2>REGISTRO</h2>
   <form [formGroup]="formRC">
+    <!-- Campo Usuario -->
     <label for="usuario">Usuario:</label>
     <input type="text" id="usuario" formControlName="usuario" required>
 
+    <!-- Campo Contraseña -->
     <label for="contrasena">Contraseña:</label>
     <input type="password" id="contrasena" formControlName="contrasena" required>
 
-
+    <!-- Campo Foto -->
     <label for="foto">Foto:</label>
     <div class="file-input-container">
-      <input type="file" id="foto" class="form-control-file" formControlName="foto" (change)="selectFile($event)"
-        required>
+      <input type="file" id="foto" class="form-control-file" formControlName="foto" (change)="selectFile($event)" required>
 
       <label for="preview">Vista previa</label>
       <div class="img-preview-container">
@@ -20,8 +21,7 @@
       </div>
     </div>
 
-
+    <!-- Botón Registrar -->
     <button type="button" (click)="registrarCliente()">Registrar</button>
-
   </form>
 </div>
