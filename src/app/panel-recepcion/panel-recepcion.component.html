@@ -1,32 +1,48 @@
-<div class="card border-primary mb-3">
+<div class="card border-primary mb-3 shadow-lg">
   <div class="card-body text-primary">
-    <h5 class="card-title">Listado</h5>
+    <h3 class="card-title text-center">Listados</h3>
+    
+    <!-- Botón para actualizar información -->
     <div class="my-2 text-left">
-      <button class="btn btn-rounded btn-primary mr-5" (click)="cargarInformacion(); cargarRecepcionistas()" [disabled]="loading">
-        <span *ngIf="!loading">Actualizar</span>
+      <button class="btn btn-rounded btn-primary mr-3" (click)="cargarInformacion(); cargarRecepcionistas()" [disabled]="loading">
+        <span *ngIf="!loading">Actualizar Datos</span>
         <span *ngIf="loading">
           <img src="https://iris.aerocivil.gov.co/Content/Images/loading-38.gif" alt="Cargando..." width="20" height="20">
         </span>
       </button>
-    </div> 
-    <div class="my-2 text-left mr-auto mb-3">
-      <label for="buscarId">Buscar por ID:</label>
-      <input type="text" id="buscarId" [(ngModel)]="idABuscar" inputmode="numeric" pattern="[0-9]*" (input)="buscarEnTiempoReal()" (keydown)="onKeyDown($event)" />
-      <select [(ngModel)]="entidadSeleccionada">
-        <option value="habitaciones">Habitaciones</option>
-        <option value="recepcionistas">Propietarios</option>
-      </select>
     </div>
+
+    <!-- Filtro de búsqueda por ID y selección de entidad -->
+    <div class="my-3 d-flex justify-content-between align-items-center">
+      <div>
+        <label for="buscarId" class="mr-2">Buscar por ID:</label>
+        <input type="text" id="buscarId" [(ngModel)]="idABuscar" inputmode="numeric" pattern="[0-9]*" (input)="buscarEnTiempoReal()" (keydown)="onKeyDown($event)" class="form-control d-inline-block w-auto" />
+      </div>
+      
+      <div>
+        <label for="entidadSeleccionada" class="mr-2">Buscar en:</label>
+        <select [(ngModel)]="entidadSeleccionada" class="form-control d-inline-block w-auto">
+          <option value="habitaciones">Habitaciones</option>
+          <option value="recepcionistas">Propietarios</option>
+        </select>
+      </div>
+    </div>
+
+ 
+
+    <!-- Tablas de resultados -->
     <div class="tabla-contenedor">
       <div class="container" *ngIf="mostrarTabla">
-        <h2>Lista de Propietarios</h2>
-        <table class="table table-recepcionistas">
+        <!-- Tabla de Propietarios -->
+        <h4 class="text-center my-4">Lista de Propietarios</h4>
+        <table class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>ID</th>
               <th>Usuario</th>
               <th>Contraseña</th>
               <th>Cédula</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -37,26 +53,26 @@
               <td>{{ recepcionista.cedula_persona }}</td>
               <td class="text-center">
                 <button type="button" class="btn btn-info btn-sm" [routerLink]="['/recepcionistas/detalle', recepcionista.idRecepcionista]">Ver Detalles</button>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-danger btn-sm" (click)="eliminarRecepcionista(recepcionista.idRecepcionista )">Eliminar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-2" (click)="eliminarRecepcionista(recepcionista.idRecepcionista)">Eliminar</button>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="table-divider"></div>   
-        <h2>Lista de Habitaciones</h2>   
+
+        <!-- Tabla de Habitaciones -->
+        <h4 class="text-center my-4">Lista de Habitaciones</h4>
         <div class="table-responsive">
-          <table class="table table-bordered table-striped" *ngIf="mostrarTabla">
+          <table class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th style="color: black;">ID</th>
-                <th style="color: black;">Número de Habitación</th>
-                <th style="color: black;">Piso</th>
-                <th style="color: black;">Precio</th>
-                <th style="color: black;">Descripción</th>
-                <th style="color: black;">Estado</th>
-                <th style="color: black;">Imagen</th>
+                <th>ID</th>
+                <th>Habitación</th>
+                <th>Piso</th>
+                <th>Precio</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -68,13 +84,11 @@
                 <td>{{ habitacion.descriphabi }}</td>
                 <td>{{ habitacion.estado }}</td>
                 <td>
-                  <img src="{{ habitacion.foto }}" alt="Imagen de la habitación" width="50" height="50">
+                  <img src="{{ habitacion.foto }}" alt="Imagen de la habitación" class="img-fluid" style="max-width: 50px; height: auto;">
                 </td>
                 <td class="text-center">
-                  <button type="button" name="button" [routerLink]="['/habitaciones/form', habitacion.idHabitaciones]" class="btn btn-info">Editar</button>
-                </td>
-                <td class="text-center">
-                  <button type="button" (click)="eliminarHabitacion(habitacion.idHabitaciones)" class="btn btn-danger">Eliminar</button>
+                  <button type="button" class="btn btn-info btn-sm" [routerLink]="['/habitaciones/form', habitacion.idHabitaciones]">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm ml-2" (click)="eliminarHabitacion(habitacion.idHabitaciones)">Eliminar</button>
                 </td>
               </tr>
             </tbody>
