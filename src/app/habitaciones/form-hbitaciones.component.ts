@@ -8,9 +8,13 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import { fromLonLat } from 'ol/proj';
-import { toLonLat } from 'ol/proj';
-import 'ol/ol.css'; // Estilos necesarios para OpenLayers
+import { fromLonLat, toLonLat } from 'ol/proj';
+import { Feature } from 'ol';
+import { Point } from 'ol/geom';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import { Style, Icon } from 'ol/style';
+import { defaults as defaultControls, Zoom } from 'ol/control';
 
 @Component({
   selector: 'app-form-hbitaciones',
@@ -26,7 +30,6 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.cargarhabitacion();
-
   }
 
   ngAfterViewInit(): void {
@@ -39,13 +42,15 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
       if (id) {
         this.habitacionService.getHabitacionesid(id).subscribe((habitacion) => this.habitaciones = habitacion);
         if (this.habitaciones.foto == '') {
-          this.previewImage='';
-        }else{
-          this.previewImage= this.habitaciones.foto;
+          this.previewImage = '';
+
+        } else {
+          this.previewImage = this.habitaciones.foto;
         }
       }
     })
   }
+
 
   public createHabitacion(): void {
     this.habitaciones.estado = 'Disponible';
@@ -56,8 +61,6 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
       }
     )
   }
-
-
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -84,17 +87,43 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
         }),
       ],
       view: new View({
-        center: fromLonLat([-79.0046, -2.9006]), // Coordenadas de ejemplo, cámbialas si es necesario se las toma de google maps
+        center: fromLonLat([-79.0046, -2.9006]),
         zoom: 14,
       }),
+      controls: [
+        new Zoom(),
+      ],
+    });
+    const vectorSource = new VectorSource();
+    const vectorLayer = new VectorLayer({
+      source: vectorSource,
     });
 
+    this.map.addLayer(vectorLayer);
     this.map.on('click', (event) => {
-      const [lat, lon] = toLonLat(event.coordinate);      // Obtiene las coordenadas reales
-
+      vectorSource.clear();
+      const [lat, lon] = toLonLat(event.coordinate);
+      const marker = new Feature({
+        geometry: new Point(event.coordinate),
+      });
+      marker.setStyle(
+        new Style({
+          image: new Icon({
+            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Icono personalizado
+            scale: 0.07, // Ajustar el tamaño
+          }),
+        })
+      );
+      vectorSource.addFeature(marker);
       // Muestra las coordenadas en los campos de entrada
       this.habitaciones.latitud = lat.toFixed(6);  // Redondeamos para mayor precisión
       this.habitaciones.longitud = lon.toFixed(6);
+      Swal.fire({
+        title: 'Ubicación seleccionada',
+        text: `Latitud: ${this.habitaciones.latitud}, Longitud: ${this.habitaciones.longitud}`,
+        icon: 'info',
+        confirmButtonText: 'Aceptar',
+      });
     });
   }
 }
