@@ -1,68 +1,92 @@
-/* Contenedor general para las tarjetas */
+/* Fondo completamente blanco */
+.clientes-wrapper {
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilos de la barra de búsqueda */
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-label {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.search-input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+/* Contenedor de clientes */
 .clientes-container {
-    display: flex; /* Usamos flexbox para alinear las tarjetas horizontalmente */
-    flex-wrap: wrap; /* Permitir que las tarjetas se ajusten en múltiples filas si no caben */
-    gap: 20px; /* Espaciado entre tarjetas */
-    padding: 20px;
-    justify-content: center; /* Centrar las tarjetas horizontalmente */
-    background-color: #f8f9fa;
-  }
-  
-  /* Estilo de cada tarjeta */
-  .cliente-card {
-    width: 300px; /* Ancho fijo para cada tarjeta */
-    background-color: white;
-    border: 1px solid #007bff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .cliente-card:hover {
-    transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
-  }
-  
-  /* Encabezado de la tarjeta */
-  .card-header {
-    text-align: center;
-    background-color: #007bff;
-    color: white;
-    padding: 15px;
-  }
-  
-  .card-header img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-top: 10px;
-  }
-  
-  /* Cuerpo de la tarjeta */
-  .card-body {
-    padding: 15px;
-    text-align: left;
-  }
-  
-  .card-body p {
-    margin: 5px 0;
-    font-size: 14px;
-  }
-  
-  .card-body p strong {
-    color: #007bff;
-  }
-  
-  /* Responsividad para pantallas pequeñas */
-  @media (max-width: 768px) {
-    .clientes-container {
-      gap: 15px; /* Reducir el espacio entre tarjetas en pantallas pequeñas */
-      padding: 10px;
-    }
-  
-    .cliente-card {
-      width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
-    }
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Tarjeta del cliente con tamaño adaptable */
+.cliente-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: auto; /* Se adapta al contenido */
+  max-width: 400px; /* Máximo de 400px para mantener estructura */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.cliente-card:hover {
+  transform: scale(1.03);
+}
+
+/* Encabezado de la tarjeta */
+.card-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.cliente-foto {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2d89ef;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+  padding: 10px;
+}
+
+/* Nombre del cliente */
+.cliente-nombre {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2d89ef;
+  text-align: center;
+}
+
+/* Contacto de emergencia */
+.contacto-emergencia {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
