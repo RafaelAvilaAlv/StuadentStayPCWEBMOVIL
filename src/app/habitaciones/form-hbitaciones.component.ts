@@ -9,6 +9,7 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
+import { toLonLat } from 'ol/proj';
 import 'ol/ol.css'; // Estilos necesarios para OpenLayers
 
 @Component({
@@ -20,7 +21,7 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   map!: Map;
   previewImage: string | ArrayBuffer = '';
   public habitaciones: Habitaciones = new Habitaciones()
-  public titulo: string = "Crear Habitacion"
+  public titulo: string = "Crear Habitación"
   constructor(private habitacionService: HabitacionesService, private router1: Router, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -89,9 +90,11 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     });
 
     this.map.on('click', (event) => {
-      // aqui es donde deben poner el metodo para guardar latitud y longitud en la base
-      const [lon, lat] = this.map.getCoordinateFromPixel(event.pixel);
-      alert(`Coordenadas seleccionadas: Latitud ${lat}, Longitud ${lon}`);
+      const [lat, lon] = toLonLat(event.coordinate);      // Obtiene las coordenadas reales
+
+      // Muestra las coordenadas en los campos de entrada
+      this.habitaciones.latitud = lat.toFixed(6);  // Redondeamos para mayor precisión
+      this.habitaciones.longitud = lon.toFixed(6);
     });
   }
 }
