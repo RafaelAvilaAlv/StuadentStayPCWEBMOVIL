@@ -14,7 +14,7 @@ import { ClienteService } from './clientes/cliente.service';
 import { ReservaService } from './reservas/reserva.service';
 import { EncabezadoFacturaService } from './reservas/encabezado-factura.service';
 import { DetalleFacturaService } from './reservas/detalle-factura.service';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormReservasComponent } from './reservas/form-reservas.component';
 
 ////agregados mios  edisson///
@@ -95,69 +95,62 @@ const routes: Routes = [
 ];
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ClientesComponent,
-    FormClienteComponent,
-    FormReservasComponent,
-    ServiciosComponent,
-    ServiciosFormComponent,
-    Servicios2FormComponent,
-    PanelRecepcionComponent,
-    PanelServiciosReservasComponent,
-    HabitacionesComponent,
-    HabitacionesComponent,
-    CarrucelComponent,
-    FormPanelControlComponent,
-    FormHbitacionesComponent,
-    LoginComponent,
-    FormAComponent,
-    Servicios2Component,
-    PersonaComponent,
-    FormPComponent,
-    ProvinciasComponent,
-    CantonesComponent,
-    RegistroCComponent,
-    FormRCComponent,
-    FormrrcepcionistaComponent,
-    FormAdminLoginComponent,
-    FormRecepcionistaComponent,
-    FormFacturaComponent,
-    FilterPipe,
-    FormhistorialComponent,
-    FormFacturaHistorialComponent,
-    ClientesListaComponent,
-    ClienteDetalleComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(routes)
-  ],
-  providers: [
-    AuthService,
-    ClienteService,
-    ReservaService,
-    EncabezadoFacturaService,
-    DetalleFacturaService,
-    ServicioService,
-    Servicio2Service,
-    HabitacionesService,
-    LoginService,
-    PersonaService,
-    ProvinciaService,
-    CantonService,
-    RegistroCService,
-    FilterPipe,
-    provideClientHydration()
-
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        ClientesComponent,
+        FormClienteComponent,
+        FormReservasComponent,
+        ServiciosComponent,
+        ServiciosFormComponent,
+        Servicios2FormComponent,
+        PanelRecepcionComponent,
+        PanelServiciosReservasComponent,
+        HabitacionesComponent,
+        HabitacionesComponent,
+        CarrucelComponent,
+        FormPanelControlComponent,
+        FormHbitacionesComponent,
+        LoginComponent,
+        FormAComponent,
+        Servicios2Component,
+        PersonaComponent,
+        FormPComponent,
+        ProvinciasComponent,
+        CantonesComponent,
+        RegistroCComponent,
+        FormRCComponent,
+        FormrrcepcionistaComponent,
+        FormAdminLoginComponent,
+        FormRecepcionistaComponent,
+        FormFacturaComponent,
+        FilterPipe,
+        FormhistorialComponent,
+        FormFacturaHistorialComponent,
+        ClientesListaComponent,
+        ClienteDetalleComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(routes)], providers: [
+        AuthService,
+        ClienteService,
+        ReservaService,
+        EncabezadoFacturaService,
+        DetalleFacturaService,
+        ServicioService,
+        Servicio2Service,
+        HabitacionesService,
+        LoginService,
+        PersonaService,
+        ProvinciaService,
+        CantonService,
+        RegistroCService,
+        FilterPipe,
+        provideClientHydration(),
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
