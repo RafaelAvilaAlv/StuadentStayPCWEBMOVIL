@@ -101,6 +101,10 @@
             
             ],
             "styles": [
+             "src/styles.css",
+            "node_modules/ol/ol.css"  
+             ],
+            "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",            
               "src/styles.css",
               "node_modules/leaflet/dist/leaflet.css"

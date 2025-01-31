@@ -21,9 +21,15 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3"><strong>Categoría</strong></label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" [(ngModel)]="habitaciones.idCategoria" name="idCategoria" placeholder="Seleccione la categoría" required>
+                            <select class="form-control" [(ngModel)]="habitaciones.idCategoria" name="idCategoria" (change)="onCategoriaSelect(habitaciones.idCategoria)" required>
+                                <option value="" disabled selected>Seleccione la categoría</option>
+                                <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
+                                    {{ categoria.nombre }} <!-- Aquí se muestra el nombre de la categoría -->
+                                </option>
+                            </select>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3"><strong>Precio</strong></label>
                         <div class="col-sm-9">

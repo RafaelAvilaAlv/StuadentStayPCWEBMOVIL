@@ -45,4 +45,5 @@ export class HabitacionesService {
   getCategoria(id: any): Observable<categorias> {
     return this.http.get<categorias>(`${this.urlEndPoint1}/${id}`);
   }
+
 }

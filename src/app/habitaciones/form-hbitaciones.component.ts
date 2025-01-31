@@ -15,6 +15,8 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style, Icon } from 'ol/style';
 import { defaults as defaultControls, Zoom } from 'ol/control';
+import { categorias } from './categorias';
+import { CategoriasService } from '../categorias.service';
 
 @Component({
   selector: 'app-form-hbitaciones',
@@ -26,10 +28,14 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   previewImage: string | ArrayBuffer = '';
   public habitaciones: Habitaciones = new Habitaciones()
   public titulo: string = "Crear Habitación"
-  constructor(private habitacionService: HabitacionesService, private router1: Router, private activateRoute: ActivatedRoute) { }
+  categorias: categorias[] = [];
+
+  constructor(private habitacionService: HabitacionesService, private router1: Router, private activateRoute: ActivatedRoute,private categoriasService: CategoriasService,) { }
 
   ngOnInit(): void {
     this.cargarhabitacion();
+    this.cargarCategorias();
+   
   }
 
   ngAfterViewInit(): void {
@@ -61,6 +67,24 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
       }
     )
   }
+  
+
+  cargarCategorias(): void {
+    this.categoriasService.getCategorias().subscribe(data => {
+      this.categorias = data;
+    });
+  }
+
+  // Cuando seleccionas una categoría
+  onCategoriaSelect(idCategoria: number): void {
+    // Aquí, `idCategoria` es el ID de la categoría seleccionada
+    this.categoriasService.getCategoria(idCategoria).subscribe(categoria => {
+      console.log('Categoría seleccionada:', categoria);
+      this.habitaciones.idCategoria = categoria.idCategoria; // Guardamos el idCategoria en habitaciones
+      // Aquí puedes hacer lo que necesites con la categoría seleccionada.
+    });
+  }
+
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
