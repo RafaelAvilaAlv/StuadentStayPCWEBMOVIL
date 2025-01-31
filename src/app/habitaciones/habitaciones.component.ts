@@ -1,10 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Habitaciones } from './habitaciones';
 import Swal from 'sweetalert2';
 import { HabitacionesService } from './habitaciones.service';
 import { categorias } from './categorias';
-import { Observable, forkJoin, map, switchMap } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 
+// Importamos las clases necesarias de OpenLayers
+import 'ol/ol.css';
+import { OSM } from 'ol/source';
+import TileLayer from 'ol/layer/Tile';
+import { Map, View } from 'ol';
+import { Icon } from 'ol/style';
+import { Feature } from 'ol';
+import { Point } from 'ol/geom';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
+import { Style } from 'ol/style';
 @Component({
   selector: 'app-habitaciones',
   templateUrl: './habitaciones.component.html',
@@ -23,9 +34,10 @@ export class HabitacionesComponent implements OnInit {
     porcentajeNoDisponible: 0
   };
 
-  constructor(private habitacionesService: HabitacionesService) { }
+  constructor(private habitacionesService: HabitacionesService, private elRef: ElementRef) { }
 
   ngOnInit(): void {
+
     this.habitacionesService.getHabitaciones().subscribe(
       habitaciones => {
         // Filtramos las habitaciones disponibles
@@ -36,10 +48,8 @@ export class HabitacionesComponent implements OnInit {
         const totalHabitaciones = habitaciones.length;
         this.estadisticas.disponible = habitacionesDisponibles.length;
         this.estadisticas.noDisponible = habitacionesNoDisponibles.length;
-
         this.estadisticas.porcentajeDisponible = (this.estadisticas.disponible / totalHabitaciones) * 100;
         this.estadisticas.porcentajeNoDisponible = (this.estadisticas.noDisponible / totalHabitaciones) * 100;
-
         // Fetching categorias
         const observables = habitacionesDisponibles.map(habitacion => {
           return this.habitacionesService.getCategoria(habitacion.idCategoria).pipe(
@@ -54,9 +64,29 @@ export class HabitacionesComponent implements OnInit {
           resultados => {
             this.habitaciones = resultados.map(resultado => resultado.habitacion);
             this.nomCat = resultados.map(resultado => resultado.nombreCategoria);
+        
+            // Agregar marcadores en el mapa para cada habitación
+            this.habitaciones.forEach(habitacion => {
+              // Crear un nuevo mapa para cada habitación
+              const mapElement = this.elRef.nativeElement.querySelector(`#map-${habitacion.idHabitaciones}`);
+              const map = new Map({
+                target: mapElement,
+                layers: [
+                  new TileLayer({
+                    source: new OSM()
+                  })
+                ],
+                view: new View({
+                  center: [parseFloat(habitacion.longitud), parseFloat(habitacion.latitud)], // Coordenadas de la habitación
+                  zoom: 12
+                })
+              });
+              // Llamar al método para agregar el marcador al mapa
+              this.addMarkerToMap(map, habitacion);
+            });
           },
           error => {
-            //console.error('Error al cargar habitaciones con categorías:', error);
+            // Manejo de error al obtener habitaciones con categorías
           }
         );
       },
@@ -64,6 +94,52 @@ export class HabitacionesComponent implements OnInit {
         //console.error('Error al cargar habitaciones disponibles:', error);
       }
     );
+
+    // Llamar a `initMapForRoom` para cada habitación
+    this.habitaciones.forEach(habitacion => {
+      this.initMapForRoom(habitacion);
+    });
+  }
+  // Inicializar el mapa para cada habitación
+  initMapForRoom(habitacion: Habitaciones): void {
+    const mapElement = this.elRef.nativeElement.querySelector(`#map-${habitacion.idHabitaciones}`);
+    const map = new Map({
+      target: mapElement,
+      layers: [
+        new TileLayer({
+          source: new OSM()
+        })
+      ],
+      view: new View({
+        center: [parseFloat(habitacion.longitud), parseFloat(habitacion.latitud)], // Coordenadas de la habitación
+        zoom: 12
+      })
+    });
+
+    this.addMarkerToMap(map, habitacion);
+  }
+  // Método para agregar un marcador en el mapa
+  addMarkerToMap(map: Map, habitacion: Habitaciones): void {
+    const marker = new Feature({
+      geometry: new Point([parseFloat(habitacion.longitud), parseFloat(habitacion.latitud)])
+    });
+
+    marker.setStyle(new Style({
+      image: new Icon({
+        src: 'https://openlayers.org/en/latest/examples/data/icon.png', // Icono personalizado
+        scale: 0.1
+      })
+    }));
+
+    const vectorSource = new VectorSource({
+      features: [marker]
+    });
+
+    const vectorLayer = new VectorLayer({
+      source: vectorSource
+    });
+
+    map.addLayer(vectorLayer);
   }
 
   // Método para eliminar habitaciones
@@ -96,6 +172,7 @@ export class HabitacionesComponent implements OnInit {
       (categorias) => this.Categoria = categorias
     );
   }
+
   getCircleStyle(porcentajeDisponible: number, porcentajeNoDisponible: number): string {
     // Validamos que los porcentajes estén definidos y sean números
     const total = porcentajeDisponible + porcentajeNoDisponible;
@@ -105,5 +182,5 @@ export class HabitacionesComponent implements OnInit {
     // De lo contrario, generamos el gradiente con los valores
     return `linear-gradient(to right, green ${porcentajeDisponible}%, red ${porcentajeNoDisponible}%)`;
   }
-  
+
 }
