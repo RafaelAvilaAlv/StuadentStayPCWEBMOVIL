@@ -140,8 +140,8 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
       );
       vectorSource.addFeature(marker);
       // Muestra las coordenadas en los campos de entrada
-      this.habitaciones.latitud = lat.toFixed(6);  // Redondeamos para mayor precisión
-      this.habitaciones.longitud = lon.toFixed(6);
+      this.habitaciones.latitud = lon;  // Redondeamos para mayor precisión
+      this.habitaciones.longitud = lat;
       Swal.fire({
         title: 'Ubicación seleccionada',
         text: `Latitud: ${this.habitaciones.latitud}, Longitud: ${this.habitaciones.longitud}`,
