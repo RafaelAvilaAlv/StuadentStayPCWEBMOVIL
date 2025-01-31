@@ -6,11 +6,11 @@
       type="text" 
       id="buscarClienteId" 
       [(ngModel)]="idClienteBuscar" 
-      inputmode="numeric" 
-      pattern="[0-9]*" 
+      inputmode="email" 
       (input)="buscarClienteTiempoReal()" 
       class="search-input" 
-      placeholder="Ingrese su correo" 
+      placeholder="Ingrese su correo"
+      aria-label="Ingrese el correo para buscar clientes"
     />
   </div>
 
@@ -25,20 +25,23 @@
       <!-- Información del cliente -->
       <div class="card-body">
         <h5 class="cliente-nombre">{{ cliente.usuario }}</h5>
-        <p><strong>Nombre:</strong> {{ cliente.persona?.nombre }} {{ cliente.persona?.nombre2 }} {{ cliente.persona?.apellido }} {{ cliente.persona?.apellido2 }}</p>
-        <p><strong>Cédula:</strong> {{ cliente.cedula_persona }}</p>
-        <p><strong>Correo:</strong> {{ cliente.usuario }}</p>
-        <p><strong>Edad:</strong> {{ cliente.persona?.edad }}</p>
-        <p><strong>Género:</strong> {{ cliente.persona?.genero }}</p>
-        <p><strong>Teléfono:</strong> {{ cliente.persona?.telefono }}</p>
-        <p><strong>Dirección:</strong> {{ cliente.persona?.direccion }}</p>
 
-        <!-- Contacto de emergencia -->
-        <div class="contacto-emergencia" *ngIf="cliente.persona?.nombreContactoEmergencia">
-          <p><strong>Contacto de emergencia:</strong> {{ cliente.persona?.nombreContactoEmergencia }} - {{ cliente.persona?.telefonoContactoEmergencia }} ({{ cliente.persona?.parentescoContactoEmergencia }})</p>
+        <!-- Verifica que cliente.persona exista antes de mostrar los datos -->
+        <div *ngIf="cliente.persona">
+          <p><strong>Nombre:</strong> {{ cliente.persona.nombre }} {{ cliente.persona.nombre2 }} {{ cliente.persona.apellido }} {{ cliente.persona.apellido2 }}</p>
+          <p><strong>Cédula:</strong> {{ cliente.cedula_persona }}</p>
+          <p><strong>Correo:</strong> {{ cliente.usuario }}</p>
+          <p><strong>Edad:</strong> {{ cliente.persona.edad }}</p>
+          <p><strong>Género:</strong> {{ cliente.persona.genero }}</p>
+          <p><strong>Teléfono:</strong> {{ cliente.persona.telefono }}</p>
+          <p><strong>Dirección:</strong> {{ cliente.persona.direccion }}</p>
+
+          <!-- Contacto de emergencia (si está disponible) -->
+          <div class="contacto-emergencia" *ngIf="cliente.persona.nombreContactoEmergencia">
+            <p><strong>Contacto de emergencia:</strong> {{ cliente.persona.nombreContactoEmergencia }} - {{ cliente.persona.telefonoContactoEmergencia }} ({{ cliente.persona.parentescoContactoEmergencia }})</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

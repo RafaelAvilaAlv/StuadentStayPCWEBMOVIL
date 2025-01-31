@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../clientes/cliente.service';
 import { Cliente } from '../clientes/cliente';
-import { PersonaService } from '../persona/persona.service';  // Importa el servicio Persona
+import { PersonaService } from '../persona/persona.service';
 
 @Component({
   selector: 'app-clientes-lista',
@@ -10,13 +10,13 @@ import { PersonaService } from '../persona/persona.service';  // Importa el serv
 })
 export class ClientesListaComponent implements OnInit {
 
-  clientes: Cliente[] = []; // Lista original de clientes
-  clientesFiltrados: Cliente[] = []; // Lista filtrada para búsqueda
-  idClienteBuscar: string = ''; // ID a buscar
+  clientes: Cliente[] = [];
+  clientesFiltrados: Cliente[] = [];
+  idClienteBuscar: string = '';
 
   constructor(
     private clienteService: ClienteService,
-    private personaService: PersonaService  // Inyecta el servicio Persona
+    private personaService: PersonaService
   ) { }
 
   ngOnInit(): void {
@@ -26,36 +26,29 @@ export class ClientesListaComponent implements OnInit {
   cargarClientes() {
     this.clienteService.getAllClientes().subscribe(
       (clientes) => {
-        this.clientes = clientes;
+        this.clientes = clientes.map(cliente => ({
+          ...cliente,
+          persona: cliente.persona || {}  // Inicializa persona si es undefined
+        }));
 
-        // Cargar los datos de las personas asociadas
         this.clientes.forEach(cliente => {
           this.personaService.getPersona(cliente.cedula_persona).subscribe(
-            (persona) => {
-              // Asigna los datos de persona al cliente
-              cliente.persona = persona;  // Asumimos que cliente tiene una propiedad 'persona' para almacenar los datos
-            },
-            (error) => {
-              console.error('Error al cargar persona:', error);
-            }
+            (persona) => cliente.persona = persona,
+            (error) => console.error('Error al cargar persona:', error)
           );
         });
 
         this.clientesFiltrados = [...this.clientes];
       },
-      (error) => {
-        console.error('Error al cargar clientes:', error);
-      }
+      (error) => console.error('Error al cargar clientes:', error)
     );
   }
 
   buscarClienteTiempoReal() {
-    if (this.idClienteBuscar.trim() === '') {
-      this.clientesFiltrados = [...this.clientes];
-    } else {
-      this.clientesFiltrados = this.clientes.filter((cliente) =>
-        cliente.usuario.toLowerCase().includes(this.idClienteBuscar.toLowerCase())
-      );
-    }
+    this.clientesFiltrados = this.idClienteBuscar.trim() === '' 
+      ? [...this.clientes]
+      : this.clientes.filter(cliente =>
+          cliente.usuario.toLowerCase().includes(this.idClienteBuscar.toLowerCase())
+        );
   }
 }
