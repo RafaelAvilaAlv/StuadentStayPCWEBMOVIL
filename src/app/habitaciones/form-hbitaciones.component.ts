@@ -17,6 +17,9 @@ import { Style, Icon } from 'ol/style';
 import { defaults as defaultControls, Zoom } from 'ol/control';
 import { categorias } from './categorias';
 import { CategoriasService } from '../categorias.service';
+import { Recepcionista } from '../recepcionista/recepcionista'; // Importa el modelo de recepcionista
+import { RecepcionistaService } from '../recepcionista/recepcionista.service'; // Importa el servicio de recepcionista
+
 
 @Component({
   selector: 'app-form-hbitaciones',
@@ -30,23 +33,50 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   public titulo: string = "Crear Habitación"
   categorias: categorias[] = [];
 
-  constructor(private habitacionService: HabitacionesService, private router1: Router, private activateRoute: ActivatedRoute,private categoriasService: CategoriasService,) { }
+  recepcionistas: Recepcionista[] = []; // Lista de recepcionistas
+  recepcionistaSeleccionado: number | null = null; // ID del recepcionista seleccionado
+  //recepcionistaSeleccionado?: number; // Cambiado null por
+
+  constructor(
+    private habitacionService: HabitacionesService, 
+    private recepcionistaService: RecepcionistaService,//servicio
+    private router1: Router, 
+    private activateRoute: ActivatedRoute,
+    private categoriasService: CategoriasService,) { }
 
   ngOnInit(): void {
     this.cargarhabitacion();
     this.cargarCategorias();
+    this.obtenerRecepcionistas();
    
   }
+
+  obtenerRecepcionistas(): void {
+    this.recepcionistaService.getRecepcionistas().subscribe(
+      (dato) => {
+        console.log('Recepcionistas obtenidos:', dato); // Verifica los datos en consola
+        this.recepcionistas = dato;
+      },
+      (error) => {
+        console.error('Error al obtener recepcionistas:', error);
+      }
+    );
+  }
+
 
   ngAfterViewInit(): void {
     this.initMap();
   }
 
   cargarhabitacion(): void {
+    
+
     this.activateRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.habitacionService.getHabitacionesid(id).subscribe((habitacion) => this.habitaciones = habitacion);
+        this.habitacionService.getHabitacionesid(id).subscribe(
+          (habitacion) => 
+            this.habitaciones = habitacion);
         if (this.habitaciones.foto == '') {
           this.previewImage = '';
 
@@ -59,11 +89,21 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
 
 
   public createHabitacion(): void {
+    
     this.habitaciones.estado = 'Disponible';
+    
+    this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado || 0;
+
+
+    
     this.habitacionService.create(this.habitaciones).subscribe(
       habitacion => {
         this.router1.navigate(['/provedores'])
         Swal.fire('Habitacion guardado', `Habitacion ${habitacion.idHabitaciones} guardado con exito`, 'success')
+      },
+      error => {
+        console.error('Error al guardar la habitación:', error);
+        Swal.fire('Error', 'No se pudo guardar la habitación', 'error');
       }
     )
   }

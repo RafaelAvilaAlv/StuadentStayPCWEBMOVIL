@@ -9,5 +9,6 @@ export class Habitaciones {
     estado: string = '';
     latitud: number = 0;
     longitud: number= 0;
+    idRecepcionista : number = 0 ;
 
 }
