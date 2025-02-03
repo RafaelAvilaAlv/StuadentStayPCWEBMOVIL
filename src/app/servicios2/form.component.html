@@ -5,54 +5,57 @@
                 <div class="card-header text-center">
                     <h2>SOLICITAR SERVICIO</h2>
                 </div>
-                <form ngNativeValidate (ngSubmit)="create()" class="p-2">
+                <form ngNativeValidate (ngSubmit)="create()" class="p-3">
+                    
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Titulo</strong></label>
+                        <label for="titulo" class="col-form-label col-sm-3"><strong>Título</strong></label>
                         <div class="col-sm-9">
-                            <input type="text" id="form4Example1" class="form-control" [(ngModel)]="servicio.titulo"
+                            <input type="text" id="titulo" class="form-control" [(ngModel)]="servicio.titulo"
                                 name="titulo" readonly />
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Descripcion</strong></label>
+                        <label for="descripcion" class="col-form-label col-sm-3"><strong>Descripción</strong></label>
                         <div class="col-sm-9">
-                            <input type="text" id="form4Example2" class="form-control"
+                            <input type="text" id="descripcion" class="form-control"
                                 [(ngModel)]="servicio.descripciontipo" name="descripcion" readonly />
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Habitacion</strong></label>
+                        <label for="idReserva" class="col-form-label col-sm-3"><strong>Reserva</strong></label>
                         <div class="col-sm-9">
-                            <select id="form4Example2" class="form-control" [(ngModel)]="habitacion.idHabitaciones"
-                                name="idHabitaciones">
-                                <option *ngFor="let habitacion of habitaciones" [value]="habitacion.idHabitaciones">
-                                    {{habitacion.nHabitacion}}
+                            <select id="idReserva" class="form-control" [(ngModel)]="reserva.idReserva"
+                                name="idReserva" required>
+                                <option *ngFor="let reserva of reservas" [value]="reserva.idReserva">
+                                    Reserva: {{ reserva.idReserva }} - Entrada: {{ reserva.fechaEntrada }} - Salida: {{ reserva.fechaSalida }}
                                 </option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>ESPECIFIQUE SU PEDIDO</strong></label>
+                        <label for="descripcion2" class="col-form-label col-sm-3"><strong>Especifique su pedido</strong></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="form4Example3" rows="4"
-                                [(ngModel)]="servicio2.descripcion" name="descripcion2"></textarea>
+                            <textarea class="form-control" id="descripcion2" rows="4"
+                                [(ngModel)]="servicio2.descripcion" name="descripcion2" required></textarea>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <div class="col-sm-10">
-                            <button type="btn btn-primary" class="btn btn-primary" role="button"
-                                style="width: 50%;">Solicitar</button>
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary" style="width: 50%;">Solicitar</button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
+        
         <div class="col-sm-6 d-flex align-items-center justify-content-center">
             <img src="https://www.recreoviral.com/wp-content/uploads/2016/03/1-hoteles.gif"
-                alt="GIF de una reserva de hotel" style="width: 100%;">
+                alt="GIF de una reserva de hotel" style="width: 100%; max-height: 400px; object-fit: cover;">
         </div>
     </div>
 </div>

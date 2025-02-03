@@ -3,4 +3,5 @@ export class Servicio {
     titulo!: string;
     descripciontipo!: string;
     foto!: string;
+    nmHabitacion?: number;
 }
