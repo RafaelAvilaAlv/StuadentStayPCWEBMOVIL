@@ -1,5 +1,5 @@
-<div style="background-color: #F9F9F9;">
-  <div class="principal" style="margin-left: 25cap;">
+<div class="container-custom">
+  <div class="principal">
     <main class="table">
       <section class="table_body">
         <table>
@@ -13,13 +13,14 @@
           </thead>
           <tbody>
             <tr *ngFor="let servicio2 of servicios2">
-              <td>{{ obtenerTipoServicio(servicio2.idTipo_servicio) }} </td>
+              <td>{{ obtenerTipoServicio(servicio2.idTipo_servicio) }}</td>
               <td>{{ obtenerNumeroHabitacion(servicio2.idHabitaciones) }}</td>
               <td>{{ servicio2.descripcion }}</td>
               <td>
-                <button type="button" name="estado"
-                  [ngClass]="{'badge-warning': servicio2.estado === 'Pendiente', 'badge-success': servicio2.estado === 'Realizado'}"
-                  class=" status {{servicio2.estado}}" (click)="cambiarEstado(servicio2)">
+                <button type="button" class="status" [ngClass]="{
+                  'pendiente': servicio2.estado === 'Pendiente',
+                  'realizado': servicio2.estado === 'Realizado'
+                }" (click)="cambiarEstado(servicio2)">
                   {{ servicio2.estado }}
                 </button>
               </td>

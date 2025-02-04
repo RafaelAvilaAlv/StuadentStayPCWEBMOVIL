@@ -1,44 +1,45 @@
-<div style="background-color: #F9F9F9;">
-
+<div class="container-custom">
     <br>
-    <div class="principal" style="margin-left: 15cap;">
-
+    <div class="principal">
         <main class="table">
-            
             <section class="table_body">
                 <br>
-                <div  class="busqueda">BUSQUEDA POR CEDULA &nbsp;&nbsp;&nbsp;<input type="text" class="imput" [(ngModel)]="buscar" placeholder="CEDULA CLIENTE" name="buscar"></div>
+                <div class="busqueda">
+                    🔍 BÚSQUEDA POR CÉDULA😀
+                    <input type="text" class="input-custom" [(ngModel)]="buscar" placeholder="Ingrese Cédula Cliente" name="buscar">
+                </div>
                 <br>
                 <table>
                     <thead>
                         <tr>
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Foto</th>
-                            <th>Cedula</th>
+                            <th>Cédula</th>
                             <th>Fecha Entrada</th>
                             <th>Fecha Salida</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let combinedData of resultadosCombinados |filter:buscar">
-                        <tr >
+                    <tbody *ngFor="let combinedData of resultadosCombinados | filter:buscar">
+                        <tr>
                             <td>{{ combinedData?.reservaInfo?.idReserva }}</td>
-                            <td><img src="{{combinedData?.clienteInfo?.foto}}" alt="">{{
-                                combinedData?.personaInfor?.nombre}}</td>
-                            <td>{{ combinedData?.clienteInfo?.cedula_persona }}</td>
-                            <td>{{combinedData.reservaInfo?.fechaEntrada}}</td>
-                            <td>{{combinedData.reservaInfo?.fechaSalida}}</td>
                             <td>
-                                <button class="status {{ combinedData?.reservaInfo?.estado }}"  type="button"
-                                    (click)="cmabiarEstado(combinedData?.reservaInfo?.idReserva)">{{
-                                    combinedData?.reservaInfo?.estado }}</button>
+                                <img class="foto-cliente" src="{{combinedData?.clienteInfo?.foto}}" alt="Foto">
+                                {{ combinedData?.personaInfor?.nombre }}
+                            </td>
+                            <td>{{ combinedData?.clienteInfo?.cedula_persona }}</td>
+                            <td>{{ combinedData.reservaInfo?.fechaEntrada }}</td>
+                            <td>{{ combinedData.reservaInfo?.fechaSalida }}</td>
+                            <td>
+                                <button class="status {{ combinedData?.reservaInfo?.estado }}" type="button"
+                                    (click)="cmabiarEstado(combinedData?.reservaInfo?.idReserva)">
+                                    {{ combinedData?.reservaInfo?.estado }}
+                                </button>
                             </td>
                         </tr>
                     </tbody>
-                    
                 </table>
             </section>
-
         </main>
     </div>
     <br>
