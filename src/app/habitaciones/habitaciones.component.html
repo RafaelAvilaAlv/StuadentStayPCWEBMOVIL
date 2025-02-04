@@ -35,28 +35,37 @@
     </div>
   </div>
 
-  <!-- Habitaciones Disponibles -->
+  <!-- Habitaciones -->
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    <ng-container *ngFor="let habitacion of habitaciones; let index = index">
-        <div class="bg-white p-4 rounded-lg shadow-lg" *ngIf="habitacion.estado === 'Disponible'">
-            <div class="relative w-full h-40 mb-4">
-                <img src="{{ habitacion.foto }}" alt="Foto Habitación"
-                    class="absolute inset-0 w-full h-full object-cover rounded-lg" />
-            </div>
+    <div
+      class="bg-white p-4 rounded-lg shadow-lg"
+      *ngFor="let habitacion of habitaciones; let i = index"
+    >
+      <div class="relative w-full h-40 mb-4">
+        <img
+          src="{{ habitacion.foto }}"
+          alt="Foto Habitación"
+          class="absolute inset-0 w-full h-full object-cover rounded-lg"
+        />
+      </div>
 
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                Categoría: {{ nomCat[index] }}
-            </h3>
-
-            <p class="text-gray-600 mb-2">Precio: ${{ habitacion.precio }}</p>
-            <p class="text-sm text-gray-500 mb-4">{{ habitacion.descriphabi }}</p>
-
-            <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
-                [routerLink]="['/reservas/form-reservas', habitacion.idHabitaciones]">
-                Reservar
-            </button>
-        </div>
-    </ng-container>
-</div>
-
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">
+        Categoría: {{ nomCat[i] }}
+      </h3>
+      
+      <div
+        id="map-{{ habitacion.idHabitaciones }}"
+        class="w-full h-48 mt-4" 
+      ></div>
+      
+      <p class="text-gray-600 mb-2">Precio: ${{ habitacion.precio }}</p>
+      <p class="text-sm text-gray-500 mb-4">{{ habitacion.descriphabi }}</p>
+      <button
+        class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+        [routerLink]="['/reservas/form-reservas', habitacion.idHabitaciones]"
+      >
+        Reservar
+      </button>
+    </div>
+  </div>
 </div>

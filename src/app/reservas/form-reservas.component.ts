@@ -15,7 +15,6 @@ import { switchMap } from 'rxjs';
 import { error } from 'console';
 import { AuthService } from '../auth.service';
 import { MetodopagoService } from './metodopago.service';
-
 @Component({
   selector: 'app-form-reservas',
   templateUrl: './form-reservas.component.html',
@@ -41,26 +40,20 @@ export class FormReservasComponent implements OnInit {
   pagoSeleccionado: string = '';
   form!: FormGroup;
   btnFactura: boolean = false;
-  public reserva: Reserva = new Reserva();
-  public encabezado: EncabezadoFactura = new EncabezadoFactura();
-  public detalle: DetalleFactura = new DetalleFactura();
-  public habitaciones: Habitaciones = new Habitaciones();
+  public reserva: Reserva = new Reserva()
+  public encabezado: EncabezadoFactura = new EncabezadoFactura()
+  public detalle: DetalleFactura = new DetalleFactura()
+  public habitaciones: Habitaciones = new Habitaciones()
+  constructor(private reservaService: ReservaService, private habitacionesService: HabitacionesService, private encabezadoService: EncabezadoFacturaService, private detalleService: DetalleFacturaService, private router: Router,
+    private activatedRoute: ActivatedRoute, private inicio: AuthService, private fb: FormBuilder, private pagoService: MetodopagoService) {
 
-  constructor(
-    private reservaService: ReservaService,
-    private habitacionesService: HabitacionesService,
-    private encabezadoService: EncabezadoFacturaService,
-    private detalleService: DetalleFacturaService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private inicio: AuthService,
-    private fb: FormBuilder,
-    private pagoService: MetodopagoService
-  ) {}
+  }
 
   ngOnInit(): void {
-    this.cargarhabitacion();
-    this.cargarMetodopago();
+    this.cargarhabitacion()
+    this.cargarMetodopago()
+    // console.log('Id cliente en reserva', this.idCliente);
+    // console.log('Id cliente habitaciones', this.idHabitaciones);
     this.form = this.fb.group({
       dias1: ['', Validators.required],
       fechafin: ['', Validators.required],
@@ -69,6 +62,7 @@ export class FormReservasComponent implements OnInit {
       total: ['', Validators.required],
       metodoPago: ['', Validators.required]
     });
+
   }
 
   validateSelectedOption(control: FormGroup) {
@@ -80,27 +74,34 @@ export class FormReservasComponent implements OnInit {
 
   cargarhabitacion(): void {
     this.activatedRoute.params.subscribe(params => {
-      let id = params['id'];
+      let id = params['id']
       if (id) {
         this.habitacionesService.getHabitacionesid(id).subscribe(
           (result) => {
             if (result) {
               this.habitaciones = result;
               this.idHabitaciones = result.idHabitaciones;
+              // console.log('Id cliente habitaciones antes del método:', this.idHabitaciones);
               this.reserva.idHabitaciones = result.idHabitaciones;
               this.reserva.idCliente = this.idCliente;
               this.reserva.idRecepcionista = 1;
               this.preciohabi = result.precio;
               this.inicio.idHabitacion = result.idHabitaciones;
+              // console.log('Precio de la habitación:', this.preciohabi);
+            } else {
+              // console.error('No se encontró la habitación con ID:', id);
+
             }
           },
           (error) => {
-            console.error('Error al obtener información de la habitación:', error);
+            // console.error('Error al obtener información de la habitación:', error);
           }
         );
       }
-    });
+    })
+
   }
+
   create() {
     if (this.form.valid) {
       this.reserva.nPersona = this.opcionSeleccionada;
@@ -110,22 +111,19 @@ export class FormReservasComponent implements OnInit {
           this.idReserva = response.idReserva;
           this.inicio.idReserva = response.idReserva;
           this.createEncabezado();
+          //this.router.navigate(['/habitaciones'])
           this.actualizarEstado();
-          Swal.fire('Reserva creada', `guardado con éxito`, 'success').then(() => {
-            // Después de que el usuario cierre el mensaje de éxito, redirigir a habitaciones
-            this.router.navigate(['/habitaciones']);
-          });
+          Swal.fire('Reserva creada', `guardado con éxito`, 'success')
           this.btnFactura = true;
-        }, 
-        (error) => {
+        }, (error) => {
           // console.error('Error al guardar la reserva:', error);
         }
       );
+      // console.log(this.reservaService.create(this.reserva));
     } else {
-      Swal.fire('Llene los campos por favor', `Llenar campos...`, 'error');
+      Swal.fire('Llene los campos por favor', `Llenar campos...`, 'error')
     }
   }
-  
 
   createEncabezado() {
     this.encabezado.idCliente = this.idCliente;
@@ -136,12 +134,13 @@ export class FormReservasComponent implements OnInit {
       response => {
         this.idEncabezado = response.idEncabezado;
         this.inicio.idEncabezado = response.idEncabezado;
+        // console.log('ENCABEZADO CREADO', this.idEncabezado);
         this.createDetalle();
-      },
-      (error) => {
-        console.error('Error al guardar la encabezado:', error);
+      }, (error) => {
+        // console.error('Error al guardar la encabezado:', error);
       }
     );
+    //console.log(this.reservaService.create(this.reserva));
   }
 
   createDetalle() {
@@ -150,14 +149,18 @@ export class FormReservasComponent implements OnInit {
     this.detalleService.create(this.detalle).subscribe(
       response => {
         this.inicio.idDetalle = response.idDetalleFac;
-      },
-      (error) => {
-        console.error('Error al guardar la detalle:', error);
+        // console.log('DETALLE CREADO');
+      }, (error) => {
+        // console.error('Error al guardar la detalle:', error);
       }
     );
+    //console.log(this.reservaService.create(this.reserva));
   }
 
   calcularDiferenciaDeDias() {
+    // console.log(this.fechaEntrada)
+    // console.log(this.fechaSalida)
+
     if (this.fechaEntrada.length != 0 && this.fechaSalida.length != 0) {
       const fechaInicio = new Date(this.fechaEntrada);
       const fechaFin = new Date(this.fechaSalida);
@@ -165,6 +168,7 @@ export class FormReservasComponent implements OnInit {
       this.reserva.fechaSalida = fechaFin.toJSON().split('T')[0];
       const diferenciaMs = fechaFin.getTime() - fechaInicio.getTime();
       this.diferenciadias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
+      // console.log(this.diferenciadias)
       this.reserva.dias = this.diferenciadias;
       this.calcularTotal(this.preciohabi, this.diferenciadias);
     }
@@ -172,17 +176,20 @@ export class FormReservasComponent implements OnInit {
 
   calcularTotal(nuevovalor: number, precio: number) {
     this.total = precio * nuevovalor;
+    // console.log(precio)
+    // console.log('TOTAL', this.total)
     this.reserva.total = this.total;
   }
 
   actualizarEstado(): void {
-    this.habitaciones.estado = 'Ocupado';
+    this.habitaciones.estado = "Ocupado";
     this.habitacionesService.update(this.habitaciones).subscribe(
       response => {
-        console.log('Estado actualizado');
+        // console.log('Update', this.habitacionesService.update);
+        // console.log('Estado actualizado')
       },
       error => {
-        console.error('Error al actualizar:', error);
+        // console.error('Error al actualizar:', error);
       }
     );
   }
@@ -191,20 +198,25 @@ export class FormReservasComponent implements OnInit {
     this.pagoService.getPagoNombres().subscribe(
       response => this.pagoOpciones = response
     );
+
   }
 
   onSelectionChange(event: any) {
     const value = (event.target as HTMLSelectElement).value;
     this.pagoSeleccionado = value;
+    // console.log('Valor seleccionado:', this.pagoSeleccionado);
     switch (this.pagoSeleccionado) {
       case 'Tarjeta de Crédito':
         this.reserva.idPago = 1;
+        // console.log('IdPAGO', this.reserva.idPago);
         break;
       case 'Transferencia Bancaria':
         this.reserva.idPago = 2;
+        //console.log('IdPAGO', this.reserva.idPago);
         break;
       case 'Efectivo':
         this.reserva.idPago = 3;
+        //console.log('IdPAGO', this.reserva.idPago);
         break;
     }
   }
