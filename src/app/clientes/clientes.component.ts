@@ -3,19 +3,16 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import { PersonaService } from '../persona/persona.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AppComponent } from '../app.component';
-import { Persona } from '../persona/persona';
-import { error } from 'console';
 import { AuthService } from '../auth.service';
+import { Persona } from '../persona/persona';
 
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
 })
 export class ClientesComponent implements OnInit {
-
-  id: number = this.inicio.idUsuario;
-  cedula: any = this.inicio.cedulaUser;
+  id: number | null = null;
+  cedula: string | null = null;
   public cliente: Cliente = new Cliente();
   public persona: Persona = new Persona();
   clientes: Cliente[] = [];
@@ -25,48 +22,59 @@ export class ClientesComponent implements OnInit {
     private personaService: PersonaService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private inicio: AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.cargarCliente();
-    this.loadAllClientes();  // Llama el nuevo método para cargar todos los clientes
+    this.id = this.authService.idUsuario ?? null;
+    this.cedula = this.authService.cedulaUser ?? null;
+
+    if (this.id) {
+      this.cargarCliente();
+    } else {
+      console.error('ID de usuario no definido en AuthService');
+    }
+
+    this.loadAllClientes();
   }
 
-  // Método para cargar un cliente específico
   cargarCliente(): void {
-    this.clienteService.getCliente(this.id).subscribe(
-      (cliente: Cliente) => {  // Definir tipo de cliente
+    if (!this.id) return;
+
+    this.clienteService.getCliente(this.id).subscribe({
+      next: (cliente: Cliente) => {
         this.cliente = cliente;
-        this.cargarPersona();
+        if (this.cedula) {
+          this.cargarPersona();
+        }
       },
-      (error: any) => {  // Definir tipo de error
-        console.error(error);
-      }
-    );
+      error: (error) => {
+        console.error('Error al obtener cliente:', error);
+      },
+    });
   }
 
-  // Método para cargar todos los clientes
   loadAllClientes(): void {
-    this.clienteService.getAllClientes().subscribe(
-      (clientes: Cliente[]) => {  // Definir tipo de clientes
+    this.clienteService.getAllClientes().subscribe({
+      next: (clientes: Cliente[]) => {
         this.clientes = clientes;
       },
-      (error: any) => {  // Definir tipo de error
-        console.error('Error fetching all clients', error);
-      }
-    );
+      error: (error) => {
+        console.error('Error al obtener todos los clientes:', error);
+      },
+    });
   }
 
-  // Método para cargar la persona asociada al cliente
   cargarPersona(): void {
-    this.personaService.getPersona(this.cedula).subscribe(
-      (persona: Persona) => {  // Definir tipo de persona
+    if (!this.cedula) return;
+
+    this.personaService.getPersona(this.cedula).subscribe({
+      next: (persona: Persona) => {
         this.persona = persona;
       },
-      (error: any) => {
-        console.error(error);
-      }
-    );
+      error: (error) => {
+        console.error('Error al obtener persona:', error);
+      },
+    });
   }
 }

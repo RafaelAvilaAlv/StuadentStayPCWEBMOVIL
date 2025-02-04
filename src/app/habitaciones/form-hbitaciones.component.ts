@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Habitaciones } from './habitaciones';
 import { HabitacionesService } from './habitaciones.service';
@@ -17,9 +17,8 @@ import { Style, Icon } from 'ol/style';
 import { defaults as defaultControls, Zoom } from 'ol/control';
 import { categorias } from './categorias';
 import { CategoriasService } from '../categorias.service';
-import { Recepcionista } from '../recepcionista/recepcionista'; // Importa el modelo de recepcionista
-import { RecepcionistaService } from '../recepcionista/recepcionista.service'; // Importa el servicio de recepcionista
-
+import { Recepcionista } from '../recepcionista/recepcionista';
+import { RecepcionistaService } from '../recepcionista/recepcionista.service';
 
 @Component({
   selector: 'app-form-hbitaciones',
@@ -29,32 +28,31 @@ import { RecepcionistaService } from '../recepcionista/recepcionista.service'; /
 export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   map!: Map;
   previewImage: string | ArrayBuffer = '';
-  public habitaciones: Habitaciones = new Habitaciones()
-  public titulo: string = "Crear Habitación"
+  public habitaciones: Habitaciones = new Habitaciones();
+  public titulo: string = "Crear Habitación";
   categorias: categorias[] = [];
-
-  recepcionistas: Recepcionista[] = []; // Lista de recepcionistas
-  recepcionistaSeleccionado: number | null = null; // ID del recepcionista seleccionado
-  //recepcionistaSeleccionado?: number; // Cambiado null por
+  recepcionistas: Recepcionista[] = [];
+  recepcionistaSeleccionado: number | null = null;
 
   constructor(
     private habitacionService: HabitacionesService, 
-    private recepcionistaService: RecepcionistaService,//servicio
+    private recepcionistaService: RecepcionistaService,
     private router1: Router, 
     private activateRoute: ActivatedRoute,
-    private categoriasService: CategoriasService,) { }
+    private categoriasService: CategoriasService,
+    @Inject(PLATFORM_ID) private platformId: Object // Para detectar si estamos en el navegador
+  ) {}
 
   ngOnInit(): void {
-    this.cargarhabitacion();
+    this.cargarHabitacion();
     this.cargarCategorias();
     this.obtenerRecepcionistas();
-   
   }
 
   obtenerRecepcionistas(): void {
     this.recepcionistaService.getRecepcionistas().subscribe(
       (dato) => {
-        console.log('Recepcionistas obtenidos:', dato); // Verifica los datos en consola
+        console.log('Recepcionistas obtenidos:', JSON.stringify(dato, null, 2));
         this.recepcionistas = dato;
       },
       (error) => {
@@ -63,51 +61,41 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     );
   }
 
-
   ngAfterViewInit(): void {
-    this.initMap();
+    if (isPlatformBrowser(this.platformId)) {
+      this.initMap();
+    }
   }
 
-  cargarhabitacion(): void {
-    
-
+  cargarHabitacion(): void {
     this.activateRoute.params.subscribe(params => {
-      let id = params['id']
+      let id = params['id'];
       if (id) {
         this.habitacionService.getHabitacionesid(id).subscribe(
-          (habitacion) => 
-            this.habitaciones = habitacion);
-        if (this.habitaciones.foto == '') {
-          this.previewImage = '';
-
-        } else {
-          this.previewImage = this.habitaciones.foto;
-        }
+          (habitacion) => {
+            this.habitaciones = habitacion;
+            this.previewImage = this.habitaciones.foto || '';
+          }
+        );
       }
-    })
+    });
   }
 
-
   public createHabitacion(): void {
-    
     this.habitaciones.estado = 'Disponible';
-    
-    this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado || 0;
+    this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado ?? 0;
 
-
-    
     this.habitacionService.create(this.habitaciones).subscribe(
       habitacion => {
-        this.router1.navigate(['/provedores'])
-        Swal.fire('Habitacion guardado', `Habitacion ${habitacion.idHabitaciones} guardado con exito`, 'success')
+        this.router1.navigate(['/provedores']);
+        Swal.fire('Habitación guardada', `Habitación ${habitacion.idHabitaciones} guardada con éxito`, 'success');
       },
       error => {
         console.error('Error al guardar la habitación:', error);
         Swal.fire('Error', 'No se pudo guardar la habitación', 'error');
       }
-    )
+    );
   }
-  
 
   cargarCategorias(): void {
     this.categoriasService.getCategorias().subscribe(data => {
@@ -115,16 +103,12 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Cuando seleccionas una categoría
   onCategoriaSelect(idCategoria: number): void {
-    // Aquí, `idCategoria` es el ID de la categoría seleccionada
     this.categoriasService.getCategoria(idCategoria).subscribe(categoria => {
       console.log('Categoría seleccionada:', categoria);
-      this.habitaciones.idCategoria = categoria.idCategoria; // Guardamos el idCategoria en habitaciones
-      // Aquí puedes hacer lo que necesites con la categoría seleccionada.
+      this.habitaciones.idCategoria = categoria.idCategoria;
     });
   }
-
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -137,12 +121,13 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
 
   convertToBase64(): void {
     if (this.previewImage) {
-      const base64String = this.previewImage.toString();
-      this.habitaciones.foto = base64String;
+      this.habitaciones.foto = this.previewImage.toString();
     }
   }
 
   private initMap(): void {
+    if (!isPlatformBrowser(this.platformId)) return; // Evita la ejecución en el servidor
+
     this.map = new Map({
       target: 'map',
       layers: [
@@ -154,34 +139,31 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
         center: fromLonLat([-79.0046, -2.9006]),
         zoom: 14,
       }),
-      controls: [
-        new Zoom(),
-      ],
+      controls: [new Zoom()],
     });
+
     const vectorSource = new VectorSource();
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-    });
+    const vectorLayer = new VectorLayer({ source: vectorSource });
 
     this.map.addLayer(vectorLayer);
     this.map.on('click', (event) => {
       vectorSource.clear();
       const [lat, lon] = toLonLat(event.coordinate);
-      const marker = new Feature({
-        geometry: new Point(event.coordinate),
-      });
+      const marker = new Feature({ geometry: new Point(event.coordinate) });
+
       marker.setStyle(
         new Style({
           image: new Icon({
-            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Icono personalizado
-            scale: 0.07, // Ajustar el tamaño
+            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+            scale: 0.07,
           }),
         })
       );
+
       vectorSource.addFeature(marker);
-      // Muestra las coordenadas en los campos de entrada
-      this.habitaciones.latitud = lon;  // Redondeamos para mayor precisión
+      this.habitaciones.latitud = lon;
       this.habitaciones.longitud = lat;
+
       Swal.fire({
         title: 'Ubicación seleccionada',
         text: `Latitud: ${this.habitaciones.latitud}, Longitud: ${this.habitaciones.longitud}`,
@@ -191,3 +173,4 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     });
   }
 }
+

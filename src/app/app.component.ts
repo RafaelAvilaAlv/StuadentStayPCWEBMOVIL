@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'zHotel';
+  title = 'Student Stay';
 
   constructor(private authService: AuthService) {
     try {
