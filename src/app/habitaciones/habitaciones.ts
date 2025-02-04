@@ -5,6 +5,8 @@ export class Habitaciones {
     nPiso!: number;
     idCategoria!: number;
     foto: string = '';
+    foto1?: string = '';
+    foto2?: string = '';
     descriphabi: string = '';
     estado: string = '';
     latitud: number = 0;

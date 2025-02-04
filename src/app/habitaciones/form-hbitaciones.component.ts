@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Habitaciones } from './habitaciones';
 import { HabitacionesService } from './habitaciones.service';
@@ -17,8 +17,9 @@ import { Style, Icon } from 'ol/style';
 import { defaults as defaultControls, Zoom } from 'ol/control';
 import { categorias } from './categorias';
 import { CategoriasService } from '../categorias.service';
-import { Recepcionista } from '../recepcionista/recepcionista';
-import { RecepcionistaService } from '../recepcionista/recepcionista.service';
+import { Recepcionista } from '../recepcionista/recepcionista'; // Importa el modelo de recepcionista
+import { RecepcionistaService } from '../recepcionista/recepcionista.service'; // Importa el servicio de recepcionista
+
 
 @Component({
   selector: 'app-form-hbitaciones',
@@ -28,31 +29,38 @@ import { RecepcionistaService } from '../recepcionista/recepcionista.service';
 export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   map!: Map;
   previewImage: string | ArrayBuffer = '';
-  public habitaciones: Habitaciones = new Habitaciones();
-  public titulo: string = "Crear Habitación";
+  public habitaciones: Habitaciones = new Habitaciones()
+  public titulo: string = "Crear Habitación"
   categorias: categorias[] = [];
-  recepcionistas: Recepcionista[] = [];
-  recepcionistaSeleccionado: number | null = null;
+
+
+  previewImage1: string | ArrayBuffer = '';
+  previewImage2: string | ArrayBuffer = '';
+  previewImage3: string | ArrayBuffer = '';
+
+
+  recepcionistas: Recepcionista[] = []; // Lista de recepcionistas
+  recepcionistaSeleccionado: number | null = null; // ID del recepcionista seleccionado
+  //recepcionistaSeleccionado?: number; // Cambiado null por
 
   constructor(
     private habitacionService: HabitacionesService, 
-    private recepcionistaService: RecepcionistaService,
+    private recepcionistaService: RecepcionistaService,//servicio
     private router1: Router, 
     private activateRoute: ActivatedRoute,
-    private categoriasService: CategoriasService,
-    @Inject(PLATFORM_ID) private platformId: Object // Para detectar si estamos en el navegador
-  ) {}
+    private categoriasService: CategoriasService,) { }
 
   ngOnInit(): void {
-    this.cargarHabitacion();
+    this.cargarhabitacion();
     this.cargarCategorias();
     this.obtenerRecepcionistas();
+   
   }
 
   obtenerRecepcionistas(): void {
     this.recepcionistaService.getRecepcionistas().subscribe(
       (dato) => {
-        console.log('Recepcionistas obtenidos:', JSON.stringify(dato, null, 2));
+        console.log('Recepcionistas obtenidos:', dato); // Verifica los datos en consola
         this.recepcionistas = dato;
       },
       (error) => {
@@ -61,41 +69,51 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     );
   }
 
+
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.initMap();
-    }
+    this.initMap();
   }
 
-  cargarHabitacion(): void {
+  cargarhabitacion(): void {
+    
+
     this.activateRoute.params.subscribe(params => {
-      let id = params['id'];
+      let id = params['id']
       if (id) {
         this.habitacionService.getHabitacionesid(id).subscribe(
-          (habitacion) => {
-            this.habitaciones = habitacion;
-            this.previewImage = this.habitaciones.foto || '';
-          }
-        );
+          (habitacion) => 
+            this.habitaciones = habitacion);
+        if (this.habitaciones.foto == '') {
+          this.previewImage = '';
+
+        } else {
+          this.previewImage = this.habitaciones.foto;
+        }
       }
-    });
+    })
   }
 
-  public createHabitacion(): void {
-    this.habitaciones.estado = 'Disponible';
-    this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado ?? 0;
 
+  public createHabitacion(): void {
+    
+    this.habitaciones.estado = 'Disponible';
+    
+    this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado || 0;
+
+
+    
     this.habitacionService.create(this.habitaciones).subscribe(
       habitacion => {
-        this.router1.navigate(['/provedores']);
-        Swal.fire('Habitación guardada', `Habitación ${habitacion.idHabitaciones} guardada con éxito`, 'success');
+        this.router1.navigate(['/provedores'])
+        Swal.fire('Habitacion guardado', `Habitacion ${habitacion.idHabitaciones} guardado con exito`, 'success')
       },
       error => {
         console.error('Error al guardar la habitación:', error);
         Swal.fire('Error', 'No se pudo guardar la habitación', 'error');
       }
-    );
+    )
   }
+  
 
   cargarCategorias(): void {
     this.categoriasService.getCategorias().subscribe(data => {
@@ -103,31 +121,54 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // Cuando seleccionas una categoría
   onCategoriaSelect(idCategoria: number): void {
+    // Aquí, `idCategoria` es el ID de la categoría seleccionada
     this.categoriasService.getCategoria(idCategoria).subscribe(categoria => {
       console.log('Categoría seleccionada:', categoria);
-      this.habitaciones.idCategoria = categoria.idCategoria;
+      this.habitaciones.idCategoria = categoria.idCategoria; // Guardamos el idCategoria en habitaciones
+      // Aquí puedes hacer lo que necesites con la categoría seleccionada.
     });
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+
+  onFileSelected(event: any, field: string) {
+    const file = event.target.files[0];
+    
+    if (!file) return; // Si no hay archivo seleccionado, salir.
+
     const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.previewImage = e.target.result;
+    reader.onload = () => {
+        const base64String = reader.result as string;
+        
+        switch (field) {
+            case 'foto':
+                this.habitaciones.foto = base64String;
+                this.previewImage1 = base64String;
+                break;
+            case 'foto1':
+                this.habitaciones.foto1 = base64String;
+                this.previewImage2 = base64String;
+                break;
+            case 'foto2':
+                this.habitaciones.foto2 = base64String;
+                this.previewImage3 = base64String;
+                break;
+        }
     };
     reader.readAsDataURL(file);
-  }
+}
+
+
 
   convertToBase64(): void {
     if (this.previewImage) {
-      this.habitaciones.foto = this.previewImage.toString();
+      const base64String = this.previewImage.toString();
+      this.habitaciones.foto = base64String;
     }
   }
 
   private initMap(): void {
-    if (!isPlatformBrowser(this.platformId)) return; // Evita la ejecución en el servidor
-
     this.map = new Map({
       target: 'map',
       layers: [
@@ -139,31 +180,34 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
         center: fromLonLat([-79.0046, -2.9006]),
         zoom: 14,
       }),
-      controls: [new Zoom()],
+      controls: [
+        new Zoom(),
+      ],
     });
-
     const vectorSource = new VectorSource();
-    const vectorLayer = new VectorLayer({ source: vectorSource });
+    const vectorLayer = new VectorLayer({
+      source: vectorSource,
+    });
 
     this.map.addLayer(vectorLayer);
     this.map.on('click', (event) => {
       vectorSource.clear();
       const [lat, lon] = toLonLat(event.coordinate);
-      const marker = new Feature({ geometry: new Point(event.coordinate) });
-
+      const marker = new Feature({
+        geometry: new Point(event.coordinate),
+      });
       marker.setStyle(
         new Style({
           image: new Icon({
-            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-            scale: 0.07,
+            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Icono personalizado
+            scale: 0.07, // Ajustar el tamaño
           }),
         })
       );
-
       vectorSource.addFeature(marker);
-      this.habitaciones.latitud = lon;
+      // Muestra las coordenadas en los campos de entrada
+      this.habitaciones.latitud = lon;  // Redondeamos para mayor precisión
       this.habitaciones.longitud = lat;
-
       Swal.fire({
         title: 'Ubicación seleccionada',
         text: `Latitud: ${this.habitaciones.latitud}, Longitud: ${this.habitaciones.longitud}`,
@@ -173,4 +217,3 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     });
   }
 }
-
