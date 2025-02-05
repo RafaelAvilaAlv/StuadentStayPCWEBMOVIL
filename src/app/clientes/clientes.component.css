@@ -1,0 +1,51 @@
+    .card-custom {
+        background: white;
+        color: black;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 600px;
+        margin: 40px auto;
+    }
+
+    .card-header-custom {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        padding: 10px 0;
+        border-bottom: 2px solid #f1f1f1;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    .preview-img {
+        width: 100px; /* Ajusta el tamaño del cuadro */
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px; /* Hace que sea un cuadro con esquinas ligeramente redondeadas */
+        display: block;
+        margin: 10px auto;
+        border: 2px solid #ccc; /* Opcional: Agrega un borde para destacar el cuadro */
+    }
+
+    .btn-custom {
+        background-color: #ffcc00;
+        color: black;
+        font-weight: bold;
+        border-radius: 8px;
+        width: 100%;
+        transition: 0.3s;
+    }
+
+    .btn-custom:hover {
+        background-color: #ffdb4d;
+        transform: scale(1.05);
+    }
+
+

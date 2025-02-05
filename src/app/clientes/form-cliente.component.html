@@ -1,88 +1,70 @@
-<div class="card text-bg-primary mb-3">
-    <div class="card-header">
-        <h2>{{title}}</h2>
+
+<div class="card card-custom">
+    <div class="card-header card-header-custom">
+        {{ title }}
     </div>
     <div class="card-body">
         <form ngNativeValidate (ngSubmit)="editU(); editPer()">
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Foto</h4></label>
-                <div class="col-sm-6">
+            
+            <div class="row">
+                <!-- Foto -->
+                <div class="col-12 text-center">
                     <input type="file" class="form-control" [(ngModel)]="cliente.foto" name="foto" (change)="onFileSelected($event)">
-                    
-                    <img [src]="previewImage" alt="Vista previa">
+                    <img [src]="previewImage" alt="Vista previa" class="preview-img">
+                </div>
+
+                <!-- Primera columna -->
+                <div class="col-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="persona.nombre" name="nombre1" placeholder="Primer nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="persona.apellido" name="apellido1" placeholder="Primer apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" [(ngModel)]="cliente.contrasena" name="contrasena" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="persona.telefono" name="telf" placeholder="Teléfono" required>
+                    </div>
+                </div>
+
+                <!-- Segunda columna -->
+                <div class="col-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="persona.nombre2" name="nombre2" placeholder="Segundo nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="persona.apellido2" name="apellido2" placeholder="Segundo apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" [(ngModel)]="persona.edad" name="edad" placeholder="Edad" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="persona.direccion" name="dir" placeholder="Dirección" required>
+                    </div>
+                </div>
+
+                <!-- Género -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <select class="form-control" [(ngModel)]="persona.genero" name="genero" required>
+                            <option value="" disabled selected>Seleccione su género</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Botón -->
+                <div class="col-12">
+                    <button class="btn btn-custom" (click)="convertToBase64()">
+                        Editar
+                    </button>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Primer nombre</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.nombre" name="nombre1" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Segundo nombre</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.nombre2" name="nombre2" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Primer apellido</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.apellido" name="apellido1" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Segundo apellido</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.apellido2" name="apellido2" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Contraseña</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.contrasena" name="contrasena" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Edad</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.edad" name="edad" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Género</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.genero" name="genero" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Teléfono</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.telefono" name="telf" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2"><h4>Dirección</h4></label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="persona.direccion" name="dir" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <button class="btn btn-primary" role="button" style="background-color: goldenrod; color: black;" (click)="convertToBase64()" ><strong>Editar</strong></button>
-                </div>
-            </div>
-
+            
         </form>
     </div>
 </div>

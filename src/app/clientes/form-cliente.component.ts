@@ -12,7 +12,8 @@ import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-form-cliente',
-  templateUrl: './form-cliente.component.html'
+  templateUrl: './form-cliente.component.html',
+  styleUrls: ['./clientes.component.css']
 })
 export class FormClienteComponent implements OnInit{
 
