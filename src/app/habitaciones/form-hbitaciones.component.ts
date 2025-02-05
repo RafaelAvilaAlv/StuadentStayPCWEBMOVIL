@@ -20,41 +20,38 @@ import { CategoriasService } from '../categorias.service';
 import { Recepcionista } from '../recepcionista/recepcionista'; // Importa el modelo de recepcionista
 import { RecepcionistaService } from '../recepcionista/recepcionista.service'; // Importa el servicio de recepcionista
 
-
 @Component({
   selector: 'app-form-hbitaciones',
   templateUrl: './form-hbitaciones.component.html',
-  styleUrl: './form-hbitaciones.component.css'
+  styleUrls: ['./form-hbitaciones.component.css']
 })
 export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   map!: Map;
   previewImage: string | ArrayBuffer = '';
-  public habitaciones: Habitaciones = new Habitaciones()
-  public titulo: string = "Crear Habitación"
+  public habitaciones: Habitaciones = new Habitaciones();
+  public titulo: string = "Crear Habitación";
   categorias: categorias[] = [];
 
-
-  previewImage1: string | ArrayBuffer = '';
-  previewImage2: string | ArrayBuffer = '';
-  previewImage3: string | ArrayBuffer = '';
-
+  previewImage1: string | ArrayBuffer | null = null;
+  previewImage2: string | ArrayBuffer | null = null;
+  previewImage3: string | ArrayBuffer | null = null;
+  
 
   recepcionistas: Recepcionista[] = []; // Lista de recepcionistas
   recepcionistaSeleccionado: number | null = null; // ID del recepcionista seleccionado
-  //recepcionistaSeleccionado?: number; // Cambiado null por
 
   constructor(
     private habitacionService: HabitacionesService, 
-    private recepcionistaService: RecepcionistaService,//servicio
+    private recepcionistaService: RecepcionistaService, // Servicio
     private router1: Router, 
     private activateRoute: ActivatedRoute,
-    private categoriasService: CategoriasService,) { }
+    private categoriasService: CategoriasService
+  ) { }
 
   ngOnInit(): void {
     this.cargarhabitacion();
     this.cargarCategorias();
     this.obtenerRecepcionistas();
-   
   }
 
   obtenerRecepcionistas(): void {
@@ -69,51 +66,41 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     );
   }
 
-
   ngAfterViewInit(): void {
     this.initMap();
   }
 
   cargarhabitacion(): void {
-    
-
     this.activateRoute.params.subscribe(params => {
-      let id = params['id']
+      let id = params['id'];
       if (id) {
         this.habitacionService.getHabitacionesid(id).subscribe(
-          (habitacion) => 
-            this.habitaciones = habitacion);
+          (habitacion) => this.habitaciones = habitacion
+        );
         if (this.habitaciones.foto == '') {
           this.previewImage = '';
-
         } else {
           this.previewImage = this.habitaciones.foto;
         }
       }
-    })
+    });
   }
 
-
   public createHabitacion(): void {
-    
     this.habitaciones.estado = 'Disponible';
-    
     this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado || 0;
 
-
-    
     this.habitacionService.create(this.habitaciones).subscribe(
       habitacion => {
-        this.router1.navigate(['/provedores'])
-        Swal.fire('Habitacion guardado', `Habitacion ${habitacion.idHabitaciones} guardado con exito`, 'success')
+        this.router1.navigate(['/provedores']);
+        Swal.fire('Habitacion guardada', `Habitacion ${habitacion.idHabitaciones} guardada con exito`, 'success');
       },
       error => {
         console.error('Error al guardar la habitación:', error);
         Swal.fire('Error', 'No se pudo guardar la habitación', 'error');
       }
-    )
+    );
   }
-  
 
   cargarCategorias(): void {
     this.categoriasService.getCategorias().subscribe(data => {
@@ -123,50 +110,81 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
 
   // Cuando seleccionas una categoría
   onCategoriaSelect(idCategoria: number): void {
-    // Aquí, `idCategoria` es el ID de la categoría seleccionada
     this.categoriasService.getCategoria(idCategoria).subscribe(categoria => {
       console.log('Categoría seleccionada:', categoria);
       this.habitaciones.idCategoria = categoria.idCategoria; // Guardamos el idCategoria en habitaciones
-      // Aquí puedes hacer lo que necesites con la categoría seleccionada.
     });
   }
 
-
-  onFileSelected(event: any, field: string) {
-    const file = event.target.files[0];
-    
-    if (!file) return; // Si no hay archivo seleccionado, salir.
-
-    const reader = new FileReader();
-    reader.onload = () => {
-        const base64String = reader.result as string;
-        
-        switch (field) {
-            case 'foto':
-                this.habitaciones.foto = base64String;
-                this.previewImage1 = base64String;
-                break;
-            case 'foto1':
-                this.habitaciones.foto1 = base64String;
-                this.previewImage2 = base64String;
-                break;
-            case 'foto2':
-                this.habitaciones.foto2 = base64String;
-                this.previewImage3 = base64String;
-                break;
-        }
-    };
-    reader.readAsDataURL(file);
+  // Función para redimensionar la imagen a 350x200 y convertirla a Base64
+  resizeAndConvertImage(file: File, width: number, height: number): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = width;
+                canvas.height = height;
+                ctx?.drawImage(img, 0, 0, width, height);
+                const base64String = canvas.toDataURL(file.type); // Obtener la cadena base64
+                resolve(base64String);
+            };
+            img.onerror = reject;
+            img.src = event.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file); // Leer el archivo como URL de datos
+    });
 }
 
-
-
   convertToBase64(): void {
-    if (this.previewImage) {
-      const base64String = this.previewImage.toString();
-      this.habitaciones.foto = base64String;
+    console.log('Converting images to base64...');
+
+    // Verifica si las imágenes de vista previa están definidas
+    if (this.previewImage1) {
+      this.habitaciones.foto = this.previewImage1.toString();
     }
+
+    if (this.previewImage2) {
+      this.habitaciones.foto1 = this.previewImage2.toString();
+    }
+
+    if (this.previewImage3) {
+      this.habitaciones.foto2 = this.previewImage3.toString();
+    }
+
+    console.log('Fotos convertidas a base64 y asignadas:', this.habitaciones);
   }
+
+  // Maneja el evento de selección de archivo y redimensiona la imagen
+  onFileSelected(event: any, field: string): void {
+    const file = event.target.files[0];
+    
+    if (file) {
+        // Llamada a la función de redimensionamiento y conversión a base64
+        this.resizeAndConvertImage(file, 350, 200).then((base64String) => {
+            switch (field) {
+                case 'foto':
+                    this.habitaciones.foto = base64String;
+                    this.previewImage1 = base64String; // Asignamos la imagen al campo
+                    break;
+                case 'foto1':
+                    this.habitaciones.foto1 = base64String;
+                    this.previewImage2 = base64String; // Asignamos la imagen al campo
+                    break;
+                case 'foto2':
+                    this.habitaciones.foto2 = base64String;
+                    this.previewImage3 = base64String; // Asignamos la imagen al campo
+                    break;
+            }
+        }).catch(error => {
+            console.error('Error al redimensionar la imagen:', error);
+        });
+    }
+}
+  
 
   private initMap(): void {
     this.map = new Map({
