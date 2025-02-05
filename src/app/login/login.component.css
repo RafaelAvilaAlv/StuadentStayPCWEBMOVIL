@@ -1,42 +1,65 @@
+/* Reset para eliminar márgenes y evitar scroll */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Evita el desplazamiento */
+  font-family: 'Roboto', sans-serif;
+}
+
 /* Fondo general con degradado azul y celeste */
 .login-container {
+  min-height: 100vh;
+  max-height: 100vh; /* Evita desbordamientos */
+  overflow: hidden; /* No permitir scroll */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(175deg, #24335b, #2983ad, #e39453); /* Azul oscuro a celeste claro */
-  font-family: 'Roboto', sans-serif;
-  color: #ffffff;
-  padding: 20px;
+  background: linear-gradient(175deg, #a3a9b1, #6199a4, #4d4fb1);
+  padding: 0; /* Elimina padding extra */
 }
+
 
 /* Tarjeta del login */
 .login-card {
   background: #ffffff;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
   text-align: center;
-  color: #333333;
-  border: 1px solid #e4e4e4;
+  color: #2a2a2a;
+  border: 1px solid rgba(217, 217, 217, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
 }
 
 /* Logo */
 .logo {
-  width: 100px;
+  width: 230px; /* Ajuste de tamaño para balance visual */
   margin-bottom: 20px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
 }
 
 /* Título */
 .login-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #1e3a8a;
-  font-weight: bold;
+  font-size: 26px;
+  margin-bottom: 18px;
+  color: #2b6883;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Campos de texto */
@@ -44,52 +67,53 @@
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   font-size: 16px;
-  background: #fdfdfd;
+  background: #f4f8fc;
   outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus {
-  border-color: #1e3a8a;
-  box-shadow: 0 0 8px rgba(30, 58, 138, 0.2);
+  border-color: #2b6883;
+  box-shadow: 0 0 12px rgba(43, 104, 131, 0.3);
 }
 
 /* Botón */
 .btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 16px;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   color: #ffffff;
-  background: linear-gradient(90deg, #1e3a8a, #4fc3f7); /* Azul a celeste */
-  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  background: linear-gradient(90deg, #2b6883, #4fa0d0);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn:hover {
-  background: linear-gradient(90deg, #4fc3f7, #1e3a8a); /* Invertir degradado */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transform: scale(1.02);
+  background: linear-gradient(90deg, #4fa0d0, #2b6883);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  transform: scale(1.04);
 }
 
 /* Redirección */
 .redirection-buttons {
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 .register-link {
-  color: #1e3a8a;
+  color: #2b6883;
   font-size: 14px;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
+  font-weight: 500;
 }
 
 .register-link:hover {
-  color: #4fc3f7;
+  color: #4fa0d0;
   text-decoration: underline;
 }

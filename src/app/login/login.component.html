@@ -1,13 +1,13 @@
 <div class="login-container">
   <div class="login-card">
-    <img src="assets/imagen/logostudent.png" alt="StudentStay Logo" class="logo">
+    <img src="assets/imagen/LOGOPRUEBA.png" alt="StudentStay Logo" class="logo">
     <h2 class="login-title">Iniciar Sesión</h2>
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <input class="form-control" type="text" id="usuario" placeholder="Usuario" formControlName="usuario" />
+        <input class="form-control" type="text" id="usuario" placeholder="Email Adress" formControlName="usuario" />
       </div>
       <div class="form-group">
-        <input class="form-control" type="password" id="contraneusu" placeholder="Contraseña" formControlName="contraneusu" />
+        <input class="form-control" type="password" id="contraneusu" placeholder="Password" formControlName="contraneusu" />
       </div>
       <button type="submit" class="btn btn-gradient">Ingresar</button>
     </form>
