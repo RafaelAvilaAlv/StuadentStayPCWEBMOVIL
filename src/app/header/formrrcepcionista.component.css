@@ -1,62 +1,85 @@
-/* Barra de navegación */
+/* Importar fuente Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Navbar */
 .navbar-custom {
-  background: linear-gradient(135deg, #00416a, #e4e5e6);
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f9fafc;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Logo */
-.navbar-brand img {
-  width: 120px;
-  height: auto;
+.logo {
+  height: 70px; /* Tamaño más grande */
+  width: auto;
 }
 
-/* Links del menú */
-.nav-link {
-  color: white !important;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 15px;
-  transition: all 0.3s ease-in-out;
-  text-transform: uppercase;
-}
-
-.nav-link:hover {
-  color: #ffcc00 !important;
-  transform: scale(1.1);
-}
-
-/* Iconos sociales */
-.social-icons {
+/* Estilo del navbar */
+.navbar-nav {
   display: flex;
-  gap: 15px;
+  align-items: center;
+  gap: 25px;
 }
 
-.social-icons .nav-link i {
-  font-size: 20px;
-  color: white;
+.navbar-nav .nav-link {
+  color: #0f2032;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 18px;
+  border-radius: 20px;
   transition: all 0.3s ease-in-out;
 }
 
-.social-icons .nav-link i:hover {
-  color: #ffcc00;
+.navbar-nav .nav-link:hover {
+  background: linear-gradient(90deg, #0077B6, #00AEEF);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Iconos de redes sociales */
+.social-icons {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Aumentado para más separación */
+  margin-left: 10px;
+}
+
+.social-icons a {
+  color: #0f2032;
+  font-size: 20px;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.social-icons a:hover {
+  color: #00AEEF;
   transform: scale(1.2);
 }
 
-/* Botón de cerrar sesión */
-.btn-logout {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+/* Botón de cerrar sesión con más separación */
+.logout-container {
+  margin-left: 50px; /* Más separación */
 }
 
-.btn-logout:hover {
-  background-color: #cc0000;
-  transform: scale(1.1);
+.logout-btn {
+  background: linear-gradient(90deg, #d45a5a, #f11717);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(90deg, #b84848, #d10f0f);
+  transform: scale(1.05);
 }

@@ -1,21 +1,45 @@
+/* Estilos del Carrusel */
 .carousel-item.active {
-  height: 100vh;
+  height: 80vh; /* Reducido para mejor visualización en móviles */
 }
 
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta la imagen sin distorsión */
+}
 
 .carousel-item:nth-child(1) {
-
   background-repeat: no-repeat;
-  background-size: 100cap;
+  background-size: cover; /* Cambio de 100cap a cover */
   background-position: center center;
 }
 
+/* Ajuste para pantallas grandes */
 @media (min-width: 992px) {
   #introCarousel {
-    margin-top: -58.59px;
+    margin-top: -60px; /* Ajustado para evitar cortes */
   }
 }
 
+/* Barra de Navegación */
 .navbar .nav-link {
   color: #121111 !important;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+  color: #007bff !important; /* Cambio de color en hover */
+}
+
+/* Ajuste en móviles para evitar colapsos */
+@media (max-width: 768px) {
+  .carousel-item.active {
+    height: 60vh;
+  }
+
+  .navbar .nav-link {
+    font-size: 16px; /* Tamaño más legible en pantallas pequeñas */
+  }
 }
