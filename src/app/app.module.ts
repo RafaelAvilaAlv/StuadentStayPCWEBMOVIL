@@ -57,6 +57,9 @@ import { FormhistorialComponent } from './reservas/formhistorial.component';
 import { FormFacturaHistorialComponent } from './reservas/form-factura-historial.component';
 import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
+import { HabitacionesReceComponent } from './habitaciones/habitacionesrece';
+//import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
+//import { HabitacionesRecepComponent } from './habitaciones/habitaciones-recep/habitaciones-recep.component';
 
 
 const routes: Routes = [
@@ -91,7 +94,9 @@ const routes: Routes = [
   { path: 'registroC', component: RegistroCComponent },
   { path: 'recepcionista', component: RecepcionistaComponent },
   { path: 'recepcionista/form', component: FormRecepcionistaComponent },
-  { path: 'registroC/form/:cedula_persona', component: FormRCComponent }
+  { path: 'registroC/form/:cedula_persona', component: FormRCComponent },
+  //{ path: 'habitacionesrece', component: HabitacionesReceComponent },
+  
 ];
 
 
@@ -109,6 +114,7 @@ const routes: Routes = [
         PanelServiciosReservasComponent,
         HabitacionesComponent,
         HabitacionesComponent,
+       /// HabitacionesReceComponent,
         CarrucelComponent,
         FormPanelControlComponent,
         FormHbitacionesComponent,
@@ -130,6 +136,8 @@ const routes: Routes = [
         FormFacturaHistorialComponent,
         ClientesListaComponent,
         ClienteDetalleComponent,
+        //HabitacionesRecepComponent,
+        //HabitacionesRecepComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

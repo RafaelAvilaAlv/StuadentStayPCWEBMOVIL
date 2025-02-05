@@ -1,0 +1,35 @@
+<div class="container-custom">
+    <br>
+    <div class="principal">
+        <main class="table">
+            <section class="table_body">
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Número de Habitación</th>
+                            <th>Número de Piso</th>
+                            <th>Precio</th>
+                            <th>ID Recepcionista</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let habitacion of habitaciones; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ habitacion.nHabitacion }}</td>
+                            <td>{{ habitacion.nPiso }}</td>
+                            <td>{{ habitacion.precio }}</td>
+                            <td>{{ habitacion.idRecepcionista }}</td>
+                        </tr>
+                        <tr *ngIf="habitaciones.length === 0">
+                            <td colspan="5">No hay habitaciones registradas.</td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </section>
+        </main>
+    </div>
+    <br>
+</div>

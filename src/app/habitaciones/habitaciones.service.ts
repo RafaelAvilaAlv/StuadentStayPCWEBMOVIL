@@ -45,5 +45,9 @@ export class HabitacionesService {
   getCategoria(id: any): Observable<categorias> {
     return this.http.get<categorias>(`${this.urlEndPoint1}/${id}`);
   }
+  getHabitacionesPorRecepcionista(idRecepcionista: number): Observable<Habitaciones[]> {
+    return this.http.get<Habitaciones[]>(`${this.urlEndPoint}/recepcionista/${idRecepcionista}`);
+  }
+  
 
 }

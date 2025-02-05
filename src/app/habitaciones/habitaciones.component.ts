@@ -16,6 +16,10 @@ import { Vector as VectorSource } from 'ol/source';
 import { Style } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 
+import { Router } from '@angular/router';
+
+
+
 @Component({
   selector: 'app-habitaciones',
   templateUrl: './habitaciones.component.html',
@@ -34,14 +38,24 @@ export class HabitacionesComponent implements OnInit {
 
   constructor(
     private habitacionesService: HabitacionesService,
-    private elRef: ElementRef
-  ) {}
+    private elRef: ElementRef,
+    private router: Router
+  ) { }
+  cargarMisHabitaciones(): void {
+    this.router.navigate(['/habitaciones/habitacionesrece']);
+}
+
+
 
   ngOnInit(): void {
+    const idRecepcionista = this.obtenerIdRecepcionista(); // Método para obtener el ID del recepcionista actual
     this.habitacionesService.getHabitaciones().subscribe(
       habitaciones => {
         const habitacionesDisponibles = habitaciones.filter(h => h.estado === 'Disponible');
         const habitacionesNoDisponibles = habitaciones.filter(h => h.estado !== 'Disponible');
+
+        // Filtrar habitaciones del recepcionista
+        this.habitaciones = habitaciones.filter(h => h.idRecepcionista === idRecepcionista);
 
         // Estadísticas
         const totalHabitaciones = habitaciones.length;
@@ -83,61 +97,68 @@ export class HabitacionesComponent implements OnInit {
     );
   }
 
-// Inicializar mapa
-initMapForRoom(habitacion: Habitaciones): void {
-  const mapElement = this.elRef.nativeElement.querySelector(`#map-${habitacion.idHabitaciones}`);
-  if (!mapElement || habitacion.longitud == null || habitacion.latitud == null) {
-    return;
-  }
-
-  const coordinates = fromLonLat([habitacion.longitud, habitacion.latitud]);
-
-  const map = new Map({
-    target: mapElement,
-    layers: [
-      new TileLayer({
-        source: new OSM()
-      })
-    ],
-    view: new View({
-      center: coordinates,
-      zoom: 14
-    })
-  });
-
-  this.addMarkerToMap(map, habitacion);
+  // Método para obtener el ID del recepcionista desde el localStorage o sesión
+obtenerIdRecepcionista(): number {
+  return Number(localStorage.getItem('usuario')); // Ajusta según cómo almacenes el usuario
 }
 
-addMarkerToMap(map: Map, habitacion: Habitaciones): void {
-  if (habitacion.longitud == null || habitacion.latitud == null) {
-    return;
+
+
+  // Inicializar mapa
+  initMapForRoom(habitacion: Habitaciones): void {
+    const mapElement = this.elRef.nativeElement.querySelector(`#map-${habitacion.idHabitaciones}`);
+    if (!mapElement || habitacion.longitud == null || habitacion.latitud == null) {
+      return;
+    }
+
+    const coordinates = fromLonLat([habitacion.longitud, habitacion.latitud]);
+
+    const map = new Map({
+      target: mapElement,
+      layers: [
+        new TileLayer({
+          source: new OSM()
+        })
+      ],
+      view: new View({
+        center: coordinates,
+        zoom: 14
+      })
+    });
+
+    this.addMarkerToMap(map, habitacion);
   }
 
-  const coordinates = fromLonLat([habitacion.longitud, habitacion.latitud]);
+  addMarkerToMap(map: Map, habitacion: Habitaciones): void {
+    if (habitacion.longitud == null || habitacion.latitud == null) {
+      return;
+    }
 
-  const marker = new Feature({
-    geometry: new Point(coordinates)
-  });
+    const coordinates = fromLonLat([habitacion.longitud, habitacion.latitud]);
 
-  marker.setStyle(
-    new Style({
-      image: new Icon({
-        src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-        scale: 0.06,
+    const marker = new Feature({
+      geometry: new Point(coordinates)
+    });
+
+    marker.setStyle(
+      new Style({
+        image: new Icon({
+          src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+          scale: 0.06,
+        })
       })
-    })
-  );
+    );
 
-  const vectorSource = new VectorSource({
-    features: [marker]
-  });
+    const vectorSource = new VectorSource({
+      features: [marker]
+    });
 
-  const vectorLayer = new VectorLayer({
-    source: vectorSource
-  });
+    const vectorLayer = new VectorLayer({
+      source: vectorSource
+    });
 
-  map.addLayer(vectorLayer);
-}
+    map.addLayer(vectorLayer);
+  }
 
 
   delete(habitacion: Habitaciones): void {
@@ -171,4 +192,7 @@ addMarkerToMap(map: Map, habitacion: Habitaciones): void {
     }
     return `linear-gradient(to right, green ${porcentajeDisponible}%, red ${porcentajeNoDisponible}%)`;
   }
+  ///////////////////////////////////////////////////////////////
+
+  ////////////////////////////////////////////////////////////////
 }
