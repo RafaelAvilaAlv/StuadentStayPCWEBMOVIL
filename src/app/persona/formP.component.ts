@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-formP',
   templateUrl: './formP.component.html',
-  styleUrl: './formP.component.css'
+  styleUrls: ['./formP.component.css']
 })
 export class FormPComponent implements OnInit {
   public persona: Persona = new Persona();
@@ -25,8 +25,6 @@ export class FormPComponent implements OnInit {
   public isFilterClicked: boolean = false;
   public selectedProvinceMessage: string = 'Ninguna provincia seleccionada';
   public isProvinciaSelected: boolean = false;
-
-
 
   constructor(
     private personaService: PersonaService,
@@ -43,10 +41,7 @@ export class FormPComponent implements OnInit {
     this.cargarPersona();
     this.cargarCantones();
     this.cargarProvincias();
-
-
   }
-
 
   cargarPersona(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -70,6 +65,40 @@ export class FormPComponent implements OnInit {
     });
   }
 
+  verificarCedulaYAvanzar(): void {
+    // Cambiar el estado a "cargando" o algo similar para evitar que el usuario haga más clics.
+    Swal.fire({
+      title: 'Verificando...',
+      text: 'Verificando la cédula...',
+      allowOutsideClick: false,
+      willOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    this.personaService.verificarCedulaExistente(this.persona.cedula_persona).subscribe(
+      (existe) => {
+        Swal.close(); // Cerrar el loader
+
+        if (existe) {
+          // Mostrar un mensaje de error si la cédula ya está registrada.
+          Swal.fire({
+            icon: 'error',
+            title: 'Cédula ya existe',
+            text: 'La cédula ingresada ya está registrada. Por favor, ingrese una cédula diferente.',
+          });
+        } else {
+          // Si la cédula no existe, entonces podemos continuar con el proceso
+          this.crearEditarPersona();
+        }
+      },
+      (error) => {
+        Swal.close(); // Cerrar el loader en caso de error
+        console.error('Error al verificar la cédula', error);
+        Swal.fire('Error', 'Hubo un error al verificar la cédula. Intente nuevamente.', 'error');
+      }
+    );
+  }
 
   filtrarCantonesPorProvincia(): void {
     this.cantonesFiltrados = [];
@@ -100,11 +129,11 @@ export class FormPComponent implements OnInit {
     this.personaService.createPersona(this.persona).subscribe(
       (persona) => {
         this.router.navigate(['/persona']);
-        Swal.fire('Persona guardada', `Persona ${persona.nombre} guardada con éxito formPPPP`, 'success');
+        Swal.fire('Persona guardada', `Persona ${persona.nombre} guardada con éxito`, 'success');
       },
       (error) => {
-        //console.error('Error al crear persona:PPPPP', error);
-        Swal.fire('Error', 'Ocurrió un error al intentar guardar la persona PPPPPPP', 'error');
+        //console.error('Error al crear persona:', error);
+        Swal.fire('Error', 'Ocurrió un error al intentar guardar la persona.', 'error');
       }
     );
   }
@@ -124,13 +153,12 @@ export class FormPComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Ocurrió un error al intentar guardar sus datos. Por favor, datos erroneos o campos incompletos.',
+          text: 'Ocurrió un error al intentar guardar sus datos. Por favor, verifique los datos o campos incompletos.',
           confirmButtonText: 'OK',
         });
       }
     );
   }
-
 
   calcularEdad(): void {
     if (this.persona.fechaNacimiento) {
@@ -139,19 +167,45 @@ export class FormPComponent implements OnInit {
       const edadMilisegundos = hoy.getTime() - fechaNacimiento.getTime();
       const edadFecha = new Date(edadMilisegundos);
       this.persona.edad = Math.abs(edadFecha.getUTCFullYear() - 1970);
+  
+      // Verificar si la persona tiene menos de 18 años
+      if (this.persona.edad < 18) {
+        Swal.fire('Edad no válida', 'Debe tener al menos 18 años para registrarse.', 'error');
+      }
+    }
+  }
 
-      if (this.persona.edad < 5 || this.persona.edad > 100) {
+  // VALIDACIONES
+  onKeyPress(event: any): void {
+    const char = event.key;
 
-        //console.log('Edad fuera del rango permitido');
-      }
+    // No permitir teclas Ctrl, Alt, Meta, Enter, Tab o Backspace
+    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
+      return;
+    }
+
+    // No permitir espacios
+    if (char === ' ') {
+      event.preventDefault();
+      return;
+    }
+
+    // Validar solo letras (y espacios si lo deseas)
+    if (!this.validarLetras(char)) {
+      event.preventDefault();
     }
   }
 
-  //VALIDACIONES
-  onKeyPress(event: any): void {
-    const inputElement = event.target;
+  onKeyPress2(event: any): void {
+    const char = event.key;
 
-    if (!this.validarLetras(event.key)) {
+    // No permitir teclas Ctrl, Alt, Meta, Enter, Tab o Backspace
+    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
+      return;
+    }
+
+    // Validar solo letras (y permitir espacios)
+    if (!this.validarLetras(char) && char !== ' ') {
       event.preventDefault();
     }
   }
@@ -166,11 +220,10 @@ export class FormPComponent implements OnInit {
     }
   }
 
-
   validarLetras(char: string): boolean {
-
     return /^[a-zA-Z\s]*$/.test(char);
   }
+
   validarNumeros(char: string): boolean {
     return /^[0-9]*$/.test(char);
   }

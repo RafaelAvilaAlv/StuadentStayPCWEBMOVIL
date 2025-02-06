@@ -14,7 +14,7 @@ export class PersonaService {
   private urlEndPoint: string = `${appConfig.baseUrl}/personas`;
   private httpHeaders = { 'Content-Type': 'application/json' };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlEndPoint);
@@ -25,18 +25,15 @@ export class PersonaService {
   }
 
   createPersona(persona: Persona): Observable<Persona> {
-    return this.http.post<Persona>(this.urlEndPoint, persona, { headers: this.httpHeaders })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          //console.error('Error al crear persona:', error);
-
-          if (error.status === 500) {
-            return throwError('Ocurrió un error interno en el servidor. Por favor, inténtalo nuevamente más tarde.');
-          } else {
-            return throwError('Ocurrió un error. Por favor, verifica tus datos e inténtalo nuevamente.');
-          }
-        })
-      );
+    return this.http.post<Persona>(this.urlEndPoint, persona, { headers: this.httpHeaders }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 500) {
+          return throwError('Ocurrió un error interno en el servidor. Por favor, inténtalo nuevamente más tarde.');
+        } else {
+          return throwError('Ocurrió un error. Por favor, verifica tus datos e inténtalo nuevamente.');
+        }
+      })
+    );
   }
 
   updatePersona(persona: Persona): Observable<Persona> {
@@ -47,9 +44,7 @@ export class PersonaService {
     return this.http.delete<void>(`${this.urlEndPoint}/${cedula}`);
   }
 
-
   getCantones(): Observable<Cantones[]> {
-
     return this.http.get<Cantones[]>(`${this.urlEndPoint}/Cantons`);
   }
 
@@ -61,5 +56,8 @@ export class PersonaService {
     return this.http.get<Persona[]>(`${this.urlEndPoint}/${cedula}`);
   }
 
-
+  // Nueva función para verificar si la cédula ya está registrada
+  verificarCedulaExistente(cedula: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.urlEndPoint}/verificarCedula/${cedula}`);
+  }
 }

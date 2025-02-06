@@ -95,36 +95,55 @@
       </div>
     </div>
 
-<!-- Contacto de Emergencia -->
-<h3>Contacto de Emergencia</h3>
+    <!-- Contacto de Emergencia -->
+    <h3>Contacto de Emergencia</h3>
 
-<div class="form-row">
-  <div class="form-group">
-    <label for="nombreContactoEmergencia">Nombre del Contacto:</label>
-    <input type="text" id="nombreContactoEmergencia" [(ngModel)]="persona.nombreContactoEmergencia" name="nombreContactoEmergencia" required placeholder="Nombre del contacto">
-  </div>
-  <div class="form-group">
-    <label for="telefonoContactoEmergencia">Teléfono:</label>
-    <input type="text" id="telefonoContactoEmergencia" [(ngModel)]="persona.telefonoContactoEmergencia" name="telefonoContactoEmergencia" required placeholder="Teléfono del contacto">
-  </div>
-  <div class="form-group">
-    <label for="parentescoContactoEmergencia">Parentesco:</label>
-    <select id="parentescoContactoEmergencia" [(ngModel)]="persona.parentescoContactoEmergencia" name="parentescoContactoEmergencia" required>
-      <option value="" disabled selected>Selecciona una opción</option>
-      <option value="Padre">Padre</option>
-      <option value="Madre">Madre</option>
-      <option value="Hermano/a">Hermano/a</option>
-      <option value="Amigo/a">Amigo/a</option>
-      <option value="Vecino/a">Vecino/a</option>
-      <option value="Otro">Otro</option>
-    </select>
-  </div>
-</div>
-
-
-    <!-- Botón de Siguiente -->
     <div class="form-row">
-      <button type="button" (click)="irARegistroC()" class="next-button">Siguiente</button>
+      <div class="form-group">
+        <label for="nombreContactoEmergencia">Nombre del Contacto:</label>
+        <input type="text" 
+               id="nombreContactoEmergencia" 
+               [(ngModel)]="persona.nombreContactoEmergencia" 
+               name="nombreContactoEmergencia" 
+               required 
+               placeholder="Nombre del contacto" 
+               (keypress)="onKeyPress($event)">
+      </div>
+
+      <div class="form-group">
+        <label for="telefonoContactoEmergencia">Teléfono:</label>
+        <input type="text" 
+               id="telefonoContactoEmergencia" 
+               [(ngModel)]="persona.telefonoContactoEmergencia" 
+               name="telefonoContactoEmergencia" 
+               required 
+               (keydown)="onKeyPressNumeros($event)" 
+               maxlength="10" 
+               placeholder="Ingresa el teléfono del contacto de emergencia">
+      </div>
+      
+
+      <div class="form-group">
+        <label for="parentescoContactoEmergencia">Parentesco:</label>
+        <select id="parentescoContactoEmergencia" 
+                [(ngModel)]="persona.parentescoContactoEmergencia" 
+                name="parentescoContactoEmergencia" 
+                required>
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option value="Padre">Padre</option>
+          <option value="Madre">Madre</option>
+          <option value="Hermano/a">Hermano/a</option>
+          <option value="Amigo/a">Amigo/a</option>
+          <option value="Vecino/a">Vecino/a</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
     </div>
+
+   <!-- Botón de Siguiente -->
+   <div class="form-row">
+    <button type="button" (click)="irARegistroC()" class="next-button">Siguiente</button>
+  </div>
+
   </form>
 </div>
