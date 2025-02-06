@@ -183,7 +183,6 @@ export class FormReservasComponent implements OnInit {
     this.reserva.dias = this.diferenciadias;
     this.calcularTotal(this.preciohabi, this.diferenciadias);
   }
-  
 
   calcularTotal(nuevovalor: number, precio: number) {
     this.total = precio * nuevovalor;
