@@ -47,5 +47,8 @@
         background-color: #ffdb4d;
         transform: scale(1.05);
     }
+    .border-custom {
+        border: 2px solid black; /* Cambié el borde a negro */
+      }
 
 
