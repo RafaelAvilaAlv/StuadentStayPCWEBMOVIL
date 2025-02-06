@@ -196,7 +196,7 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
       ],
       view: new View({
         center: fromLonLat([-79.0046, -2.9006]),
-        zoom: 14,
+        zoom: 17,
       }),
       controls: [
         new Zoom(),

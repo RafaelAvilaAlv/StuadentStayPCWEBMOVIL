@@ -122,7 +122,7 @@ obtenerIdRecepcionista(): number {
       ],
       view: new View({
         center: coordinates,
-        zoom: 14
+        zoom: 18
       })
     });
 
