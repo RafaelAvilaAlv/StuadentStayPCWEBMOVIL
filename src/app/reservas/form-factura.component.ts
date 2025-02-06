@@ -16,7 +16,6 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AuthService } from '../auth.service';
 
-
 @Component({
   selector: 'app-form-factura',
   templateUrl: './form-factura.component.html',
@@ -24,8 +23,10 @@ import { AuthService } from '../auth.service';
 })
 export class FormFacturaComponent implements OnInit {
   cedula_persona: any;
+
   constructor(private inicio: AuthService, private sevicePersona: PersonaService, private serviceReserva: ReservaService, private seviceEncabezado: EncabezadoFacturaService,
-  private serviceDetalle: DetalleFacturaService, private serviceClietne: ClienteService, private serviceHabitacion: HabitacionesService) { }
+    private serviceDetalle: DetalleFacturaService, private serviceClietne: ClienteService, private serviceHabitacion: HabitacionesService) { }
+
   public cliente: Cliente = new Cliente();
   public persona: Persona = new Persona();
   public reserva: Reserva = new Reserva();
@@ -41,26 +42,24 @@ export class FormFacturaComponent implements OnInit {
       this.cargarDetalle(),
       this.cargarHabitacion()
   }
-  cargar(): void {
 
+  cargar(): void {
     // console.log('IDCLIENTE' + this.inicio.idUsuario)
     // console.log('IDRESERVA' + this.inicio.idReserva)
     // console.log('IDENCABEZADO' + this.inicio.idEncabezado)
     // console.log('IDETALLE' + this.inicio.idDetalle)
-
   }
 
   cargarUsuario(): void {
     this.serviceClietne.getCliente(this.inicio.idUsuario).subscribe(
       (response) => {
-        //console.log('IDETALLE' + response)
+        console.log('Cliente cargado correctamente');
         this.cliente = response;
-        // console.log('IDETALLE' + this.cliente)
         this.cedula_persona = response.cedula_persona;
         this.cargarPersona();
       },
       (error) => {
-        // console.error(error);
+        console.error('Error al cargar cliente:', error);
       }
     );
   }
@@ -68,12 +67,11 @@ export class FormFacturaComponent implements OnInit {
   cargarPersona(): void {
     this.sevicePersona.getPersona(this.cedula_persona).subscribe(
       (response) => {
-        // console.log('IDETALLE' + response)
+        console.log('Persona cargada correctamente');
         this.persona = response;
-        // console.log('IDETALLE' + this.cliente)
       },
       (error) => {
-        // console.error(error);
+        console.error('Error al cargar persona:', error);
       }
     );
   }
@@ -81,12 +79,11 @@ export class FormFacturaComponent implements OnInit {
   cargarReserva(): void {
     this.serviceReserva.getreserva(this.inicio.idReserva).subscribe(
       (response) => {
-        // console.log('IDETALLE'+response)
+        console.log('Reserva cargada correctamente');
         this.reserva = response;
-
       },
       (error) => {
-        // console.error(error);
+        console.error('Error al cargar reserva:', error);
       }
     );
   }
@@ -94,33 +91,39 @@ export class FormFacturaComponent implements OnInit {
   cargarEncabezado(): void {
     this.seviceEncabezado.getreserva(this.inicio.idEncabezado).subscribe(
       (response) => {
+        console.log('Encabezado cargado correctamente');
         this.encabezado = response;
       },
       (error) => {
-        // console.error(error);
+        console.error('Error al cargar encabezado:', error);
       }
     );
   }
+
   cargarDetalle(): void {
     this.serviceDetalle.getreserva(this.inicio.idDetalle).subscribe(
       (response) => {
+        console.log('Detalle cargado correctamente');
         this.detallet = response;
       },
       (error) => {
-        // console.error(error);
+        console.error('Error al cargar detalle:', error);
       }
     );
   }
+
   cargarHabitacion(): void {
     this.serviceHabitacion.getHabitacionesid(this.inicio.idHabitacion).subscribe(
       (response) => {
+        console.log('Habitación cargada correctamente');
         this.habitacion = response;
       },
       (error) => {
-        // console.error(error);
+        console.error('Error al cargar habitación:', error);
       }
     );
   }
+
   downloadPDF() {
     const DATA: any = document.getElementById('htmlData');
     const doc = new jsPDF('p', 'pt', 'a4');
@@ -140,8 +143,7 @@ export class FormFacturaComponent implements OnInit {
 
       const fileName = `${new Date().toISOString()}_zhotel.pdf`;
       doc.save(fileName);
+      console.log('PDF descargado correctamente');
     });
   }
-
-
 }

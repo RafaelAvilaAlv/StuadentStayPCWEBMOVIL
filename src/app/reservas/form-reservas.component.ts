@@ -159,17 +159,31 @@ export class FormReservasComponent implements OnInit {
   }
 
   calcularDiferenciaDeDias() {
-    if (this.fechaEntrada.length != 0 && this.fechaSalida.length != 0) {
-      const fechaInicio = new Date(this.fechaEntrada);
-      const fechaFin = new Date(this.fechaSalida);
-      this.reserva.fechaEntrada = fechaInicio.toJSON().split('T')[0];
-      this.reserva.fechaSalida = fechaFin.toJSON().split('T')[0];
-      const diferenciaMs = fechaFin.getTime() - fechaInicio.getTime();
-      this.diferenciadias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
-      this.reserva.dias = this.diferenciadias;
-      this.calcularTotal(this.preciohabi, this.diferenciadias);
+    const fechaHoy = new Date();  // Fecha actual
+  
+    // Validación de la fecha de entrada (no puede ser antes de hoy)
+    const fechaInicio = new Date(this.fechaEntrada);
+    if (fechaInicio < fechaHoy) {
+      Swal.fire('Fecha inválida', 'La fecha de entrada no puede ser anterior a la fecha actual.', 'error');
+      return;
     }
+  
+    // Validación de la fecha de salida (no puede ser antes de la fecha de entrada)
+    const fechaFin = new Date(this.fechaSalida);
+    if (fechaFin < fechaInicio) {
+      Swal.fire('Fecha inválida', 'La fecha de salida no puede ser anterior a la fecha de entrada.', 'error');
+      return;
+    }
+  
+    // Si las fechas son válidas, calcular la diferencia
+    this.reserva.fechaEntrada = fechaInicio.toJSON().split('T')[0];
+    this.reserva.fechaSalida = fechaFin.toJSON().split('T')[0];
+    const diferenciaMs = fechaFin.getTime() - fechaInicio.getTime();
+    this.diferenciadias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
+    this.reserva.dias = this.diferenciadias;
+    this.calcularTotal(this.preciohabi, this.diferenciadias);
   }
+  
 
   calcularTotal(nuevovalor: number, precio: number) {
     this.total = precio * nuevovalor;
