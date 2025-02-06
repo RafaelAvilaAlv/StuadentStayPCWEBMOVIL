@@ -1,14 +1,23 @@
 <div class="registration-container">
-  <img src="assets/imagen/logoLOG.png" alt="Logo" class="logo">
+  <img src="assets/imagen/LOGOPRUEBA.png" alt="Logo" class="logo">
   <h2>REGISTRO</h2>
   <form [formGroup]="formRC">
     <!-- Campo Usuario -->
     <label for="usuario">Usuario:</label>
     <input type="text" id="usuario" formControlName="usuario" required>
+    <div *ngIf="formRC.get('usuario')?.invalid && formRC.get('usuario')?.touched" class="error-message">
+      <small *ngIf="formRC.get('usuario')?.errors?.['required']">El correo es obligatorio.</small>
+      <small *ngIf="formRC.get('usuario')?.errors?.['email']">Debe ser un correo válido.</small>
+    </div>
 
     <!-- Campo Contraseña -->
     <label for="contrasena">Contraseña:</label>
     <input type="password" id="contrasena" formControlName="contrasena" required>
+    <div *ngIf="formRC.get('contrasena')?.invalid && formRC.get('contrasena')?.touched" class="error-message">
+      <small *ngIf="formRC.get('contrasena')?.errors?.['required']">La contraseña es obligatoria.</small>
+      <small *ngIf="formRC.get('contrasena')?.errors?.['minlength']">Debe tener al menos 8 caracteres.</small>
+      <small *ngIf="formRC.get('contrasena')?.errors?.['pattern']">Debe contener una mayúscula, una minúscula, un número y un carácter especial.</small>
+    </div>
 
     <!-- Campo Foto -->
     <label for="foto">Foto:</label>

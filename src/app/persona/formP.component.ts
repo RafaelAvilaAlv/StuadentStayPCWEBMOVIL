@@ -134,7 +134,7 @@ export class FormPComponent implements OnInit {
 
 
 
-  
+
   calcularEdad(): void {
     if (this.persona.fechaNacimiento) {
       const hoy = new Date();
@@ -142,13 +142,13 @@ export class FormPComponent implements OnInit {
       const edadMilisegundos = hoy.getTime() - fechaNacimiento.getTime();
       const edadFecha = new Date(edadMilisegundos);
       this.persona.edad = Math.abs(edadFecha.getUTCFullYear() - 1970);
-
-      if (this.persona.edad < 5 || this.persona.edad > 100) {
-
-        //console.log('Edad fuera del rango permitido');
-      }
-    }
-  }
+  
+      // Verificar si la persona tiene menos de 18 años
+      if (this.persona.edad < 18) {
+        Swal.fire('Edad no válida', 'Debe tener al menos 18 años para registrarse.', 'error');
+      }
+    }
+  }
 
   //VALIDACIONES
   onKeyPress(event: any): void {
