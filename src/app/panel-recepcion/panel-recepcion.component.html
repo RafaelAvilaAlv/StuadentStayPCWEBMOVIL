@@ -1,44 +1,64 @@
-<div class="card border-primary mb-3 shadow-lg">
-  <div class="card-body text-primary">
-    <h3 class="card-title text-center">Listados</h3>
-    
-    <!-- Botón para actualizar información -->
-    <div class="my-2 text-left">
-      <button class="btn btn-rounded btn-primary mr-3" (click)="cargarInformacion(); cargarRecepcionistas()" [disabled]="loading">
-        <span *ngIf="!loading">Actualizar Datos</span>
-        <span *ngIf="loading">
-          <img src="https://iris.aerocivil.gov.co/Content/Images/loading-38.gif" alt="Cargando..." width="20" height="20">
-        </span>
-      </button>
-    </div>
-
-    <!-- Filtro de búsqueda por ID y selección de entidad -->
-    <div class="my-3 d-flex justify-content-between align-items-center">
-      <div>
-        <label for="buscarId" class="mr-2">Buscar por ID:</label>
-        <input type="text" id="buscarId" [(ngModel)]="idABuscar" inputmode="numeric" pattern="[0-9]*" (input)="buscarEnTiempoReal()" (keydown)="onKeyDown($event)" class="form-control d-inline-block w-auto" />
-      </div>
-      
-      <div>
-        <label for="entidadSeleccionada" class="mr-2">Buscar en:</label>
-        <select [(ngModel)]="entidadSeleccionada" class="form-control d-inline-block w-auto">
-          <option value="habitaciones">Habitaciones</option>
-          <option value="recepcionistas">Propietarios</option>
-        </select>
+<div class="container my-5">
+  <!-- Filtros de búsqueda y botón -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h3 class="text-center text-primary">Dashboard</h3>
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary" (click)="cargarInformacion(); cargarRecepcionistas()" [disabled]="loading">
+          <span *ngIf="!loading">Actualizar Datos</span>
+          <span *ngIf="loading">
+            <img src="https://iris.aerocivil.gov.co/Content/Images/loading-38.gif" alt="Cargando..." width="20" height="20">
+          </span>
+        </button>
+        
+        <!-- Filtro de búsqueda -->
+        <div class="d-flex">
+          <input type="text" id="buscarId" [(ngModel)]="idABuscar" class="form-control mr-2" placeholder="Buscar por ID" />
+          <select [(ngModel)]="entidadSeleccionada" class="form-control">
+            <option value="habitaciones">Habitaciones</option>
+            <option value="recepcionistas">Propietarios</option>
+          </select>
+        </div>
       </div>
     </div>
+  </div>
 
-   
+  <!-- Resumen de Datos -->
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-white bg-primary">
+        <div class="card-body text-center">
+          <h5 class="card-title">Propietarios Registrados</h5>
+          <p class="card-text display-4">{{ recepcionistas.length }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-white bg-success">
+        <div class="card-body text-center">
+          <h5 class="card-title">Habitaciones Registradas</h5>
+          <p class="card-text display-4">{{ habitaciones.length }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-white bg-warning">
+        <div class="card-body text-center">
+          <h5 class="card-title">Total de Datos</h5>
+          <p class="card-text display-4">{{ (habitaciones.length + recepcionistas.length) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
- 
-
-    <!-- Tablas de resultados -->
-    <div class="tabla-contenedor">
-      <div class="container" *ngIf="mostrarTabla">
-        <!-- Tabla de Propietarios -->
-        <h4 class="text-center my-4">Lista de Propietarios</h4>
-        <table class="table table-bordered table-striped">
-          <thead>
+  <!-- Tablas de Datos -->
+  <div class="tabla-contenedor">
+    <!-- Propietarios -->
+    <div *ngIf="mostrarTabla">
+      <h4 class="text-center my-4">Lista de Propietarios</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="table-primary">
             <tr>
               <th>ID</th>
               <th>Usuario</th>
@@ -54,66 +74,50 @@
               <td>{{ recepcionista.contrasena }}</td>
               <td>{{ recepcionista.cedula_persona }}</td>
               <td class="text-center">
-                <button type="button" class="btn btn-info btn-sm" [routerLink]="['/recepcionistas/detalle', recepcionista.idRecepcionista]">Ver Detalles</button>
+                <button type="button" class="btn btn-info btn-sm" [routerLink]="['/recepcionistas/detalle', recepcionista.idRecepcionista]">Ver</button>
                 <button type="button" class="btn btn-danger btn-sm ml-2" (click)="eliminarRecepcionista(recepcionista.idRecepcionista)">Eliminar</button>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
 
-        <!-- Tabla de Habitaciones -->
-        <h4 class="text-center my-4">Lista de Habitaciones</h4>
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Habitación</th>
-                <th>Piso</th>
-                <th>Precio</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-                <th>Imagen</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let habitacion of habitaciones">
-                <td>{{ habitacion.idHabitaciones }}</td>
-                <td>{{ habitacion.nHabitacion }}</td>
-                <td>{{ habitacion.nPiso }}</td>
-                <td>{{ habitacion.precio }}</td>
-                <td>{{ habitacion.descriphabi }}</td>
-                <td>{{ habitacion.estado }}</td>
-                <td>
-                  <img src="{{ habitacion.foto }}" alt="Imagen de la habitación" class="img-fluid" style="max-width: 50px; height: auto;">
-                </td>
-                <td class="text-center">
-                  <button type="button" class="btn btn-info btn-sm" [routerLink]="['/habitaciones/form', habitacion.idHabitaciones]">Editar</button>
-                  <button type="button" class="btn btn-danger btn-sm ml-2" (click)="eliminarHabitacion(habitacion.idHabitaciones)">Eliminar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Habitaciones -->
+      <h4 class="text-center my-4">Lista de Habitaciones</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="table-primary">
+            <tr>
+              <th>ID</th>
+              <th>Habitación</th>
+              <th>Piso</th>
+              <th>Precio</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let habitacion of habitaciones">
+              <td>{{ habitacion.idHabitaciones }}</td>
+              <td>{{ habitacion.nHabitacion }}</td>
+              <td>{{ habitacion.nPiso }}</td>
+              <td>{{ habitacion.precio }}</td>
+              <td>{{ habitacion.descriphabi }}</td>
+              <td>{{ habitacion.estado }}</td>
+              <td>
+                <img src="{{ habitacion.foto }}" alt="Imagen de la habitación" class="img-fluid" style="max-width: 50px; height: auto;">
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-info btn-sm" [routerLink]="['/habitaciones/form', habitacion.idHabitaciones]">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-2" (click)="eliminarHabitacion(habitacion.idHabitaciones)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card shadow-sm">
-        <div class="card-body text-center">
-          <h5 class="card-title">Propietarios Registrados </h5>
-          <p class="card-text">{{ recepcionistas.length }}</p> <!-- Mostrar el número de usuarios -->
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card shadow-sm">
-        <div class="card-body text-center">
-          <h5 class="card-title">Habitaciones Registradas</h5>
-          <p class="card-text">{{ habitaciones.length }}</p> <!-- Mostrar ventas totales -->
-        </div>
-      </div>
 </div>
 
