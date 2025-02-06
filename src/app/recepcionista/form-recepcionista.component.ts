@@ -19,7 +19,7 @@ import { ProvinciaService } from '../provincias/provincia.service';
 export class FormRecepcionistaComponent implements OnInit {
   public persona: Persona = new Persona();
   public recepcionista: Recepcionista = new Recepcionista();
-  public titulo: string = 'Crear Recepcionista';
+  public titulo: string = 'Crear Propietario';
   public cantones: Cantones[] = [];
   public cantonesFiltrados: Cantones[] = [];
   public provincias: Provincia[] = [];
@@ -84,7 +84,8 @@ export class FormRecepcionistaComponent implements OnInit {
       const edadMilisegundos = hoy.getTime() - fechaNacimiento.getTime();
       const edadFecha = new Date(edadMilisegundos);
       this.persona.edad = Math.abs(edadFecha.getUTCFullYear() - 1970);
-      if (this.persona.edad < 5 || this.persona.edad > 100) {
+      if (this.persona.edad < 18) {
+        Swal.fire('Edad no válida', 'Debe tener al menos 18 años para registrarse.', 'error');
       }
     }
   }
@@ -94,13 +95,55 @@ export class FormRecepcionistaComponent implements OnInit {
       this.recepcionista.cedula_persona = personaCreada.cedula_persona;
       this.recepcionistaService.create(this.recepcionista).subscribe((recepcionistaCreado) => {
       this.router.navigate(['/panel-recepcion'])
-      Swal.fire('Recepcionista guardado', `Recepcionista ${this.persona.nombre} Guardado con exito`, 'success')
-      //Swal.fire('Recepcionista', `Recepcionista Guardado con exito`, 'success')
+      Swal.fire('Recepcionista guardado', `Recepcionista ${this.persona.nombre} Guardado con éxito`, 'success')
       }, (error) => {
         console.error('Error al guardar el recepcionista: ', error);
       });
     }, (error) => {
       console.error('Error al guardar la persona: ', error);
     });
+  }
+
+  // VALIDACIONES
+  onKeyPress(event: any): void {
+    const char = event.key;
+    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
+      return;
+    }
+    if (char === ' ') {
+      event.preventDefault();
+      return;
+    }
+    if (!this.validarLetras(char)) {
+      event.preventDefault();
+    }
+  }
+
+  onKeyPress2(event: any): void {
+    const char = event.key;
+    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
+      return;
+    }
+    if (!this.validarLetras(char) && char !== ' ') {
+      event.preventDefault();
+    }
+  }
+
+  onKeyPressNumeros(event: KeyboardEvent): void {
+    const char = event.key;
+    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
+      return;
+    }
+    if (!/^[0-9]*$/.test(char)) {
+      event.preventDefault();
+    }
+  }
+
+  validarLetras(char: string): boolean {
+    return /^[a-zA-Z\s]*$/.test(char);
+  }
+
+  validarNumeros(char: string): boolean {
+    return /^[0-9]*$/.test(char);
   }
 }

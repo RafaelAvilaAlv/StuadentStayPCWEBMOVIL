@@ -36,6 +36,10 @@ export class RecepcionistaService {
     return this.http.get<Recepcionista[]>(`${this.urlEndPoint}`);
          
     }
+    verificarCedula(cedula: string): Observable<boolean> {
+      return this.http.get<boolean>(`${this.urlEndPoint}/verificarCedula/${cedula}`);
+    }
+  
     
 
 
