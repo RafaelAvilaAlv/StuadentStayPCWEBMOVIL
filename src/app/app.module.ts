@@ -58,6 +58,8 @@ import { FormFacturaHistorialComponent } from './reservas/form-factura-historial
 import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 import { HabitacionesReceComponent } from './habitaciones/habitacionesrece';
+import { ReservasListaModule } from './reservas-lista/reservas-lista.module';
+//import { ChatbotComponent } from './chatbot/chatbot.component';
 //import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
 //import { HabitacionesRecepComponent } from './habitaciones/habitaciones-recep/habitaciones-recep.component';
 
@@ -136,6 +138,7 @@ const routes: Routes = [
         FormFacturaHistorialComponent,
         ClientesListaComponent,
         ClienteDetalleComponent,
+      //  ChatbotComponent,
         //HabitacionesRecepComponent,
         //HabitacionesRecepComponent,
     ],
@@ -143,7 +146,8 @@ const routes: Routes = [
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(routes)], providers: [
+        RouterModule.forRoot(routes),
+        ReservasListaModule], providers: [
         AuthService,
         ClienteService,
         ReservaService,

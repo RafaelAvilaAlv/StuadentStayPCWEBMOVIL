@@ -1,0 +1,37 @@
+<div class="container-custom">
+    <br>
+    <div class="principal">
+        <main class="table">
+            <section class="table_body">
+                <br>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Foto</th>
+                            <th>Cédula</th>
+                            <th>Fecha Entrada</th>
+                            <th>Fecha Salida</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let combinedData of resultadosCombinados">
+                            <td>{{ combinedData?.reservaInfo?.idReserva }}</td>
+                            <td>
+                                <img class="foto-cliente" src="{{combinedData?.clienteInfo?.foto}}" alt="Foto">
+                                {{ combinedData?.personaInfor?.nombre }}
+                            </td>
+                            <td>{{ combinedData?.clienteInfo?.cedula_persona }}</td>
+                            <td>{{ combinedData.reservaInfo?.fechaEntrada }}</td>
+                            <td>{{ combinedData.reservaInfo?.fechaSalida }}</td>
+                            <td>{{ combinedData?.reservaInfo?.estado }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <br>
+</div>
