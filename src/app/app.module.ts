@@ -64,6 +64,8 @@ import { ReservasListaModule } from './reservas-lista/reservas-lista.module';
 //import { HabitacionesRecepComponent } from './habitaciones/habitaciones-recep/habitaciones-recep.component';
 
 
+
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'habitaciones', component: HabitacionesComponent },

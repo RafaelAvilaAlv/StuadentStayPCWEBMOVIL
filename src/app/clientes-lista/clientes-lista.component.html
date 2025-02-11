@@ -40,8 +40,14 @@
           <div class="contacto-emergencia" *ngIf="cliente.persona.nombreContactoEmergencia">
             <p><strong>Contacto de emergencia:</strong> {{ cliente.persona.nombreContactoEmergencia }} - {{ cliente.persona.telefonoContactoEmergencia }} ({{ cliente.persona.parentescoContactoEmergencia }})</p>
           </div>
+          <div class="contacto-emergencia" *ngIf="cliente.persona.nombreContactoEmergencia2">
+            <p><strong>Contacto de emergencia 2:</strong> {{ cliente.persona.nombreContactoEmergencia2 }} - {{ cliente.persona.telefonoContactoEmergencia2 }} ({{ cliente.persona.parentescoContactoEmergencia2 }})</p>
+          </div>
         </div>
+
       </div>
+
+      
     </div>
   </div>
 </div>

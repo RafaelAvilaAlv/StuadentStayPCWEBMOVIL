@@ -20,6 +20,11 @@ export class Persona {
   telefonoContactoEmergencia!: string;
   parentescoContactoEmergencia!: string;
 
+   // Nuevos atributos para contacto de emergencia2
+   nombreContactoEmergencia2!: string;
+   telefonoContactoEmergencia2!: string;
+   parentescoContactoEmergencia2!: string;
+
   constructor() {
     this.cantones = [];
     this.nombre = '';
