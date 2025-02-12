@@ -57,7 +57,7 @@ import { FormhistorialComponent } from './reservas/formhistorial.component';
 import { FormFacturaHistorialComponent } from './reservas/form-factura-historial.component';
 import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
-import { HabitacionesReceComponent } from './habitaciones/habitacionesrece';
+import { habitacionesrece, } from './habitaciones/habitacionesrece';
 import { ReservasListaModule } from './reservas-lista/reservas-lista.module';
 //import { ChatbotComponent } from './chatbot/chatbot.component';
 //import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
@@ -75,6 +75,7 @@ const routes: Routes = [
   { path: 'panel-servicios-reservas', component: PanelServiciosReservasComponent },
   { path: 'habitaciones/form/:id', component: FormHbitacionesComponent },
   { path: 'habitaciones/form', component: FormHbitacionesComponent },
+  { path: 'habitaciones/habitacionesrece', component: habitacionesrece },
   { path: 'carrucel', component: CarrucelComponent },
   { path: 'servicios', component: ServiciosComponent },
   { path: 'servicios/form', component: ServiciosFormComponent },
@@ -140,6 +141,7 @@ const routes: Routes = [
         FormFacturaHistorialComponent,
         ClientesListaComponent,
         ClienteDetalleComponent,
+        habitacionesrece,
       //  ChatbotComponent,
         //HabitacionesRecepComponent,
         //HabitacionesRecepComponent,

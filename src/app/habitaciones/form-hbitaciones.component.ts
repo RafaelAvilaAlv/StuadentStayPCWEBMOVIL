@@ -87,7 +87,7 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   }
 
   public createHabitacion(): void {
-    this.habitaciones.estado = 'Disponible';
+    this.habitaciones.estado = 'No Disponible';
     this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado || 0;
 
     this.habitacionService.create(this.habitaciones).subscribe(

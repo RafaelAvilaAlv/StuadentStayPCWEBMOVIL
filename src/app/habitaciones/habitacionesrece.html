@@ -1,35 +1,79 @@
-<div class="container-custom">
-    <br>
-    <div class="principal">
-        <main class="table">
-            <section class="table_body">
-                <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Número de Habitación</th>
-                            <th>Número de Piso</th>
-                            <th>Precio</th>
-                            <th>ID Recepcionista</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let habitacion of habitaciones; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ habitacion.nHabitacion }}</td>
-                            <td>{{ habitacion.nPiso }}</td>
-                            <td>{{ habitacion.precio }}</td>
-                            <td>{{ habitacion.idRecepcionista }}</td>
-                        </tr>
-                        <tr *ngIf="habitaciones.length === 0">
-                            <td colspan="5">No hay habitaciones registradas.</td>
-                        </tr>
-                    </tbody>
-                    
-                </table>
-            </section>
-        </main>
-    </div>
-    <br>
+<div class="bg-gray-100 p-6 rounded-lg">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+    SOLICITUDES DE HABITACIONES
+  </h2>
+
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <ng-container *ngFor="let habitacion of habitaciones; let i = index">
+      <div
+        class="bg-white p-4 rounded-lg shadow-lg"
+        *ngIf="habitacion.estado === 'No Disponible'"
+      >
+        <!-- Imagen principal encima de la categoría -->
+        <div class="relative w-full h-40 mb-4">
+          <img
+            src="{{ habitacion.foto }}"
+            alt="Foto Habitación"
+            class="absolute inset-0 w-full h-full object-cover rounded-lg"
+          />
+        </div>
+
+        <!-- Mostrar fotos adicionales cuando se presiona el botón "Revisar" -->
+        <div *ngIf="mostrarFotos" class="relative w-full">
+          <div class="relative w-full h-40 mb-4">
+            <img
+              src="{{ habitacion.foto2 }}"
+              alt="Foto Habitación"
+              class="absolute inset-0 w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div class="relative w-full h-40 mb-4">
+            <img
+              src="{{ habitacion.foto1 }}"
+              alt="Foto Habitación"
+              class="absolute inset-0 w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+
+        <!-- Categoría debajo de las imágenes -->
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+          Categoría: {{ nomCat[i] }}
+        </h3>
+
+        <!-- Contenedor para el mapa -->
+        <div class="relative w-full h-48 mt-4">
+          <div
+            id="map-{{ habitacion.idHabitaciones }}"
+            class="w-full h-full"
+          ></div>
+        </div>
+
+        <p class="text-gray-600 mb-2">Precio: ${{ habitacion.precio }}</p>
+        <p class="text-sm text-gray-500 mb-4">{{ habitacion.descriphabi }}</p>
+
+        <!-- Botones -->
+        <div class="flex justify-between">
+          <button
+            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+            (click)="aprobarHabitacion(habitacion)"
+          >
+            Aprobar
+          </button>
+          <button
+            class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
+            (click)="revisarHabitacion(habitacion)"
+          >
+            Revisar
+          </button>
+          <button
+            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+            (click)="rechazarHabitacion(habitacion)"
+          >
+            Rechazar
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>
