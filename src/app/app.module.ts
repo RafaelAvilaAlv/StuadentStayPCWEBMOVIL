@@ -59,7 +59,7 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 import { habitacionesrece, } from './habitaciones/habitacionesrece';
 import { ReservasListaModule } from './reservas-lista/reservas-lista.module';
-//import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 //import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
 //import { HabitacionesRecepComponent } from './habitaciones/habitaciones-recep/habitaciones-recep.component';
 
@@ -101,12 +101,15 @@ const routes: Routes = [
   { path: 'recepcionista/form', component: FormRecepcionistaComponent },
   { path: 'registroC/form/:cedula_persona', component: FormRCComponent },
   //{ path: 'habitacionesrece', component: HabitacionesReceComponent },
+
+  { path: 'chatbot', component: ChatbotComponent}
   
 ];
 
 
 @NgModule({ declarations: [
         AppComponent,
+        ChatbotComponent,
         HeaderComponent,
         FooterComponent,
         ClientesComponent,
