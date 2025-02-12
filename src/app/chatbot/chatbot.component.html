@@ -1,13 +1,20 @@
-<div class="chatbot-container">
-    <div class="messages">
-      <div *ngFor="let msg of messages" [ngClass]="{'user-msg': msg.sender === 'Tú', 'bot-msg': msg.sender === 'Chatbot'}">
-        <strong>{{ msg.sender }}:</strong> {{ msg.text }}
-      </div>
-    </div>
-  
-    <div class="input-area">
-      <input [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Escribe un mensaje..." />
-      <button (click)="sendMessage()">Enviar</button>
+<div *ngIf="showChat" class="chatbot-container" [ngClass]="{'minimized': isMinimized}">
+  <div class="header">
+    <div class="chat-title" *ngIf="!isMinimized">ROOM4U</div>
+    <button class="minimize-btn" (click)="toggleMinimize()">
+      <img *ngIf="isMinimized" src="assets/imagen/chatbot.png" alt="Minimizar" class="minimized-img" />
+      <span *ngIf="!isMinimized">➖</span>
+    </button>
+  </div>
+
+  <div class="messages" *ngIf="!isMinimized">
+    <div *ngFor="let msg of messages" [ngClass]="{'message user-msg': msg.sender === 'Tú', 'message bot-msg': msg.sender === 'Chatbot'}">
+      <strong *ngIf="msg.sender === 'Chatbot'">Chatbot:</strong> {{ msg.text }}
     </div>
   </div>
-  
+
+  <div class="input-area" *ngIf="!isMinimized">
+    <input [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Escribe un mensaje..." />
+    <button (click)="sendMessage()">Enviar</button>
+  </div>
+</div>

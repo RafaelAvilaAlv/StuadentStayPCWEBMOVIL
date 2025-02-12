@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChatbotService } from './chatbot.service';
 
 @Component({
@@ -6,32 +7,42 @@ import { ChatbotService } from './chatbot.service';
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.css']
 })
-export class ChatbotComponent {
+export class ChatbotComponent implements OnInit {
   userMessage = '';
   messages: { sender: string, text: string }[] = [];
-  isExpanded = false; 
+  isMinimized = true;  
+  isExpanded = false;
+  showChat = true;  // Nuevo flag para controlar la visibilidad del chat
 
-  constructor(private chatbotService: ChatbotService) {}
+  constructor(private chatbotService: ChatbotService, private router: Router) {}
+
+  ngOnInit() {
+    // Suscribirse a los cambios de ruta
+    this.router.events.subscribe(() => {
+      if (this.router.url === '/login') {
+        this.showChat = false; // Ocultar el chat en la página de login
+      } else {
+        this.showChat = true; // Mostrar el chat en otras páginas
+      }
+    });
+  }
 
   sendMessage() {
     if (this.userMessage.trim() === '') return;
-
-    // Mensaje del usuario
     this.messages.push({ sender: 'Tú', text: this.userMessage });
 
-    // Llamada al servicio del chatbot
     this.chatbotService.sendMessage(this.userMessage).subscribe(response => {
       this.messages.push({ sender: 'Chatbot', text: response.response });
     });
 
-    // Limpiar el input
     this.userMessage = '';
-    
   }
 
-  toggleChat() {
-    this.isExpanded = !this.isExpanded;  // Cambiar entre expandido y minimizado
+  toggleMinimize() {
+    this.isMinimized = !this.isMinimized;
   }
 
-  
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+  }
 }
