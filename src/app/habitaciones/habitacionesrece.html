@@ -6,7 +6,8 @@
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     <ng-container *ngFor="let habitacion of habitaciones; let i = index">
       <div
-        class="bg-white p-4 rounded-lg shadow-lg"
+        class="bg-white p-4 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
+        [ngClass]="{ 'h-auto': habitacion.mostrarFotos, 'h-[500px]': !habitacion.mostrarFotos }"
         *ngIf="habitacion.estado === 'No Disponible'"
       >
         <!-- Imagen principal encima de la categoría -->
@@ -19,7 +20,7 @@
         </div>
 
         <!-- Mostrar fotos adicionales cuando se presiona el botón "Revisar" -->
-        <div *ngIf="mostrarFotos" class="relative w-full">
+        <div *ngIf="habitacion.mostrarFotos">
           <div class="relative w-full h-40 mb-4">
             <img
               src="{{ habitacion.foto2 }}"

@@ -189,13 +189,13 @@ export class habitacionesrece implements OnInit {
 
     map.addLayer(vectorLayer);
   }
-
-
-
-  // Función para cambiar el estado de mostrar las fotos
   revisarHabitacion(habitacion: any) {
-    this.mostrarFotos = !this.mostrarFotos;
+    habitacion.mostrarFotos = !habitacion.mostrarFotos;
   }
+  
+
+
+ 
 
   delete(habitacion: Habitaciones): void {
     Swal.fire({

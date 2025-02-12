@@ -89,7 +89,7 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   public createHabitacion(): void {
     this.habitaciones.estado = 'No Disponible';
     this.habitaciones.idRecepcionista = this.recepcionistaSeleccionado || 0;
-
+this.habitaciones.mostrarFotos=false;
     this.habitacionService.create(this.habitaciones).subscribe(
       habitacion => {
         this.router1.navigate(['/provedores']);
