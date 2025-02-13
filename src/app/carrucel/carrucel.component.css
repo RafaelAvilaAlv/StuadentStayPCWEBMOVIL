@@ -1,45 +1,125 @@
-/* Estilos del Carrusel */
-.carousel-item.active {
-  height: 80vh; /* Reducido para mejor visualización en móviles */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: minmax(250px, auto);
+  gap: 25px;
 }
 
-.carousel-item img {
+.info-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.info-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.info-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.info-icon h5 {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.concept-icon {
+  background: linear-gradient(135deg, #FFB74D, #FFD54F);
+}
+
+.purpose-icon {
+  background: linear-gradient(135deg, #AB47BC, #CE93D8);
+}
+
+.objectives-icon {
+  background: linear-gradient(135deg, #42A5F5, #90CAF9);
+}
+
+.mission-icon {
+  background: linear-gradient(135deg, #66BB6A, #A5D6A7);
+}
+
+.vision-icon {
+  background: linear-gradient(135deg, #5dade2, #AED6F1);
+}
+
+.values-icon {
+  background: linear-gradient(135deg, #FF7043, #FFAB91);
+}
+
+.services-icon {
+  background: linear-gradient(135deg, #26C6DA, #80DEEA);
+}
+
+.info-text {
+  padding: 25px;
+  flex-grow: 1;
+}
+
+.info-text p, .info-text ul {
+  color: #6C757D;
+  text-align: justify;
+  line-height: 1.8;
+}
+
+.info-text ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.developers-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem; /* Espacio entre tarjetas */
+}
+
+.developer-card {
+  width: 200px;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.developer-card:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.developer-photo {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ajusta la imagen sin distorsión */
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.carousel-item:nth-child(1) {
-  background-repeat: no-repeat;
-  background-size: cover; /* Cambio de 100cap a cover */
-  background-position: center center;
-}
-
-/* Ajuste para pantallas grandes */
-@media (min-width: 992px) {
-  #introCarousel {
-    margin-top: -60px; /* Ajustado para evitar cortes */
-  }
-}
-
-/* Barra de Navegación */
-.navbar .nav-link {
-  color: #121111 !important;
-  font-weight: 500;
-  transition: color 0.3s ease-in-out;
-}
-
-.navbar .nav-link:hover {
-  color: #007bff !important; /* Cambio de color en hover */
-}
-
-/* Ajuste en móviles para evitar colapsos */
-@media (max-width: 768px) {
-  .carousel-item.active {
-    height: 60vh;
-  }
-
-  .navbar .nav-link {
-    font-size: 16px; /* Tamaño más legible en pantallas pequeñas */
-  }
+.developer-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333333;
 }
