@@ -32,20 +32,20 @@
     </div>
 
     <label for="fecha_inicio" class="label_form font-weight-bold">Fecha de Entrada</label>
-    <div class="input-group mb-3">
-      <input type="date" class="form-control" placeholder="Fecha Inicio" 
-             [(ngModel)]="fechaEntrada" name="fechaEntrada" id="fechaEntrada" 
-             aria-label="Fecha Inicio" (ngModelChange)="calcularDiferenciaDeDias()" 
-             aria-describedby="basic-addon1" formControlName="fechaini" required>
-    </div>
+<div class="input-group mb-3">
+  <input type="date" class="form-control" placeholder="Fecha Inicio" 
+         [(ngModel)]="fechaEntrada" name="fechaEntrada" id="fechaEntrada" 
+         aria-label="Fecha Inicio" (ngModelChange)="calcularDiferenciaDeDias()" 
+         aria-describedby="basic-addon1" formControlName="fechaini" required>
+</div>
 
-    <label for="fecha_fin" class="label_form font-weight-bold">Fecha de Salida</label>
-    <div class="input-group mb-3">
-      <input type="date" class="form-control" placeholder="Fecha Fin" 
-             [(ngModel)]="fechaSalida" name="fechaSalida" id="fechaSalida"
-             aria-label="Fecha Fin" (ngModelChange)="calcularDiferenciaDeDias()" 
-             aria-describedby="basic-addon1" formControlName="fechafin" required>
-    </div>
+<label for="fecha_fin" class="label_form font-weight-bold">Fecha de Salida</label>
+<div class="input-group mb-3">
+  <input type="date" class="form-control" placeholder="Fecha Fin" 
+         [(ngModel)]="fechaSalida" name="fechaSalida" id="fechaSalida"
+         aria-label="Fecha Fin" aria-describedby="basic-addon1" 
+         formControlName="fechafin" required readonly> <!-- 🔹 Se deshabilita para evitar cambios manuales -->
+</div>
 
     <label for="nro_dias" class="label_form font-weight-bold">Días total</label>
     <div class="input-group mb-3">

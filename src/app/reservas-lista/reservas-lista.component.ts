@@ -64,6 +64,8 @@ export class ReservasListaComponent implements OnInit {
     );
   }
 
+  
+
   // Getter para filtrar los resultados según la cédula
   get resultadosFiltrados() {
     return this.resultadosCombinados.filter(result => 

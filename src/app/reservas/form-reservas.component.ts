@@ -159,33 +159,52 @@ export class FormReservasComponent implements OnInit {
   }
 
   calcularDiferenciaDeDias() {
-    const fechaHoy = new Date();  // Fecha actual
-  
-    // Validación de la fecha de entrada (no puede ser antes de hoy)
+    if (!this.fechaEntrada) {
+        return;
+    }
+
+    const fechaHoy = new Date();  
     const fechaInicio = new Date(this.fechaEntrada);
+
+    if (isNaN(fechaInicio.getTime())) {
+        Swal.fire('Fecha inválida', 'Debe ingresar una fecha de entrada válida.', 'error');
+        return;
+    }
+
     if (fechaInicio < fechaHoy) {
-      Swal.fire('Fecha inválida', 'La fecha de entrada no puede ser anterior a la fecha actual.', 'error');
-      return;
+        Swal.fire('Fecha inválida', 'La fecha de entrada no puede ser anterior a la fecha actual.', 'error');
+        return;
     }
-  
-    // Validación de la fecha de salida (no puede ser antes de la fecha de entrada)
-    const fechaFin = new Date(this.fechaSalida);
-    if (fechaFin < fechaInicio) {
-      Swal.fire('Fecha inválida', 'La fecha de salida no puede ser anterior a la fecha de entrada.', 'error');
-      return;
+
+    // Generar la fecha de salida sumando 6 meses
+    const fechaFin = new Date(fechaInicio);
+    fechaFin.setMonth(fechaFin.getMonth() + 6); 
+
+    if (isNaN(fechaFin.getTime())) {
+        Swal.fire('Error', 'No se pudo calcular la fecha de salida.', 'error');
+        return;
     }
-  
-    // Si las fechas son válidas, calcular la diferencia
-    this.reserva.fechaEntrada = fechaInicio.toJSON().split('T')[0];
-    this.reserva.fechaSalida = fechaFin.toJSON().split('T')[0];
+
+    // Asignar la fecha de salida al modelo
+    this.fechaSalida = fechaFin.toISOString().split('T')[0];  // Se asigna al input
+
+    this.reserva.fechaEntrada = fechaInicio.toISOString().split('T')[0];
+    this.reserva.fechaSalida = this.fechaSalida;
+
+    // Calcular la diferencia de días
     const diferenciaMs = fechaFin.getTime() - fechaInicio.getTime();
     this.diferenciadias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
     this.reserva.dias = this.diferenciadias;
-    this.calcularTotal(this.preciohabi, this.diferenciadias);
-  }
 
-  calcularTotal(nuevovalor: number, precio: number) {
-    this.total = precio * nuevovalor;
+    // Calcular el total sin multiplicar por días
+    this.calcularTotal(this.preciohabi);
+}
+
+
+
+  calcularTotal( precio: number) {
+    const meses = 6; // La estadía es por 6 meses
+    this.total = precio * meses;
     this.reserva.total = this.total;
   }
 

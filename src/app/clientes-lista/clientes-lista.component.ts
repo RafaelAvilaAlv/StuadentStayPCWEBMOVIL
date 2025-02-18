@@ -14,6 +14,8 @@ export class ClientesListaComponent implements OnInit {
   clientesFiltrados: Cliente[] = [];
   idClienteBuscar: string = '';
 
+  resultadosCombinados: any[] = [];
+
   constructor(
     private clienteService: ClienteService,
     private personaService: PersonaService
