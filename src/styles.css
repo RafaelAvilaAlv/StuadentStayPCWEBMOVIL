@@ -2,4 +2,44 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+.zain-extralight {
+    font-family: "Zain", serif;
+    font-weight: 200;
+  }
+  
+  .zain-light {
+    font-family: "Zain", serif;
+    font-weight: 300;
+  }
+  
+  .zain-regular {
+    font-family: "Zain", serif;
+    font-weight: 400;
+  }
+  
+  .zain-bold {
+    font-family: "Zain", serif;
+    font-weight: 700;
+  }
+  
+  .zain-extrabold {
+    font-family: "Zain", serif;
+    font-weight: 800;
+  }
+  
+  .zain-black {
+    font-family: "Zain", serif;
+    font-weight: 900;
+  }
+  
+  .zain-light-italic {
+    font-family: "Zain", serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .zain-regular-italic {
+    font-family: "Zain", serif;
+    font-weight: 400;
+    font-style: italic;
+  }

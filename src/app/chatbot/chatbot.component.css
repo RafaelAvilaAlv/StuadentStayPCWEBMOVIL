@@ -1,14 +1,14 @@
 .chatbot-container {
-  position: fixed; /* Asegura que siempre esté dentro de la pantalla */
+  position: fixed;
   bottom: 50px;
   right: 20px;
-  width: 320px;
+  width: 430px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 15px;
   z-index: 1000;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Zain', serif;
   transition: all 0.3s ease-in-out;
 }
 
@@ -22,7 +22,7 @@
   background: transparent;
   box-shadow: none;
   cursor: grab;
-  position: fixed; /* Mantiene la posición fija al minimizar */
+  position: fixed;
 }
 
 .chatbot-container.minimized:active {
@@ -33,14 +33,21 @@
   width: 80px;
   height: 80px;
   object-fit: contain;
+  border: none; /* Ya está definido */
+  background: none; /* Asegura que no tenga fondo */
+  box-shadow: none; /* Elimina cualquier sombra */
+  padding: 0; /* Elimina cualquier padding */
+  margin: 0; /* Elimina cualquier margen */
+  display: block; /* Para asegurarte de que se comporte como un bloque de imagen simple */
 }
+
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 5px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #646ddb;
 }
 
 .minimize-btn {
@@ -52,7 +59,7 @@
 }
 
 .minimize-btn:hover {
-  color: #fbfbfc;
+  color: #0078ff;
 }
 
 .messages {
@@ -61,28 +68,44 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px; /* Espaciado entre los mensajes */
 }
 
 .message {
+  display: flex;
+  align-items: center; /* Alinea íconos y mensajes al centro verticalmente */
+  gap: 10px; /* Espaciado entre ícono y texto */
+  max-width: 80%;
+}
+
+.message .icon {
+  font-size: 20px; /* Tamaño del ícono */
+  color: #0078ff; /* Azul para los íconos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Evita que el ícono cambie de tamaño */
+}
+
+.message-content {
+  background: #f1f1f1;
   padding: 8px 12px;
   border-radius: 15px;
-  max-width: 80%;
   word-wrap: break-word;
+  color: #333;
 }
 
 .user-msg {
   align-self: flex-end;
+}
+
+.user-msg .message-content {
   background: #ffffff;
   color: rgb(0, 0, 0);
-  text-align: left;
 }
 
 .bot-msg {
   align-self: flex-start;
-  background: #f1f1f1;
-  color: #333;
-  text-align: left;
 }
 
 .input-area {
@@ -117,14 +140,45 @@ button:hover {
   background: #0056b3;
 }
 
-.minimized .messages,
-.minimized .input-area {
-  display: none;
+.chat-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.chat-title{
-color: #0078ff;
+.chat-title .title {
+  font-family: 'Zain', serif;
+  font-weight: 700;
+  color: #0078ff;
+  font-size: 18px;
 }
 
+.chat-title .subtitle {
+  font-family: 'Zain', serif;
+  font-weight: 400;
+  color: #0078ff;
+  font-size: 14px;
+}
 
+.options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
+.options button {
+  flex: 1 1 100px; /* Botones más pequeños y responsivos */
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #0078ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.options button:hover {
+  background: #0056b3;
+}

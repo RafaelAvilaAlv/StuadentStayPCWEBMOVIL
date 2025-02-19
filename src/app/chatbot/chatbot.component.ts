@@ -12,17 +12,16 @@ export class ChatbotComponent implements OnInit {
   messages: { sender: string, text: string }[] = [];
   isMinimized = true;  
   isExpanded = false;
-  showChat = true;  // Nuevo flag para controlar la visibilidad del chat
+  showChat = true;
 
   constructor(private chatbotService: ChatbotService, private router: Router) {}
 
   ngOnInit() {
-    // Suscribirse a los cambios de ruta
     this.router.events.subscribe(() => {
       if (this.router.url === '/login') {
-        this.showChat = false; // Ocultar el chat en la página de login
+        this.showChat = false; 
       } else {
-        this.showChat = true; // Mostrar el chat en otras páginas
+        this.showChat = true; 
       }
     });
   }
@@ -44,5 +43,39 @@ export class ChatbotComponent implements OnInit {
 
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  handleOption(option: string) {
+    let userMessageText = '';
+    let responseText = '';
+  
+    switch (option) {
+      case 'about':
+        userMessageText = '¿De qué se trata Room4U?';
+        responseText = 'Room4U es una plataforma de alquileres para estudiantes internacionales, donde pueden encontrar habitaciones disponibles para su estadía.';
+        break;
+      case 'mission':
+        userMessageText = 'Misión';
+        responseText = 'Nuestra misión es facilitar el acceso a viviendas adecuadas para estudiantes internacionales, asegurando una experiencia cómoda y segura.';
+        break;
+      case 'vision':
+        userMessageText = 'Visión';
+        responseText = 'Nuestra visión es ser la plataforma líder en el mercado de alquileres para estudiantes a nivel mundial, conectando estudiantes con anfitriones confiables.';
+        break;
+      case 'values':
+        userMessageText = 'Valores';
+        responseText = 'Nuestros valores son la transparencia, confianza, accesibilidad y compromiso con la comodidad del estudiante.';
+        break;
+      default:
+        userMessageText = 'Opción no reconocida';
+        responseText = '¿En qué más puedo ayudarte?';
+    }
+  
+    // Mostrar el mensaje del usuario y la respuesta del chatbot
+    this.messages.push({ sender: 'Tú', text: userMessageText });
+    this.messages.push({ sender: 'Chatbot', text: responseText });
+  
+    // Preguntar si puede ayudar en algo más
+    this.messages.push({ sender: 'Chatbot', text: '¿Puedo ayudarte con algo más?' });
   }
 }

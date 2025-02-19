@@ -1,6 +1,9 @@
 <div *ngIf="showChat" class="chatbot-container" [ngClass]="{'minimized': isMinimized}">
   <div class="header">
-    <div class="chat-title" *ngIf="!isMinimized">ROOM4U</div>
+    <div class="chat-title" *ngIf="!isMinimized">
+      <span class="title">ROOM4U</span>
+      <span class="subtitle">Asistente Virtual</span>
+    </div>
     <button class="minimize-btn" (click)="toggleMinimize()">
       <img *ngIf="isMinimized" src="assets/imagen/chatbot.png" alt="Minimizar" class="minimized-img" />
       <span *ngIf="!isMinimized">➖</span>
@@ -8,13 +11,32 @@
   </div>
 
   <div class="messages" *ngIf="!isMinimized">
+    <div class="welcome-message">
+      <p>Bienvenido a ROOM4U. ¿En qué puedo ayudarte hoy?</p>
+    </div>
+
     <div *ngFor="let msg of messages" [ngClass]="{'message user-msg': msg.sender === 'Tú', 'message bot-msg': msg.sender === 'Chatbot'}">
-      <strong *ngIf="msg.sender === 'Chatbot'">Chatbot:</strong> {{ msg.text }}
+      <!-- Icono de robot o persona -->
+      <div class="icon">
+        <i *ngIf="msg.sender === 'Chatbot'" class="fas fa-robot"></i> <!-- Icono de robot -->
+        <i *ngIf="msg.sender === 'Tú'" class="fas fa-user"></i> <!-- Icono de persona -->
+      </div>
+      <!-- Mensaje -->
+      <div class="message-content">
+        <strong>{{ msg.sender }}:</strong> {{ msg.text }}
+      </div>
     </div>
   </div>
 
+  <div class="options" *ngIf="!isMinimized">
+    <button (click)="handleOption('about')">¿De qué se trata Room4U?</button>
+    <button (click)="handleOption('mission')">Misión</button>
+    <button (click)="handleOption('vision')">Visión</button>
+    <button (click)="handleOption('values')">Valores</button>
+  </div>
+
   <div class="input-area" *ngIf="!isMinimized">
-    <input [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Escribe un mensaje..." />
+    <input [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Escribe aquí..." />
     <button (click)="sendMessage()">Enviar</button>
   </div>
 </div>
