@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-
 }
 
 .tbody {
@@ -12,7 +11,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 main.table {
@@ -32,18 +30,6 @@ main.table {
     padding: .8rem 1rem;
 }
 
-.table_body::-webkit-scrollbar-thumb {
-    border-radius: 5rem;
-    background-color: #090909;
-    scrollbar-width: thin;
- 
-}
-
-table {
-    width: 100%;
-
-}
-
 .table_body {
     width: 95%;
     max-height: calc(90% - 1.6rem);
@@ -51,19 +37,26 @@ table {
     margin: .8rem auto;
     border-radius: .6rem;
     overflow: auto;
-    
+    position: relative;
 }
+
+/* Personalización del Scroll */
 .table_body::-webkit-scrollbar {
     height: 8px;
-  }
+}
+.table_body::-webkit-scrollbar-thumb {
+    border-radius: 5rem;
+    background-color: #090909;
+    scrollbar-width: thin;
+}
 
-table,
-th,
-td {
-    
+table {
+    width: 100%;
+}
+
+table, th, td {
     padding: 0.3rem;
     border-collapse: collapse;
-    text-align: left;
     text-align: center;
 }
 
@@ -72,18 +65,49 @@ thead {
     top: 0;
     left: 0;
     background-color: #d5d1defe;
-
 }
 
 tbody tr:nth-child(even) {
     background-color: #0000000b;
-
 }
 
 tbody tr:hover {
     background-color: #6fcaea;
 }
 
+/* Posicionamiento de los botones de descarga */
+.table_body tr {
+    position: relative;
+}
+
+/* Botón Descargar PDF más compacto */
+.btnDescargar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 10px; /* Tamaño más compacto */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 14px;
+    width: auto; /* No ocupará todo el ancho */
+    display: inline-block; /* Mantiene tamaño adecuado */
+    text-align: center;
+}
+
+/* Efecto hover */
+.btnDescargar:hover {
+    background-color: #0056b3;
+}
+
+/* Centrar botones en la celda */
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+/* Estados de reserva */
 .status {
     padding: .4rem 0;
     border-radius: 2rem;
@@ -97,8 +121,6 @@ tbody tr:hover {
     width: 100%;
 }
 
-
-
 .status.Finalizado {
     background-color: #b9ecb8;
     color: #006b21;
@@ -106,55 +128,16 @@ tbody tr:hover {
     pointer-events: none;
 }
 
-@media (max-width: 100px) {
-
-    /* Cambiado de max-whith a max-width */
+/* Ajustes de tamaño en pantallas pequeñas */
+@media (max-width: 1000px) {
     td:not(:first-of-type) {
         min-width: 12.1rem;
         max-height: 1rem;
     }
 }
 
-.table_body td {
-    height: 0.5rem;
-}
-
-.imput{
-    border-radius: 2rem;
-    text-align: center;
-}
-.busqueda{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btnDescargar {
-    background-color: #4285f4;
-    color: #fff;
-    padding: 1rem 2rem;
-    text-align: center;
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
-    cursor: pointer;
-    width: 200px;
-    text-transform: uppercase;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-property: box-shadow, transform;
-    transition-property: box-shadow, transform;
-  }
-  
-  .btnDescargar:hover,
-  .btnDescargar:focus,
-  .btnDescargar:active {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-  .carousel-container {
+/* Contenedor del carrusel */
+.carousel-container {
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -171,17 +154,7 @@ tbody tr:hover {
     object-fit: cover;
 }
 
-button {
-    position: absolute;
-    top: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    z-index: 10;
-}
+
 
 .prev {
     left: 10px;
@@ -191,7 +164,4 @@ button {
     right: 10px;
 }
 
-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
 

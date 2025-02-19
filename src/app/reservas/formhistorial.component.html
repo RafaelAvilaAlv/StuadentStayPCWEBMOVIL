@@ -16,31 +16,29 @@
                             <th>Total</th>
                             <th>Fecha Entrada</th>
                             <th>Fecha Salida</th>
-                            <th>Descargar PDF </th>
+                            <th>Descargar PDF</th> <!-- Se agregó la columna para mejor estructura -->
                         </tr>
                     </thead>
-                    <tbody *ngFor="let combinedData of resultadosCombinados">
-                        <tr >
+                    <tbody>
+                        <tr *ngFor="let combinedData of resultadosCombinados">
                             <td>{{ combinedData?.reserva?.idReserva }}</td>
                             <td>{{ combinedData?.cliente?.cedula_persona }}</td>
                             <td>{{ combinedData?.persona?.nombre }}</td>
                             <td>{{ combinedData?.persona?.apellido }}</td>
                             <td>{{ combinedData?.habitacion?.precio }}</td>
                             <td>{{ combinedData?.reserva?.total }}</td>
-                            <td>{{combinedData.reserva?.fechaEntrada}}</td>
-                            <td>{{combinedData.reserva?.fechaSalida}}</td>
-                            <td>
-                                <div class="" routerLinkActive="active">
-                                    <button type="button" class="btnDescargar" (click)="descargarPDF(combinedData)">Descargar PDF</button>
-                                </div>
+                            <td>{{ combinedData?.reserva?.fechaEntrada }}</td>
+                            <td>{{ combinedData?.reserva?.fechaSalida }}</td>
+                            <td style="text-align: center;"> <!-- Centra el botón en su celda -->
+                                <button type="button" class="btnDescargar" (click)="descargarPDF(combinedData)">
+                                    Descargar PDF
+                                </button>
                             </td>
                         </tr>
                     </tbody>
-                    
                 </table>
             </section>
         </main>
     </div>
     <br>
 </div>
-
