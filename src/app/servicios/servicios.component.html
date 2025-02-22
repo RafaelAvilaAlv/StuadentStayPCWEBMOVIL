@@ -1,57 +1,61 @@
 <div class="container">
   <section class="mx-auto my-4" style="max-width: 99%; display: flex; flex-wrap: wrap; justify-content: space-between;">
-    <div *ngFor="let servicio of Servicios" style="flex: 1 0 30%; margin: 1%;">
+    
+    <!-- Combobox para seleccionar el tipo de servicio -->
+    <div style="flex: 1 0 100%; margin: 1%; text-align: center;">
+      <label for="filtroServicio">Filtrar por Servicio:</label>
+      <select id="filtroServicio" class="form-control" [(ngModel)]="filtroServicio" (change)="filtrarServicios()">
+        <option value="">Todos los servicios</option>
+        <option *ngFor="let titulo of titulosUnicos" [value]="titulo">{{ titulo }}</option>
+      </select>
+    </div>
+
+    <!-- Mostrar los servicios filtrados -->
+    <div *ngFor="let servicio of ServiciosFiltrados" style="flex: 1 0 30%; margin: 1%;">
       <div class="card">
         <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-          <img [src]="servicio.foto" class="img-fluid" />
+          <img [src]="servicio.foto" class="img-fluid" alt="Imagen del servicio" />
           <a href="#!">
             <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
           </a>
         </div>
         <div class="card-body">
-          <h5 class="card-title font-weight-bold"><a>{{servicio.titulo}}.</a></h5>
+          <h5 class="card-title font-weight-bold"><a>{{servicio.titulo}}</a></h5>
+          
+          <!-- Rating del servicio -->
           <ul class="list-unstyled list-inline mb-0">
-            <li class="list-inline-item me-0">
-              <i class="fas fa-star text-warning fa-xs"> </i>
-            </li>
-            <li class="list-inline-item me-0">
-              <i class="fas fa-star text-warning fa-xs"></i>
-            </li>
-            <li class="list-inline-item me-0">
-              <i class="fas fa-star text-warning fa-xs"></i>
-            </li>
-            <li class="list-inline-item me-0">
-              <i class="fas fa-star text-warning fa-xs"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fas fa-star-half-alt text-warning fa-xs"></i>
-            </li>
+            <li class="list-inline-item me-0"><i class="fas fa-star text-warning fa-xs"></i></li>
+            <li class="list-inline-item me-0"><i class="fas fa-star text-warning fa-xs"></i></li>
+            <li class="list-inline-item me-0"><i class="fas fa-star text-warning fa-xs"></i></li>
+            <li class="list-inline-item me-0"><i class="fas fa-star text-warning fa-xs"></i></li>
+            <li class="list-inline-item"><i class="fas fa-star-half-alt text-warning fa-xs"></i></li>
             <li class="list-inline-item">
               <p class="text-muted">4.5 (413)</p>
             </li>
           </ul>
-          <p class="mb-2">$ StudentStay,{{servicio.titulo}}</p>
+          
+          <!-- Información del servicio -->
+          <p class="mb-2">{{servicio.titulo}}</p>
           <p class="card-text">{{servicio.descripciontipo}}</p>
+          <p class="card-text"><strong>Nombre:</strong> {{servicio.nombre}}</p>
+          <p class="card-text"><strong>Contacto:</strong> {{servicio.contacto}}</p>
+          <p class="card-text"><strong>Teléfono:</strong> {{servicio.telefono}}</p>
+          
+          <!-- Horarios -->
           <hr class="my-4" />
           <ul class="list-unstyled list-inline d-flex justify-content-between">
-            <li class="list-inline-item me-0">
-              <div class="chip me-0">5:30PM</div>
-            </li>
-            <li class="list-inline-item me-0">
-              <div class="chip bg-secondary text-white me-0">7:30PM</div>
-            </li>
-            <li class="list-inline-item me-0">
-              <div class="chip me-0">8:00PM</div>
-            </li>
-            <li class="list-inline-item me-0">
-              <div class="chip me-0">9:00PM</div>
-            </li>
+            <li class="list-inline-item me-0"><div class="chip me-0">5:30PM</div></li>
+            <li class="list-inline-item me-0"><div class="chip bg-secondary text-white me-0">7:30PM</div></li>
+            <li class="list-inline-item me-0"><div class="chip me-0">8:00PM</div></li>
+            <li class="list-inline-item me-0"><div class="chip me-0">9:00PM</div></li>
           </ul>
-          <button class="btn btn-rounded btn-primary" type="button"
-            [routerLink]="['/servicios2/form',servicio.idTipo_servicio]">Solicitar</button>
+
+          <!-- Botón para solicitar -->
+          <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/servicios2/form',servicio.idTipo_servicio]">Solicitar</button>
         </div>
       </div>
     </div>
+
   </section>
 </div>
 <br>

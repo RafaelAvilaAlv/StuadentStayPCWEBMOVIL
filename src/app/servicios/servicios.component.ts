@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ServicioService } from './servicio.service';
 import { Servicio } from './servicio';
 import { Observable } from 'rxjs';
-import { response } from 'express';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,13 +13,33 @@ import Swal from 'sweetalert2';
 export class ServiciosComponent implements OnInit {
 
   Servicios: Servicio[] = [];
+  ServiciosFiltrados: Servicio[] = [];
+  titulosUnicos: string[] = []; // Array para almacenar los títulos únicos
+  filtroServicio: string = ''; // Valor seleccionado del filtro
 
   constructor(private servicioservice: ServicioService) { }
 
   ngOnInit(): void {
     this.servicioservice.getServicios().subscribe(
-      Servicios => this.Servicios = Servicios
+      (Servicios) => {
+        this.Servicios = Servicios;
+        this.ServiciosFiltrados = [...this.Servicios]; // Inicialmente mostramos todos los servicios
+        
+        // Llenamos el array titulosUnicos con los títulos de los servicios sin duplicados
+        this.titulosUnicos = [...new Set(this.Servicios.map(servicio => servicio.titulo))];
+      }
     );
+  }
+
+  // Método para filtrar los servicios por el título seleccionado
+  filtrarServicios(): void {
+    if (this.filtroServicio) {
+      this.ServiciosFiltrados = this.Servicios.filter(servicio => 
+        servicio.titulo.toLowerCase() === this.filtroServicio.toLowerCase()
+      );
+    } else {
+      this.ServiciosFiltrados = [...this.Servicios]; // Si no hay filtro, mostramos todos los servicios
+    }
   }
 
   delete(servicio: Servicio): void {
@@ -38,6 +57,7 @@ export class ServiciosComponent implements OnInit {
             this.servicioservice.getServicios().subscribe(
               (servicios) => {
                 this.Servicios = servicios;
+                this.ServiciosFiltrados = [...this.Servicios]; // Actualizamos los servicios filtrados
                 Swal.fire('Servicio eliminado', `Servicio ${servicio.titulo} eliminado con éxito`, 'success');
               },
             );
@@ -46,5 +66,4 @@ export class ServiciosComponent implements OnInit {
       }
     });
   }
-
 }

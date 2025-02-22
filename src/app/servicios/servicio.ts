@@ -4,4 +4,7 @@ export class Servicio {
     descripciontipo!: string;
     foto!: string;
     nmHabitacion?: number;
+    nombre!: string;
+    contacto!: string;
+    telefono!: string;
 }
