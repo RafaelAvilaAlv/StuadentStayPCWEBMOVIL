@@ -1,0 +1,25 @@
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Mis Habitaciones</h2>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>N° Habitación</th>
+          <th>Piso</th>
+          <th>Precio</th>
+          <th>ID Recepcionista</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let habitacion of habitaciones">
+          <td>{{ habitacion.nHabitacion }}</td>
+          <td>{{ habitacion.nPiso }}</td>
+          <td>{{ habitacion.precio | currency }}</td>
+          <td>{{ habitacion.idRecepcionista }}</td>
+        </tr>
+        <!-- Si no hay habitaciones, se muestra un mensaje -->
+        <tr *ngIf="habitaciones.length === 0">
+          <td colspan="4" class="text-center">No se encontraron habitaciones registradas para este usuario.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -60,6 +60,7 @@ import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.compo
 import { habitacionesrece, } from './habitaciones/habitacionesrece';
 import { ReservasListaModule } from './reservas-lista/reservas-lista.module';
 import { ChatbotComponent } from './chatbot/chatbot.component';
+import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
 //import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
 //import { HabitacionesRecepComponent } from './habitaciones/habitaciones-recep/habitaciones-recep.component';
 
@@ -102,7 +103,11 @@ const routes: Routes = [
   { path: 'registroC/form/:cedula_persona', component: FormRCComponent },
   //{ path: 'habitacionesrece', component: HabitacionesReceComponent },
 
-  { path: 'chatbot', component: ChatbotComponent}
+  { path: 'chatbot', component: ChatbotComponent},
+
+  { path: 'habitacionones-recep', component: HabitacionesRecepComponent },
+  
+  { path: '**', redirectTo: '/carrucel', pathMatch: 'full' }
   
 ];
 
@@ -145,6 +150,7 @@ const routes: Routes = [
         ClientesListaComponent,
         ClienteDetalleComponent,
         habitacionesrece,
+        HabitacionesRecepComponent,
       //  ChatbotComponent,
         //HabitacionesRecepComponent,
         //HabitacionesRecepComponent,

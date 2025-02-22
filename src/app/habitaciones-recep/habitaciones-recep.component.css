@@ -1,0 +1,17 @@
+/* Centrar el título y agregar margen */
+h2 {
+    text-align: center;
+  }
+  
+  /* Opcional: 
+  estilos personalizados para la tabla */
+  table {
+    margin: auto;
+    max-width: 800px;
+  }
+  
+  /* Colores para el encabezado de la tabla */
+  .thead-dark {
+    background-color: #343a40;
+    color: #fff;
+  }
