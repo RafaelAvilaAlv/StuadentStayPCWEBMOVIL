@@ -1,9 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Zain:wght@200;300;400;700;800;900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "Zain", serif;
 }
+
+html, body { 
+    height: 100%;
+    font-family: "Zain", serif;
+}
+
+.zain-extralight { font-weight: 200; }
+.zain-light { font-weight: 300; }
+.zain-regular { font-weight: 400; }
+.zain-bold { font-weight: 700; }
+.zain-extrabold { font-weight: 800; }
+.zain-black { font-weight: 900; }
+.zain-light-italic { font-weight: 300; font-style: italic; }
+.zain-regular-italic { font-weight: 400; font-style: italic; }
 
 .tbody {
     min-height: 100vh;
@@ -64,7 +82,7 @@ thead {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #d5d1defe;
+    background-color: #cfe2ff;
 }
 
 tbody tr:nth-child(even) {
@@ -105,7 +123,6 @@ td {
     text-align: center;
     vertical-align: middle;
 }
-
 
 /* Estados de reserva */
 .status {
@@ -154,8 +171,6 @@ td {
     object-fit: cover;
 }
 
-
-
 .prev {
     left: 10px;
 }
@@ -163,5 +178,3 @@ td {
 .next {
     right: 10px;
 }
-
-

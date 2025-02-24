@@ -11,7 +11,7 @@ h2 {
   }
   
   /* Colores para el encabezado de la tabla */
-  .thead-dark {
-    background-color: #343a40;
-    color: #fff;
+  .thead {
+    background-color: #cfe2ff;
+    color: #000000;
   }
