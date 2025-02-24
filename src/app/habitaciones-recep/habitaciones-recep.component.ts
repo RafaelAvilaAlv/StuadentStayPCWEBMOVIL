@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Habitaciones } from '../habitaciones/habitaciones'; // Ajusta la ruta según tu estructura
 import { HabitacionesService } from '../habitaciones/habitaciones.service';
+import Swal from 'sweetalert2'; // Importa SweetAlert2 si vas a usarlo
 
 @Component({
   selector: 'app-habitaciones-recep',
@@ -12,7 +13,8 @@ export class HabitacionesRecepComponent implements OnInit {
   habitaciones: Habitaciones[] = [];
   currentRecepcionistaId: number = 0;
 
-  constructor(private habitacionService: HabitacionesService) { }
+  constructor(
+    private habitacionService: HabitacionesService) { }
 
   ngOnInit(): void {
     // Suponiendo que el ID del recepcionista logueado se guarda en localStorage,
@@ -28,17 +30,42 @@ export class HabitacionesRecepComponent implements OnInit {
   }
 
   cargarHabitaciones(): void {
-    // Si tu servicio tiene un método para filtrar por recepcionista, úsalo:
-    /*
-    this.habitacionService.getHabitacionesByRecepcionista(this.currentRecepcionistaId)
-      .subscribe(data => {
-        this.habitaciones = data;
-      });
-    */
-
-    // En caso contrario, se obtienen todas las habitaciones y se filtran en el cliente:
     this.habitacionService.getHabitaciones().subscribe(data => {
-      this.habitaciones = data.filter(hab => hab.idRecepcionista === this.currentRecepcionistaId);
+      this.habitaciones = data.filter(hab => 
+        hab.idRecepcionista === this.currentRecepcionistaId && hab.estado === 'Disponible'
+      );
     });
   }
+  
+
+  aprobarHabitacion(habitacion: Habitaciones): void {
+    habitacion.estado = 'Disponible';
+    this.habitacionService.update(habitacion).subscribe(
+      () => {
+        Swal.fire('¡Aprobada!', 'La habitación ha sido aprobada.', 'success');
+        this.cargarHabitaciones(); // Recargar habitaciones
+      },
+      (error) => {
+        console.error('Error al aprobar la habitación', error);
+        Swal.fire('Error', 'Hubo un problema al aprobar la habitación.', 'error');
+      }
+    );
+  }
+  
+  rechazarHabitacion(habitacion: Habitaciones): void {
+    habitacion.estado = 'Rechazado';
+    this.habitacionService.update(habitacion).subscribe(
+      () => {
+        Swal.fire('¡Rechazada!', 'La habitación ha sido rechazada.', 'success');
+        this.cargarHabitaciones(); // Recargar habitaciones
+      },
+      (error) => {
+        console.error('Error al rechazar la habitación', error);
+        Swal.fire('Error', 'Hubo un problema al rechazar la habitación.', 'error');
+      }
+    );
+  }
+  
+
+  
 }
