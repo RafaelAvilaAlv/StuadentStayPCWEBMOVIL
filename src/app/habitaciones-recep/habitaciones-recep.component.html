@@ -8,7 +8,6 @@
         <th>Precio</th>
         <th>ID Recepcionista</th>
         <th>Estado</th>
-        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -26,14 +25,9 @@
             {{ habitacion.estado || 'Pendiente' }}
           </span>
         </td>
-        <td>
-          <button *ngIf="habitacion.estado !== 'Disponible'" class="btn btn-success btn-sm mr-1" (click)="aprobarHabitacion(habitacion)">Aprobar</button>
-          <button *ngIf="habitacion.estado !== 'Disponible'" class="btn btn-danger btn-sm" (click)="rechazarHabitacion(habitacion)">Rechazar</button>
-        </td>
-        
       </tr>
       <tr *ngIf="habitaciones.length === 0">
-        <td colspan="6" class="text-center">No se encontraron habitaciones registradas para este usuario.</td>
+        <td colspan="5" class="text-center">No se encontraron habitaciones registradas para este usuario.</td>
       </tr>
     </tbody>
   </table>
