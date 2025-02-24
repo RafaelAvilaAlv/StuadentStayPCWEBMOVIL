@@ -2,23 +2,23 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-10">
-            <div class="registration-container" >
+            <div class="registration-container">
                 <div class="card-header text-center">
                     <h2>{{titulo}}</h2>
                 </div>
                 <form ngNativeValidate class="p-2">
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>CEDULA</strong></label>
+                        <label for="" class="col-form-label col-sm-3"><strong>Cédula</strong></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" [(ngModel)]="persona.cedula_persona" name="cedula"
-                                placeholder="Ingrese el número de cedula" required="true">
+                                placeholder="Ingrese el número de cédula" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-sm-3"><strong>Primer Nombre</strong></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" [(ngModel)]="persona.nombre" name="nombre"
-                                placeholder="Ingrese el primer Nombre" required="true">
+                                placeholder="Ingrese el primer nombre" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -32,55 +32,55 @@
                         <label for="" class="col-form-label col-sm-3"><strong>Apellido Paterno</strong></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" [(ngModel)]="persona.apellido" name="apellido"
-                                placeholder="Ingrese el Apellido Paterno" required="true">
+                                placeholder="Ingrese el apellido paterno" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-sm-3"><strong>Apellido Materno</strong></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" [(ngModel)]="persona.apellido2" name="apellido2"
-                                placeholder="Ingrese el Apellido Materno" required="true">
+                                placeholder="Ingrese el apellido materno" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Telefono</strong></label>
+                        <label for="" class="col-form-label col-sm-3"><strong>Teléfono</strong></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" [(ngModel)]="persona.telefono" name="telefono"
-                                placeholder="Ingrese el numero de celular" required="true">
+                                placeholder="Ingrese el número de celular" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Genero</strong></label>
+                        <label for="" class="col-form-label col-sm-3"><strong>Género</strong></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" [(ngModel)]="persona.genero" name="genero"
-                                placeholder="Ingrese su genero" required="true">
+                                placeholder="Ingrese su género" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Fecha de Nacimiento</strong></label>
+                        <label for="" class="col-form-label col-sm-3"><strong>Fecha De Nacimiento</strong></label>
                         <div class="col-sm-9">
                             <input type="date" class="form-control" [(ngModel)]="persona.fechaNacimiento" (change)="calcularEdad()" name="fechaNacimiento">
                         </div>
                     </div>                    
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Direccion</strong></label>
+                        <label for="" class="col-form-label col-sm-3"><strong>Dirección</strong></label>
                         <div class="col-sm-9">
                             <textarea class="form-control" [(ngModel)]="persona.direccion" name="direccion"
-                                placeholder="Ingrese la direccion" required="true"></textarea>
+                                placeholder="Ingrese la dirección" required="true"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-sm-3"><strong>Usuario</strong></label>
                         <div class="col-sm-9">
                             <input type="email" class="form-control" [(ngModel)]="recepcionista.usuario" name="usuario"
-                                placeholder="Ingrese el nombre de Usuario" required="true">
+                                placeholder="Ingrese el nombre de usuario" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-sm-3"><strong>Contraseña</strong></label>
                         <div class="col-sm-9">
                             <input type="password" class="form-control" [(ngModel)]="recepcionista.contrasena"
-                                name="contrasena" placeholder="Ingrese una Contraseña" required="true">
+                                name="contrasena" placeholder="Ingrese una contraseña" required="true">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -88,8 +88,8 @@
                         <div class="provincia-container col-sm-9">
                             <select id="id_provincia" [(ngModel)]="provinciaSeleccionada" name="id_provincia"
                                 class="provincia-select">
-                                <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{
-                                    provincia.nombre }}
+                                <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">
+                                    {{ provincia.nombre }}
                                 </option>
                             </select>
                             <button type="button" (click)="filtrarCantonesPorProvincia()" class="filter-button-small"
@@ -101,13 +101,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-form-label col-sm-3"><strong>Canton</strong></label>
+                        <label for="" class="col-form-label col-sm-3"><strong>Cantón</strong></label>
                         <div class="canton-container col-sm-9">
                             <select id="id_canton" [(ngModel)]="persona.id_canton" name="id_canton"
                                 [disabled]="!isProvinciaSelected" required>
-                                <option *ngFor="let canton of cantonesFiltrados" [value]="canton.id_canton">{{
-                                    canton.nombre
-                                    }}</option>
+                                <option *ngFor="let canton of cantonesFiltrados" [value]="canton.id_canton">
+                                    {{ canton.nombre }}
+                                </option>
                             </select>
                         </div>
                     </div>

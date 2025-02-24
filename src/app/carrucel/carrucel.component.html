@@ -1,101 +1,142 @@
-
-<div style="background-color: #F9F9F9; padding: 20px;">
-  <div class="container">
+<div class="main-container">
+  <div class="intro-section">
+    <h1>Bienvenido a Room4U</h1>
+    <p>La plataforma líder para encontrar alojamiento universitario en Cuenca, pensada para brindar seguridad, comodidad y facilidad a los estudiantes.</p>
+    
     <!-- Carrusel -->
-    <div id="introCarousel" class="carousel slide shadow-sm rounded mb-5" data-mdb-ride="carousel">
-      <div class="carousel-inner">
-        <img src="assets/imagen/INICIOC.jpg" class="carousel-item active" 
-             style="width: 80%; height: 450px; display: block; margin: 0 auto; object-fit: contain;">
-      </div>
+   <!-- Carrusel de 5 imágenes -->
+<div id="introCarousel" class="carousel slide shadow-sm rounded mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <!-- Imagen 1 -->
+    <div class="carousel-item active">
+      <img src="assets/imagen/imagen1.jpg" class="d-block w-100" alt="Imagen 1">
     </div>
-
-    <!-- Sección de Información en Cuadrícula -->
-    <div class="info-grid">
-      <!-- Concepto -->
-      <div class="info-card">
-        <div class="info-icon concept-icon">
-          <i class="fas fa-home"></i>
-          <h5>Concepto de Room4U</h5>
-        </div>
-        <div class="info-text">
-          <p><em>"Tu espacio, tu independencia, tu futuro."</em></p>
-          <p>Room4U es más que una plataforma de arriendos: es la comunidad donde los estudiantes universitarios en Cuenca encuentran el espacio perfecto para vivir y crecer.</p>
-        </div>
-      </div>
-
-      <!-- Propósito -->
-      <div class="info-card">
-        <div class="info-icon purpose-icon">
-          <i class="fas fa-flag"></i>
-          <h5>Propósito</h5>
-        </div>
-        <div class="info-text">
-          <p>Facilitar a los estudiantes un acceso rápido y confiable a alojamientos seguros y cómodos en Cuenca, creando un ecosistema de arrendamiento justo y sin complicaciones.</p>
-        </div>
-      </div>
-
-      <!-- Objetivos -->
-      <div class="info-card">
-        <div class="info-icon objectives-icon">
-          <i class="fas fa-list-alt"></i>
-          <h5>Objetivos</h5>
-        </div>
-        <div class="info-text">
-          <ul>
-            <li>Brindar una plataforma intuitiva y amigable para facilitar la búsqueda de alojamiento.</li>
-            <li>Garantizar la seguridad y verificación de todas las opciones de arriendo.</li>
-            <li>Fomentar una comunidad estudiantil solidaria y conectada.</li>
-            <li>Ofrecer soporte continuo y eficiente tanto para arrendadores como para estudiantes.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Misión -->
-      <div class="info-card">
-        <div class="info-icon mission-icon">
-          <i class="fas fa-bullseye"></i>
-          <h5>Nuestra Misión</h5>
-        </div>
-        <div class="info-text">
-          <p>Proveer una solución integral para estudiantes en Cuenca que buscan alojamiento, ofreciendo un servicio confiable, cómodo y ajustado a sus necesidades, promoviendo una comunidad inclusiva y colaborativa.</p>
-        </div>
-      </div>
-
-      <!-- Visión -->
-      <div class="info-card">
-        <div class="info-icon vision-icon">
-          <i class="fas fa-lightbulb"></i>
-          <h5>Nuestra Visión</h5>
-        </div>
-        <div class="info-text">
-          <p>Convertirnos en la plataforma de referencia en Ecuador para estudiantes universitarios que buscan alojamiento, destacándonos por la innovación, la seguridad y el apoyo comunitario.</p>
-        </div>
-      </div>
-
+    <!-- Imagen 2 -->
+    <div class="carousel-item">
+      <img src="assets/imagen/imagen2.jpg" class="d-block w-100" alt="Imagen 2">
+    </div>
+    <!-- Imagen 3 -->
+    <div class="carousel-item">
+      <img src="assets/imagen/imagen3.jpg" class="d-block w-100" alt="Imagen 3">
+    </div>
+    <!-- Imagen 4 -->
+    <div class="carousel-item">
+      <img src="assets/imagen/imagen4.jpg" class="d-block w-100" alt="Imagen 4">
+    </div>
+    <!-- Imagen 5 -->
+    <div class="carousel-item">
+      <img src="assets/imagen/imagen5.jpg" class="d-block w-100" alt="Imagen 5">
     </div>
   </div>
-  <h2 class="section-title">Desarrolladores</h2>
-<div class="developers-container">
-  <div class="developer-card">
-    <img src="assets/imagen/Rafa.jpg" alt="Milton Avila" class="developer-photo" />
-    <h3 class="developer-name">Milton Avila</h3>
-  </div>
-  <div class="developer-card">
-    <img src="assets/imagen/Karla.jpg" alt="Karla Mendez" class="developer-photo" />
-    <h3 class="developer-name">Karla Mendez</h3>
-  </div>
-  <div class="developer-card">
-    <img src="assets/imagen/Jose.jpg" alt="Jose Morocho" class="developer-photo" />
-    <h3 class="developer-name">Jose Morocho</h3>
-  </div>
-  <div class="developer-card">
-    <img src="assets/imagen/Luis.jpg" alt="Luis Rey" class="developer-photo" />
-    <h3 class="developer-name">Luis Rey</h3>
-  </div>
-  <div class="developer-card">
-    <img src="assets/imagen/Tefa.jpg" alt="Estefanía Zhungo" class="developer-photo" />
-    <h3 class="developer-name">Estefanía Zhungo</h3>
-  </div>
+
+  <!-- Controles de navegación -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#introCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#introCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
+
+  <!-- Propuesta de Valor -->
+  <section class="value-proposition">
+    <h2>¿Por qué elegir Room4U?</h2>
+    <ul>
+      <li><strong>Seguridad:</strong> Verificación de todas las propiedades y arrendadores.</li>
+      <li><strong>Facilidad de uso:</strong> Plataforma intuitiva para encontrar el lugar perfecto.</li>
+      <li><strong>Comunidad:</strong> Una red de estudiantes conectados que te brindarán soporte.</li>
+    </ul>
+  </section>
+
+  <!-- Sección de Información en Cuadrícula -->
+  <div class="info-grid">
+    <!-- Concepto -->
+    <div class="info-card">
+      <div class="info-icon concept-icon">
+        <i class="fas fa-home"></i>
+        <h5>Concepto de Room4U</h5>
+      </div>
+      <div class="info-text">
+        <p><em>"Tu espacio, tu independencia, tu futuro."</em></p>
+        <p>Room4U es más que una plataforma de arriendos: es la comunidad donde los estudiantes universitarios en Cuenca encuentran el espacio perfecto para vivir y crecer.</p>
+      </div>
+    </div>
+
+    <!-- Propósito -->
+    <div class="info-card">
+      <div class="info-icon purpose-icon">
+        <i class="fas fa-flag"></i>
+        <h5>Propósito</h5>
+      </div>
+      <div class="info-text">
+        <p>Facilitar a los estudiantes un acceso rápido y confiable a alojamientos seguros y cómodos en Cuenca, creando un ecosistema de arrendamiento justo y sin complicaciones.</p>
+      </div>
+    </div>
+
+    <!-- Objetivos -->
+    <div class="info-card">
+      <div class="info-icon objectives-icon">
+        <i class="fas fa-list-alt"></i>
+        <h5>Objetivos</h5>
+      </div>
+      <div class="info-text">
+        <ul>
+          <li>Brindar una plataforma intuitiva y amigable para facilitar la búsqueda de alojamiento.</li>
+          <li>Garantizar la seguridad y verificación de todas las opciones de arriendo.</li>
+          <li>Fomentar una comunidad estudiantil solidaria y conectada.</li>
+          <li>Ofrecer soporte continuo y eficiente tanto para arrendadores como para estudiantes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Misión -->
+    <div class="info-card">
+      <div class="info-icon mission-icon">
+        <i class="fas fa-bullseye"></i>
+        <h5>Nuestra Misión</h5>
+      </div>
+      <div class="info-text">
+        <p>Proveer una solución integral para estudiantes en Cuenca que buscan alojamiento, ofreciendo un servicio confiable, cómodo y ajustado a sus necesidades, promoviendo una comunidad inclusiva y colaborativa.</p>
+      </div>
+    </div>
+
+    <!-- Visión -->
+    <div class="info-card">
+      <div class="info-icon vision-icon">
+        <i class="fas fa-lightbulb"></i>
+        <h5>Nuestra Visión</h5>
+      </div>
+      <div class="info-text">
+        <p>Convertirnos en la plataforma de referencia en Ecuador para estudiantes universitarios que buscan alojamiento, destacándonos por la innovación, la seguridad y el apoyo comunitario.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desarrolladores -->
+  <h2 class="section-title">Desarrolladores</h2>
+  <div class="developers-container">
+    <div class="developer-card">
+      <img src="assets/imagen/Rafa.jpg" alt="Milton Avila" class="developer-photo" />
+      <h3 class="developer-name">Milton Avila</h3>
+    </div>
+    <div class="developer-card">
+      <img src="assets/imagen/Karla.jpg" alt="Karla Mendez" class="developer-photo" />
+      <h3 class="developer-name">Karla Méndez</h3>
+    </div>
+    <div class="developer-card">
+      <img src="assets/imagen/Jose.jpg" alt="Jose Morocho" class="developer-photo" />
+      <h3 class="developer-name">Jose Morocho</h3>
+    </div>
+    <div class="developer-card">
+      <img src="assets/imagen/Luis.jpg" alt="Luis Rey" class="developer-photo" />
+      <h3 class="developer-name">Luis Rey</h3>
+    </div>
+    <div class="developer-card">
+      <img src="assets/imagen/Tefa.jpg" alt="Estefanía Zhungo" class="developer-photo" />
+      <h3 class="developer-name">Estefania Zhungo</h3>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,6 @@
 /* Contenedor Principal */
 .container-custom {
-    background: linear-gradient(135deg, #00416a, #e4e5e6);
+    background: #ccc;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -43,8 +43,8 @@ table {
 }
 
 th {
-    background: #00416a;
-    color: white;
+    background: #cfe2ff;
+    color: rgb(0, 0, 0);
     padding: 12px;
     text-transform: uppercase;
 }

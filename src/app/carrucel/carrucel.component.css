@@ -1,125 +1,218 @@
+html, body { 
+  height: 100%;
+  margin: 0;
+  font-family: "Zain", sans-serif;
+}
+
+/* Estilos globales */
+.zain-extralight { font-weight: 200; }
+.zain-light { font-weight: 300; }
+.zain-regular { font-weight: 400; }
+.zain-bold { font-weight: 700; }
+.zain-extrabold { font-weight: 800; }
+.zain-black { font-weight: 900; }
+.zain-light-italic { font-weight: 300; font-style: italic; }
+.zain-regular-italic { font-weight: 400; font-style: italic; }
+
+/* Contenedor principal */
+.main-container {
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+/* Sección de Introducción */
+.intro-section {
+  margin-bottom: 40px;
+}
+
+.intro-section h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #0077b6;
+}
+
+.intro-section p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #4f4f4f;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* Carrusel */
+#introCarousel {
+  max-width: 100%;
+  max-height: 500px;
+  margin: auto;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+#introCarousel .carousel-inner {
+  max-height: 500px;
+}
+
+#introCarousel .carousel-item img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Sección de Propuesta de Valor */
+.value-proposition {
+  margin: 50px 0;
+  color: #333;
+}
+
+.value-proposition h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  color: #0077b6;
+}
+
+.value-proposition ul {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #555;
+}
+
+.value-proposition li {
+  margin-bottom: 12px;
+}
+
+/* Sección de Testimonios */
+.testimonials {
+  margin-bottom: 50px;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0077b6;
+}
+
+.testimonial p {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #555;
+}
+
+.testimonial em {
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #0077b6;
+}
+
+/* Sección de Llamada a la Acción */
+.cta {
+  margin-bottom: 50px;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0077b6;
+  margin-bottom: 20px;
+}
+
+.cta button {
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta button:hover {
+  background-color: #005f8a;
+  transform: scale(1.05);
+}
+
+/* Cuadrícula de Información */
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: minmax(250px, auto);
-  gap: 25px;
+  gap: 30px;
+  padding: 40px 5%;
 }
 
 .info-card {
-  display: flex;
-  flex-direction: column;
-  background-color: #FFFFFF;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s ease;
-  cursor: pointer;
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 }
 
 .info-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .info-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  color: #FFFFFF;
-  text-align: center;
-}
-
-.info-icon h5 {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 1.25rem;
-}
-
-.concept-icon {
-  background: linear-gradient(135deg, #FFB74D, #FFD54F);
-}
-
-.purpose-icon {
-  background: linear-gradient(135deg, #AB47BC, #CE93D8);
-}
-
-.objectives-icon {
-  background: linear-gradient(135deg, #42A5F5, #90CAF9);
-}
-
-.mission-icon {
-  background: linear-gradient(135deg, #66BB6A, #A5D6A7);
-}
-
-.vision-icon {
-  background: linear-gradient(135deg, #5dade2, #AED6F1);
-}
-
-.values-icon {
-  background: linear-gradient(135deg, #FF7043, #FFAB91);
-}
-
-.services-icon {
-  background: linear-gradient(135deg, #26C6DA, #80DEEA);
+  font-size: 2.5rem;
+  color: #0077b6;
 }
 
 .info-text {
-  padding: 25px;
-  flex-grow: 1;
+  margin-top: 20px;
 }
 
-.info-text p, .info-text ul {
-  color: #6C757D;
-  text-align: justify;
-  line-height: 1.8;
-}
-
-.info-text ul {
-  list-style-type: none;
-  padding-left: 0;
-}
+/* Títulos de secciones */
 .section-title {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin: 2rem 0;
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #0077b6;
+  margin-bottom: 30px;
 }
 
+/* Sección de Desarrolladores */
 .developers-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem; /* Espacio entre tarjetas */
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  padding: 40px;
+  overflow-x: auto;
 }
 
 .developer-card {
-  width: 200px;
-  padding: 1rem;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: all 0.3s ease-in-out;
+  width: 220px;
+  transition: 0.3s;
 }
 
 .developer-card:hover {
-  transform: translateY(-5px); /* Efecto de elevación */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .developer-photo {
-  width: 100%;
-  height: auto;
-  border-radius: 50%;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-bottom: 15px;
 }
 
 .developer-name {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333333;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #0077b6;
 }

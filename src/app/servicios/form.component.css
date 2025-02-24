@@ -1,148 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400;700&display=swap');
+
 /* Fondo general con degradado azul y celeste */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(175deg, #24335b, #2983ad, #e39453); /* Azul oscuro a celeste claro */
-    font-family: 'Roboto', sans-serif;
-    color: #ffffff;
-    padding: 20px;
-  }
-  
-  /* Tarjeta del login */
-  .login-card {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    color: #333333;
-    border: 1px solid #e4e4e4;
-  }
-  
-  /* Logo */
-  .logo {
-    width: 100px;
-    margin-bottom: 20px;
-  }
-  
-  /* Título */
-  .login-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #1e3a8a;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Campos de texto */
-  .form-group input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    background: #fdfdfd;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  
-  .form-group input:focus {
-    border-color: #1e3a8a;
-    box-shadow: 0 0 8px rgba(30, 58, 138, 0.2);
-  }
-  
-  /* Botón */
-  .btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #ffffff;
-    background: linear-gradient(90deg, #1e3a8a, #4fc3f7); /* Azul a celeste */
-    transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-  }
-  
-  .btn:hover {
-    background: linear-gradient(90deg, #4fc3f7, #1e3a8a); /* Invertir degradado */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
-  }
-  
-  /* Redirección */
-  .redirection-buttons {
-    margin-top: 20px;
-  }
-  
-  .register-link {
-    color: #1e3a8a;
-    font-size: 14px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  .register-link:hover {
-    color: #4fc3f7;
-    text-decoration: underline;
-  }
-  
-  /* Estilo de la tarjeta (con fondo rojo) */
-  .card {
-    background-color: #2983ad; /* Color azul para la tarjeta */
-    border: none;
-    border-radius: 0.5rem;
-    transition: all 0.3s;
-    max-width: 800px;
-  }
-  
-  .card:hover {
-    transform: scale(1.01);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
-  }
-  
-  .card-header {
-    background: linear-gradient(175deg, #24335b, #2983ad); /* Fondo más oscuro para el encabezado */
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .card-body {
-    padding: 1.5rem;
-  }
-  
-  .form-control {
-    border-radius: 0.5rem;
-  }
-  
-  .btn-primary {
-    background-color: #1e3a8a; /* Azul más oscuro */
-    color: #fff;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100px;
-    text-transform: uppercase;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition-duration: 0.3s;
-    transition-property: box-shadow, transform;
-  }
-  
-  .btn-primary:hover,
-  .btn-primary:focus,
-  .btn-primary:active {
-    background-color: #056240; /* Verde para el hover */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    transform: scale(1.1);
-  }  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(175deg, #24335b, #2983ad, #e39453); /* Azul oscuro a celeste claro */
+  font-family: 'Zilla Slab', serif;
+  color: #ffffff;
+  padding: 20px;
+}
 
+/* Tarjeta del login */
+.login-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 800px; /* Limita el ancho máximo de la tarjeta */
+  text-align: center;
+  color: #333333;
+  border: 1px solid #e4e4e4;
+}
+
+.card {
+  background-color: #ececec; /* Fondo gris claro */
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  max-width: 800px; /* Limita el ancho máximo de la tarjeta */
+  width: 95%; /* Asegura que la tarjeta no sea más pequeña en pantallas pequeñas */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; /* Centra la tarjeta */
+}
+
+.card:hover {
+  transform: scale(1.01); /* Efecto sutil */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+}
+
+/* Estilo del título con fondo celeste */
+.card-header {
+  background: #cfe2ff; /* Fondo más oscuro para el encabezado */
+  color: rgb(0, 0, 0);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Zilla Slab', serif;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: 'Zilla Slab', serif;
+}
+
+/* Mejora del botón */
+.btn-primary {
+  background-color: #4285f4;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  font-weight: bold;
+  font-family: 'Zilla Slab', serif;
+}
+
+.btn-primary:hover {
+  background-color: #056240; /* Verde para el hover */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1);
+}
+
+/* Mejora en los selects */
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: 'Zilla Slab', serif;
+}
+
+/* Ajuste en los textarea */
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Botón pequeño de filtro */
+.filter-button-small {
+  background-color: #cfe2ff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filter-button-small:hover {
+  background-color: #2983ad;
+  transform: scale(1.1);
+}
+
+/* Redirección */
+.redirection-buttons {
+  margin-top: 20px;
+}
+
+.register-link {
+  color: #1e3a8a;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.register-link:hover {
+  color: #4fc3f7;
+  text-decoration: underline;
+}
