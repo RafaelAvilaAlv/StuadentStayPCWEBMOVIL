@@ -18,22 +18,35 @@
                             <th>Fecha Entrada</th>
                             <th>Fecha Salida</th>
                             <th>Estado</th>
+                            <th>Acción</th> <!-- Nueva columna para el botón -->
                         </tr>
                     </thead>
                     <tbody *ngFor="let combinedData of resultadosCombinados | filter:buscar">
                         <tr>
                             <td>{{ combinedData?.reservaInfo?.idReserva }}</td>
                             <td>
-                                <img class="foto-cliente" src="{{combinedData?.clienteInfo?.foto}}" alt="Foto">
+                                <img class="foto-cliente" src="{{ combinedData?.clienteInfo?.foto }}" alt="Foto">
                                 {{ combinedData?.personaInfor?.nombre }}
                             </td>
                             <td>{{ combinedData?.clienteInfo?.cedula_persona }}</td>
-                            <td>{{ combinedData.reservaInfo?.fechaEntrada }}</td>
-                            <td>{{ combinedData.reservaInfo?.fechaSalida }}</td>
+                            <td>{{ combinedData?.reservaInfo?.fechaEntrada }}</td>
+                            <td>{{ combinedData?.reservaInfo?.fechaSalida }}</td>
                             <td>
-                                <button class="status {{ combinedData?.reservaInfo?.estado }}" type="button"
-                                    (click)="cmabiarEstado(combinedData?.reservaInfo?.idReserva)">
+                                <span class="status {{ combinedData?.reservaInfo?.estado }}">
                                     {{ combinedData?.reservaInfo?.estado }}
+                                </span>
+                            </td>
+                            <td>
+                                <button *ngIf="combinedData?.reservaInfo?.estado === 'Pendiente'"
+                                    class="btn btn-success"
+                                    (click)="cambiarEstado(combinedData?.reservaInfo?.idReserva, 'Aprobado')">
+                                    Aprobar
+                                </button>
+
+                                <button *ngIf="combinedData?.reservaInfo?.estado === 'Aprobado'"
+                                    class="btn btn-primary"
+                                    (click)="cambiarEstado(combinedData?.reservaInfo?.idReserva, 'Finalizado')">
+                                    Finalizar
                                 </button>
                             </td>
                         </tr>
