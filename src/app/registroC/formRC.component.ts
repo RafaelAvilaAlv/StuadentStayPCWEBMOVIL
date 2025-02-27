@@ -43,46 +43,94 @@ export class FormRCComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Campos requeridos',
-        text: 'Por favor, complete todos los campos obligatorios.',
-        showConfirmButton: true
+        text: 'Por favor, complete todos los campos obligatorios antes de continuar.',
+        confirmButtonText: 'Aceptar'
       });
       return;
     }
 
-    this.registroC.cedula_persona = this.cedulaPersona;
-    const usuario = this.formRC.get('usuario')?.value;
-    const contrasena = this.formRC.get('contrasena')?.value;
+    Swal.fire({
+      title: 'Términos y Condiciones de Uso',
+      html: `
+        <div style="text-align: justify; max-height: 400px; overflow-y: auto; font-size: 14px; padding: 15px;">
+          <p><strong>Estimado usuario,</strong></p>
+          <p>Antes de continuar con su registro en <strong>Room4U</strong>, es imprescindible que lea y acepte los siguientes términos y condiciones. Su aceptación es obligatoria para el uso de nuestra plataforma.</p>
 
-    this.registroC.usuario = usuario;
-    this.registroC.contrasena = contrasena;
+          <h3 style="font-size: 16px; font-weight: bold;">1. Objeto del Servicio</h3>
+          <p>Room4U es una plataforma digital que facilita la gestión y reserva de hospedajes para estudiantes. El uso de la plataforma implica la aceptación de las normativas establecidas en este documento.</p>
 
-    this.registroCService.registrarCliente(this.registroC).subscribe(
-      () => {
+          <h3 style="font-size: 16px; font-weight: bold;">2. Responsabilidad del Usuario</h3>
+          <p>El usuario se compromete a proporcionar información veraz y actualizada, así como a utilizar la plataforma de manera responsable, respetando los derechos y condiciones establecidas.</p>
+
+          <h3 style="font-size: 16px; font-weight: bold;">3. Política de Pagos y Reservas</h3>
+          <p>Las reservas y pagos deben efectuarse exclusivamente a través de los medios habilitados en Room4U. No nos responsabilizamos por transacciones realizadas fuera de la plataforma.</p>
+
+          <h3 style="font-size: 16px; font-weight: bold;">4. Protección de Datos</h3>
+          <p>La información proporcionada por el usuario será tratada conforme a nuestra Política de Privacidad, garantizando su confidencialidad.</p>
+
+          <h3 style="font-size: 16px; font-weight: bold;">5. Normas de Convivencia</h3>
+          <p>El usuario acepta cumplir con las normas establecidas por los anfitriones. El incumplimiento de estas normas puede derivar en la restricción del acceso a la plataforma.</p>
+
+          <p style="font-weight: bold; text-align: center; color: #d9534f;">Al seleccionar "Aceptar y Registrarme", usted confirma haber leído y aceptado los términos y condiciones expuestos.</p>
+        </div>
+      `,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar y Registrarme',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#0056b3',
+      cancelButtonColor: '#6c757d',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      customClass: {
+        popup: 'custom-swal-width'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.registroC.cedula_persona = this.cedulaPersona;
+        const usuario = this.formRC.get('usuario')?.value;
+        const contrasena = this.formRC.get('contrasena')?.value;
+
+        this.registroC.usuario = usuario;
+        this.registroC.contrasena = contrasena;
+
+        this.registroCService.registrarCliente(this.registroC).subscribe(
+          () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Registro exitoso',
+              text: 'Su registro ha sido completado con éxito.',
+              confirmButtonText: 'Aceptar',
+              timer: 2000
+            });
+
+            this.registroCService.enviarCorreoConfirmacion(usuario);
+
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 2000);
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error en el registro',
+              text: 'Ha ocurrido un error al procesar su solicitud. Por favor, verifique los datos ingresados e intente nuevamente.',
+              confirmButtonText: 'Aceptar'
+            });
+          }
+        );
+      } else {
         Swal.fire({
-          icon: 'success',
-          title: 'Registro exitoso',
-          text: '¡Bienvenido a StudentStay!',
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-        // Llamamos al servicio para enviar el correo de confirmación
-        this.registroCService.enviarCorreoConfirmacion(usuario);
-
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 2000);
-      },
-      (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al intentar registrar los datos. Por favor, verifique que todos los datos sean válidos y que todos los campos estén llenos.',
-          showConfirmButton: true
+          icon: 'warning',
+          title: 'Registro Cancelado',
+          text: 'Debe aceptar los términos y condiciones para completar su registro.',
+          confirmButtonText: 'Aceptar'
         });
       }
-    );
-  }
+    });
+}
+
+
 
   selectFile(event: any): void {
     const file: File = event.target.files[0];
