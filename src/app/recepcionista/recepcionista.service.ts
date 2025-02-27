@@ -36,6 +36,15 @@ export class RecepcionistaService {
     return this.http.get<Recepcionista[]>(`${this.urlEndPoint}`);
          
     }
+    buscarPorUsuario(usuario: string): Observable<Recepcionista | null> {
+      return this.http.get<Recepcionista[]>(this.urlEndPoint).pipe(
+        map(recepcionistas => {
+          const recepcionistaEncontrado = recepcionistas.find(recep => recep.usuario === usuario);
+          return recepcionistaEncontrado || null;
+        })
+      );
+    }
+    
     verificarCedula(cedula: string): Observable<boolean> {
       return this.http.get<boolean>(`${this.urlEndPoint}/verificarCedula/${cedula}`);
     }
