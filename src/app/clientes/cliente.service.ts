@@ -27,10 +27,11 @@ export class ClienteService {
   }
 
   edit(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.urlEndPoint, cliente, { headers: this.httpHeaders }).pipe(
+    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.idCliente}`, cliente, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)
     );
   }
+  
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';

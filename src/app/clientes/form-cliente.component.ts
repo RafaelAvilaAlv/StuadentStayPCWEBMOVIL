@@ -57,15 +57,15 @@ export class FormClienteComponent implements OnInit{
     )
   }
 
-  public editU(): void{
-    this.clienteService.edit(this.cliente)
-    .subscribe(cliente => {
-        this.router.navigate(['/clientes'])
-        Swal.fire('Usuario guardado', `Usuario ${cliente.usuario} guardado con exito`, 'success')
+  public editU(): void {
+    this.convertToBase64(); // Asegúrate de convertir a base64 antes de editar
+    this.clienteService.edit(this.cliente).subscribe(cliente => {
+        this.router.navigate(['/clientes']);
+        Swal.fire('Usuario guardado', `Usuario ${cliente.usuario} guardado con éxito`, 'success');
       }
-    )
+    );
   }
-
+  
   public editPer(): void{
     this.personaService.updatePersona(this.persona)
     .subscribe(persona => {}

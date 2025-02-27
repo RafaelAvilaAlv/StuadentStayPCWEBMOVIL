@@ -120,17 +120,27 @@ export class FormPComponent implements OnInit {
         this.router.navigate(['/registroC/form', persona.cedula_persona]);
       },
       (error) => {
-        //console.error('Error al crear persona:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al intentar guardar sus datos. Por favor, datos erroneos, campos incompletos o esta usuario ya esta registrado.',
-
-          confirmButtonText: 'OK',
-        });
+        // Verifica si el error indica que la cédula ya está registrada
+        if (error.status === 409) { // Supongamos que el error 409 indica conflicto (cedula ya registrada)
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La cédula ya está registrada. No se puede crear una nueva persona con la misma cédula.',
+            confirmButtonText: 'OK',
+          });
+        } else {
+          // Para otros errores
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al intentar guardar sus datos. Por favor, datos erróneos o campos incompletos.',
+            confirmButtonText: 'OK',
+          });
+        }
       }
     );
   }
+  
 
 
 

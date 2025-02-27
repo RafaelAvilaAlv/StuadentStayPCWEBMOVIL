@@ -58,6 +58,6 @@ export class PersonaService {
 
   // Nueva función para verificar si la cédula ya está registrada
   verificarCedulaExistente(cedula: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.urlEndPoint}/verificarCedula/${cedula}`);
+    return this.http.get<boolean>(`${this.urlEndPoint}/verificarCedulaExistente/${cedula}`);
   }
 }
