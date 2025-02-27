@@ -30,7 +30,7 @@ export class HabitacionesRecepComponent implements OnInit {
           this.currentRecepcionistaId = recepcionista.idRecepcionista;
           this.cargarHabitaciones();
         } else {
-          Swal.fire('Error', 'No se encontró un recepcionista con este usuario.', 'error');
+          Swal.fire('Aviso', 'El recepcionista aun no tiene habitaciones', 'error');
         }
       });
     } else {
