@@ -13,12 +13,14 @@
         
         <!-- Filtro de búsqueda -->
         <div class="d-flex">
-          <input type="text" id="buscarId" [(ngModel)]="idABuscar" class="form-control mr-2" placeholder="Buscar por ID" />
+          <input type="text" id="buscarId" [(ngModel)]="idABuscar" class="form-control mr-2" 
+                 placeholder="Buscar por ID" (input)="buscarEnTiempoReal()" (keydown)="onKeyDown($event)" />
           <select [(ngModel)]="entidadSeleccionada" class="form-control">
             <option value="habitaciones">Habitaciones</option>
             <option value="recepcionistas">Propietarios</option>
           </select>
         </div>
+        
       </div>
     </div>
   </div>

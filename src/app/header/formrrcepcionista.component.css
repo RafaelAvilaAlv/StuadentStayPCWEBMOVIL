@@ -1,17 +1,22 @@
 /* Navbar */
 .navbar-custom {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #f9fafc;
-  padding: 20px 40px;
+  padding: 20px 40px; /* Se mantiene igual */
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   font-family: "Zain", serif;
+  z-index: 1000;
 }
 
 /* Logo */
 .logo {
-  height: 80px; /* Tamaño más grande */
+  height: 80px; /* Se mantiene grande */
   width: auto;
 }
 
@@ -24,8 +29,8 @@
 
 .navbar-nav .nav-link {
   color: #0f2032;
-  font-weight: 900; /* Más grueso */
-  font-size: 20px; /* Más grande */
+  font-weight: 900;
+  font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 1.2px;
   padding: 12px 24px;
@@ -53,7 +58,7 @@
 
 .navbar-nav .nav-link:hover {
   color: #0077B6;
-  transform: translateY(-3px); /* Movimiento sutil */
+  transform: translateY(-3px);
 }
 
 /* Iconos de redes sociales */
@@ -61,7 +66,7 @@
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 30px; /* Más separación */
+  gap: 30px;
   margin-left: 20px;
 }
 
@@ -78,7 +83,7 @@
 
 /* Botón de cerrar sesión */
 .logout-container {
-  margin-left: 50px; /* Más separación */
+  margin-left: 50px;
 }
 
 .logout-btn {
@@ -96,6 +101,11 @@
 .logout-btn:hover {
   background: linear-gradient(90deg, #b84848, #d10f0f);
   transform: translateY(-3px);
+}
+
+/* Ajuste para que la navbar no tape el contenido */
+body {
+  padding-top: 90px; /* Ajustado para evitar solapamiento con la navbar */
 }
 
 /* Responsive para móviles */

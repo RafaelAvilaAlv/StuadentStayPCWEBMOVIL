@@ -46,6 +46,16 @@ export class HabitacionesComponent implements OnInit {
 }
 
 
+getCaracteristicas(categoria: string): string[] {
+  const categorias: { [key: string]: string[] } = {
+    'VIP': ['Baño Privado', 'Estacionamiento', 'Wifi', 'Escritorio de Estudio', 'Aire Acondicionado'],
+    'Estandar': ['Baño Privado', 'Cocina Compartida', 'Internet', 'Espacio de Estudio', 'Lavandería'],
+    'Economica': ['Baño Compartido', 'Wifi', 'Espacio de Almacenaje', 'Cocina Comunitaria', 'Servicios Básicos (agua, luz)']
+  };
+
+  return categorias[categoria] || [];
+}
+
 
   ngOnInit(): void {
    
