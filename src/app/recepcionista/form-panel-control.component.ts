@@ -4,6 +4,8 @@ import { Habitaciones } from '../habitaciones/habitaciones';
 import { ClienteService } from '../clientes/cliente.service';
 import { PersonaService } from '../persona/persona.service';
 import { ReservaService } from '../reservas/reserva.service';
+import { RecepcionistaService } from '../recepcionista/recepcionista.service';
+import { UserService } from '../login/UserService';
 import { Reserva } from '../reservas/reserva';
 import { Cliente } from '../clientes/cliente';
 import { Persona } from '../persona/persona';
@@ -16,49 +18,71 @@ import Swal from 'sweetalert2';
   styleUrl: './form-panel-control.component.css'
 })
 export class FormPanelControlComponent implements OnInit {
-
   buscar: string = '';
   resultadosCombinados: any[] = [];
   habitaciones: Habitaciones = new Habitaciones();
-  reservas: Reserva = new Reserva();
+  reservas: Reserva[] = [];
+  recepcionistaId: number | null = null;
 
   constructor(
-    private habitacionesService: HabitacionesService, 
-    private clienteService: ClienteService, 
+    private habitacionesService: HabitacionesService,
+    private clienteService: ClienteService,
     private personaService: PersonaService,
-    private reservaService: ReservaService
+    private reservaService: ReservaService,
+    private recepcionistaService: RecepcionistaService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.buscarReservas();
+    this.obtenerReservasRecepcionista();
   }
 
-  buscarReservas() {
-    this.reservaService.getReserva().subscribe(
-      reservaInd => {
-        const observables = reservaInd.map(reservaInfo => {
-          return this.clienteService.getCliente(reservaInfo.idCliente).pipe(
-            switchMap(clienteInf => {
-              if (clienteInf) {
-                return this.personaService.getPersona(clienteInf.cedula_persona).pipe(
-                  map(personaInf => ({
-                    reservaInfo,
-                    clienteInfo: clienteInf,
-                    personaInfor: personaInf
-                  }))
-                );
-              } else {
-                return of(null);
-              }
-            })
-          );
+  obtenerReservasRecepcionista() {
+    const usuario = this.userService.getUsuario();
+
+    if (!usuario) {
+      console.log('No hay usuario almacenado.');
+      return;
+    }
+
+    this.recepcionistaService.buscarPorUsuario(usuario).subscribe(recepcionista => {
+      if (recepcionista) {
+        this.recepcionistaId = recepcionista.idRecepcionista;
+
+        // Obtener reservas que coincidan con el recepcionista
+        this.reservaService.getReserva().subscribe(reservas => {
+          this.reservas = reservas.filter(reserva => reserva.idRecepcionista === this.recepcionistaId);
+          this.buscarDetallesReservas();
         });
 
-        forkJoin(observables).subscribe(results => {
-          this.resultadosCombinados = results.filter(result => result !== null);
-        });
+      } else {
+        console.log('No se encontró un recepcionista con ese usuario.');
       }
-    );
+    });
+  }
+
+  buscarDetallesReservas() {
+    const observables = this.reservas.map(reservaInfo => {
+      return this.clienteService.getCliente(reservaInfo.idCliente).pipe(
+        switchMap(clienteInf => {
+          if (clienteInf) {
+            return this.personaService.getPersona(clienteInf.cedula_persona).pipe(
+              map(personaInf => ({
+                reservaInfo,
+                clienteInfo: clienteInf,
+                personaInfor: personaInf
+              }))
+            );
+          } else {
+            return of(null);
+          }
+        })
+      );
+    });
+
+    forkJoin(observables).subscribe(results => {
+      this.resultadosCombinados = results.filter(result => result !== null);
+    });
   }
 
   cambiarEstado(idReserva: number, nuevoEstado: string) {
@@ -71,23 +95,25 @@ export class FormPanelControlComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.reservas.estado = nuevoEstado;
-        this.reservas.idReserva = idReserva;
+        const reserva = this.reservas.find(r => r.idReserva === idReserva);
+        if (reserva) {
+          reserva.estado = nuevoEstado;
 
-        this.reservaService.update(this.reservas).subscribe(
-          (response) => {
-            if (nuevoEstado === 'Finalizado' && response && response.idHabitaciones) {
-              this.actualizarHabitacion(response.idHabitaciones);
-            } else {
-              Swal.fire('Estado actualizado', `Reserva ${idReserva} marcada como ${nuevoEstado}`, 'success');
-              this.buscarReservas();
+          this.reservaService.update(reserva).subscribe(
+            (response) => {
+              if (nuevoEstado === 'Finalizado' && response && response.idHabitaciones) {
+                this.actualizarHabitacion(response.idHabitaciones);
+              } else {
+                Swal.fire('Estado actualizado', `Reserva ${idReserva} marcada como ${nuevoEstado}`, 'success');
+                this.obtenerReservasRecepcionista();
+              }
+            },
+            (error) => {
+              console.error('Error al cambiar estado de la reserva:', error);
+              Swal.fire('Error', 'No se pudo cambiar el estado de la reserva.', 'error');
             }
-          },
-          (error) => {
-            console.error('Error al cambiar estado de la reserva:', error);
-            Swal.fire('Error', 'No se pudo cambiar el estado de la reserva.', 'error');
-          }
-        );
+          );
+        }
       }
     });
   }
@@ -99,7 +125,7 @@ export class FormPanelControlComponent implements OnInit {
       this.habitacionesService.update(this.habitaciones).subscribe(
         () => {
           Swal.fire('Reserva Finalizada', `La habitación ${habitacion.nHabitacion} ahora está disponible`, 'success');
-          this.buscarReservas();
+          this.obtenerReservasRecepcionista();
         },
         (error) => {
           console.error('Error al actualizar la habitación:', error);
@@ -108,5 +134,3 @@ export class FormPanelControlComponent implements OnInit {
     });
   }
 }
-
-
