@@ -48,14 +48,13 @@ export class HabitacionesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const idRecepcionista = this.obtenerIdRecepcionista(); // Método para obtener el ID del recepcionista actual
+   
     this.habitacionesService.getHabitaciones().subscribe(
       habitaciones => {
         const habitacionesDisponibles = habitaciones.filter(h => h.estado === 'Disponible');
         const habitacionesNoDisponibles = habitaciones.filter(h => h.estado !== 'Disponible');
 
-        // Filtrar habitaciones del recepcionista
-        this.habitaciones = habitaciones.filter(h => h.idRecepcionista === idRecepcionista);
+
 
         // Estadísticas
         const totalHabitaciones = habitaciones.length;
@@ -97,10 +96,7 @@ export class HabitacionesComponent implements OnInit {
     );
   }
 
-  // Método para obtener el ID del recepcionista desde el localStorage o sesión
-obtenerIdRecepcionista(): number {
-  return Number(localStorage.getItem('usuario')); // Ajusta según cómo almacenes el usuario
-}
+ 
 
 
 
