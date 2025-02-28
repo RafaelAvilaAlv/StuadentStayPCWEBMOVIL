@@ -85,11 +85,15 @@ export class FormReservasComponent implements OnInit {
         this.habitacionesService.getHabitacionesid(id).subscribe(
           (result) => {
             if (result) {
+              // Asignar la habitación a la variable de habitación
               this.habitaciones = result;
               this.idHabitaciones = result.idHabitaciones;
               this.reserva.idHabitaciones = result.idHabitaciones;
               this.reserva.idCliente = this.idCliente;
-              this.reserva.idRecepcionista = 1;
+              
+              // Asignar idRecepcionista de la habitación a la reserva
+              this.reserva.idRecepcionista = result.idRecepcionista; // Aquí asignamos el idRecepcionista de la habitación
+  
               this.preciohabi = result.precio;
               this.inicio.idHabitacion = result.idHabitaciones;
             }
@@ -101,6 +105,7 @@ export class FormReservasComponent implements OnInit {
       }
     });
   }
+  
 
   create() {
     if (this.form.valid) {
