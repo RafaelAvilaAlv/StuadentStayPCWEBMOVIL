@@ -4,9 +4,12 @@
         <main class="table">
             <section class="table_body">
                 <br>
-
-                
-                
+                <br>
+                <div class="busqueda">
+                    🔍 BÚSQUEDA POR CÉDULA:
+                    <input type="text" class="input-custom" [(ngModel)]="buscar" placeholder="Ingrese Cédula Cliente" name="buscar">
+                </div>
+                <br>
                 <table>
                     <thead>
                         <tr>
@@ -19,7 +22,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let combinedData of resultadosCombinados">
+                        <tr *ngFor="let combinedData of resultadosFiltrados">
+
                             <td>{{ combinedData?.reservaInfo?.idReserva }}</td>
                             <td>
                                 <img class="foto-cliente" src="{{combinedData?.clienteInfo?.foto}}" alt="Foto">

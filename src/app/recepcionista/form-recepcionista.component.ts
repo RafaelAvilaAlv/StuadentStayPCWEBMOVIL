@@ -61,7 +61,7 @@ export class FormRecepcionistaComponent implements OnInit {
     if (this.provinciaSeleccionada) {
       const provinciaSeleccionada = this.provincias.find(provincia => provincia.id_provincia === this.provinciaSeleccionada);
       if (provinciaSeleccionada) {
-        this.selectedProvinceMessage = `Provincia ${provinciaSeleccionada.nombre} seleccionada`;
+        this.selectedProvinceMessage =` Provincia ${provinciaSeleccionada.nombre} seleccionada`;
         this.isProvinciaSelected = true;
       }
       this.cantonesFiltrados = this.cantones.filter(
@@ -95,7 +95,7 @@ export class FormRecepcionistaComponent implements OnInit {
       this.recepcionista.cedula_persona = personaCreada.cedula_persona;
       this.recepcionistaService.create(this.recepcionista).subscribe((recepcionistaCreado) => {
       this.router.navigate(['/panel-recepcion'])
-      Swal.fire('Recepcionista guardado', `Recepcionista ${this.persona.nombre} Guardado con éxito`, 'success')
+      Swal.fire('Recepcionista guardado',` Recepcionista ${this.persona.nombre} Guardado con éxito`, 'success')
       }, (error) => {
         console.error('Error al guardar el recepcionista: ', error);
       });
