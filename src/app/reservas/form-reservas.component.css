@@ -13,6 +13,11 @@
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
 }
+.carousel-item img {
+  width: 100%;
+  height: 400px; /* Ajusta el tamaño según lo necesites */
+  object-fit: cover; /* Para evitar espacios en blanco y mantener la proporción */
+}
 
 .btnFac {
   background-color: #cf212f;
