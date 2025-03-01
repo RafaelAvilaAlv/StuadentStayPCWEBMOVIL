@@ -10,7 +10,12 @@
         [ngClass]="{ 'h-auto': habitacion.mostrarFotos, 'h-[500px]': !habitacion.mostrarFotos }"
         *ngIf="habitacion.estado === 'No Disponible'"
       >
-        <!-- Imagen principal encima de la categoría -->
+        <!-- Mostrar el título del anuncio -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">
+          {{ habitacion.titulo_anuncio }}
+        </h3>
+
+        <!-- Imagen principal encima del título -->
         <div class="relative w-full h-40 mb-4">
           <img
             src="{{ habitacion.foto }}"

@@ -20,6 +20,8 @@ import { CategoriasService } from '../categorias.service';
 import { Recepcionista } from '../recepcionista/recepcionista'; // Importa el modelo de recepcionista
 import { RecepcionistaService } from '../recepcionista/recepcionista.service'; // Importa el servicio de recepcionista
 
+
+
 @Component({
   selector: 'app-form-hbitaciones',
   templateUrl: './form-hbitaciones.component.html',
@@ -31,6 +33,7 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   public habitaciones: Habitaciones = new Habitaciones();
   public titulo: string = "Crear Habitación";
   categorias: categorias[] = [];
+  
 
   previewImage1: string | ArrayBuffer | null = null;
   previewImage2: string | ArrayBuffer | null = null;
@@ -52,6 +55,7 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
     this.cargarhabitacion();
     this.cargarCategorias();
     this.obtenerRecepcionistas();
+    console.log('habitaciones:', this.habitaciones);
   }
 
   obtenerRecepcionistas(): void {

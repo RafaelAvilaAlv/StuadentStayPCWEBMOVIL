@@ -13,4 +13,6 @@ export class Habitaciones {
     longitud: number= 0;
     idRecepcionista : number = 0 ;
     mostrarFotos?: boolean; 
+
+    titulo_anuncio: string = '';
 }
