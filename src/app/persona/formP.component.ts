@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './formP.component.css'
 })
 export class FormPComponent implements OnInit {
+  
   public persona: Persona = new Persona();
   public titulo: string = 'REGISTRO';
   public cantones: Cantones[] = [];
@@ -25,6 +26,8 @@ export class FormPComponent implements OnInit {
   public isFilterClicked: boolean = false;
   public selectedProvinceMessage: string = 'Ninguna provincia seleccionada';
   public isProvinciaSelected: boolean = false;
+
+  
 
 
 
@@ -100,16 +103,29 @@ export class FormPComponent implements OnInit {
     this.personaService.createPersona(this.persona).subscribe(
       (persona) => {
         this.router.navigate(['/persona']);
-        Swal.fire('Persona guardada', `Persona ${persona.nombre} guardada con éxito formPPPP`, 'success');
+        Swal.fire('Persona guardada', `Persona ${persona.nombre} guardada con éxito.`, 'success');
       },
       (error) => {
-        //console.error('Error al crear persona:PPPPP', error);
-        Swal.fire('Error', 'Ocurrió un error al intentar guardar la persona PPPPPPP', 'error');
+        Swal.fire('Error', 'Ocurrió un error al intentar guardar la persona.', 'error');
       }
     );
   }
+  
 
   irARegistroC(): void {
+
+    // Validación de la cédula ecuatoriana
+  if (!this.validarCedula(this.persona.cedula_persona)) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'La cédula ecuatoriana ingresada no es válida.',
+      confirmButtonText: 'OK',
+    });
+    return; // Detener el proceso si la cédula no es válida
+  }
+
+
     this.personaService.createPersona(this.persona).subscribe(
       (persona) => {
         Swal.fire({
@@ -160,14 +176,22 @@ export class FormPComponent implements OnInit {
     }
   }
 
-  //VALIDACIONES
-  onKeyPress(event: any): void {
-    const inputElement = event.target;
+onKeyPress(event: any): void {
+  const inputElement = event.target;
+  const currentValue = inputElement.value;
 
-    if (!this.validarLetras(event.key)) {
-      event.preventDefault();
-    }
+  // Permitir la tecla "Backspace" y otras teclas de control
+  if (event.key === 'Backspace') {
+    return; // Permite el backspace sin restricciones
   }
+
+  // Verificar si la tecla presionada es una letra válida y si no supera los 15 caracteres, también bloquear espacios
+  if (!this.validarLetras(event.key) || currentValue.length >= 15 || event.key === ' ') {
+    event.preventDefault(); // Bloquear la entrada si no es válida, si excede los 15 caracteres o si es un espacio
+  }
+}
+
+
 
   onKeyPressNumeros(event: KeyboardEvent): void {
     const char = event.key;
@@ -179,6 +203,14 @@ export class FormPComponent implements OnInit {
     }
   }
 
+  onTelefonoChange(value: string): void {
+    if (!value.startsWith('+593')) {
+      this.persona.telefono = '+593' + value; // Siempre añadir el prefijo si no está presente
+    } else {
+      this.persona.telefono = value;
+    }
+  }
+  
 
   validarLetras(char: string): boolean {
 
@@ -187,5 +219,48 @@ export class FormPComponent implements OnInit {
   validarNumeros(char: string): boolean {
     return /^[0-9]*$/.test(char);
   }
+
+  validarCedula(cedula: string): boolean {
+    // Eliminar espacios y asegurarse de que la cédula tenga 10 dígitos
+    cedula = cedula.trim();
+    if (cedula.length !== 10 || !/^\d{10}$/.test(cedula)) {
+      Swal.fire('Error', 'La cédula debe tener exactamente 10 dígitos.', 'error');
+      return false;
+    }
+  
+    // Algoritmo de validación para la cédula
+    const provincia = parseInt(cedula.substring(0, 2), 10);
+    const digitoVerificador = parseInt(cedula.charAt(9), 10);
+  
+    // La provincia debe estar entre 1 y 24 para ser ecuatoriana
+    if (provincia < 1 || provincia > 24) {
+      Swal.fire('Error', 'La cédula no corresponde a una provincia ecuatoriana válida.', 'error');
+      return false;
+    }
+  
+    // Validación del dígito verificador utilizando el algoritmo oficial
+    let suma = 0;
+    for (let i = 0; i < 9; i++) {
+      let digito = parseInt(cedula.charAt(i), 10);
+      if (i % 2 === 0) {
+        digito *= 2;
+        if (digito > 9) {
+          digito -= 9;
+        }
+      }
+      suma += digito;
+    }
+  
+    const digitoCalculado = (10 - (suma % 10)) % 10;
+  
+    if (digitoVerificador !== digitoCalculado) {
+      Swal.fire('Error', 'El dígito verificador de la cédula no es válido.', 'error');
+      return false;
+    }
+  
+    return true;
+  }
+  
+  
 
 }
