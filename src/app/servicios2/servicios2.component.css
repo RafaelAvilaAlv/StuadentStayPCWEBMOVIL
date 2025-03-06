@@ -45,7 +45,7 @@ td {
 
 /* Colores dinámicos según estado */
 .status.pendiente {
-    background-color: #f39c12;
+    background-color: #11f559;
     color: white;
 }
 
@@ -57,3 +57,44 @@ td {
 .status:hover {
     transform: scale(1.1);
 }
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .estado-col {
+    text-align: center; /* Centra el contenido de la columna */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center; /* Centra los botones dentro del contenedor */
+    gap: 10px; /* Espacio entre los botones */
+  }
+  
+  .status {
+    background-color: #4CAF50; /* Verde para 'Pendiente' o 'Realizado' */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .status.Aprobado {
+    background-color: #4CAF50; /* Verde para 'Pendiente' */
+  }
+  
+  .status.realizado {
+    background-color: #2196F3; /* Azul para 'Realizado' */
+  }
+  
+  .status.rechazar {
+    background-color: #f44336; /* Rojo para 'Rechazar' */
+  }
+  
+  .status:hover {
+    opacity: 0.8; /* Efecto hover para los botones */
+  }
+  

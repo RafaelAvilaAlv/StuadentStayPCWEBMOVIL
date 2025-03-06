@@ -10,7 +10,8 @@ import { appConfig } from '../enviroment/appConfig';
 })
 export class Servicio2Service {
   private urlEndPoint: string = `${appConfig.baseUrl}/servicio`;
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
   constructor(private http: HttpClient) { }
 
   getServicios2(): Observable<Servicios2[]> {
@@ -20,7 +21,7 @@ export class Servicio2Service {
   }
 
   create(articulo: Servicios2): Observable<Servicios2> {
-    return this.http.post<Servicios2>(this.urlEndPoint, articulo, { headers: this.httpHeaders })
+    return this.http.post<Servicios2>(this.urlEndPoint, articulo, { headers: this.httpHeaders });
   }
 
   getServicios2id(id: any): Observable<Servicios2> {
@@ -31,10 +32,14 @@ export class Servicio2Service {
     return this.http.delete<Servicios2>(`${this.urlEndPoint}/${id}`);
   }
 
-  actualizarEstado(id: number, nuevoEstado: string): Observable<Servicios2> {
+  // Actualizar estado, idTipo_servicio y descripcion
+  actualizarEstado(id: number, nuevoEstado: string, idTipo_servicio: number, descripcion: string): Observable<Servicios2> {
     const url = `${this.urlEndPoint}/${id}`;
-    const body = { estado: nuevoEstado };
+    const body = {
+      estado: nuevoEstado,
+      idTipo_servicio: idTipo_servicio,  // Nuevo campo
+      descripcion: descripcion           // Nuevo campo
+    };
     return this.http.put<Servicios2>(url, body, { headers: this.httpHeaders });
   }
-  
 }

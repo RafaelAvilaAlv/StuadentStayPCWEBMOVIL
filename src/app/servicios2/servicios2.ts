@@ -4,4 +4,5 @@ export class Servicios2 {
     idHabitaciones!: number;
     idTipo_servicio!: number;
     estado!: string;
+    
 }

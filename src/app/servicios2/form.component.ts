@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Reserva } from '../reservas/reserva';
 import { ReservaService } from '../reservas/reserva.service';
+import { UserService } from '../login/UserService';
+import { ClienteService } from '../clientes/cliente.service';
 
 @Component({
   selector: 'app-form',
@@ -18,19 +20,41 @@ export class FormComponentServi implements OnInit {
   public reserva: Reserva = new Reserva(); // Objeto para la reserva seleccionada
   public reservas: Reserva[] = []; // Lista de reservas
   public titulo: string = "Crear Servicio";
+  public usuarioLogueado: string = ''; // Aquí se almacenará el usuario logueado
+  public clienteId: number | null = null; // Aquí se almacenará el ID del cliente
 
   constructor(
     private reservasService: ReservaService, // ✅ Nombre correcto
     private servicioService: ServicioService,
     private servicio2Service: Servicio2Service,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService, // Inyectamos el UserService
+    private clienteService: ClienteService // Inyectamos el ClienteService
   ) {}
-  
 
   ngOnInit(): void {
+    this.obtenerUsuario();
     this.cargarServicios();
-    this.cargarReservas(); // Cargar las reservas en el dropdown
+  }
+
+  obtenerUsuario(): void {
+    this.usuarioLogueado = this.userService.getUsuario() || '';  // Obtener el usuario logueado
+    if (this.usuarioLogueado) {
+      this.buscarCliente();
+    }
+  }
+
+  buscarCliente(): void {
+    this.clienteService.getAllClientes().subscribe(clientes => {
+      const clienteEncontrado = clientes.find(cliente => cliente.usuario === this.usuarioLogueado);
+      if (clienteEncontrado) {
+        this.clienteId = clienteEncontrado.idCliente;  // Guardamos el ID del cliente
+        this.cargarReservas(); // Cargar las reservas del cliente
+      }
+    }, error => {
+      console.error('Error obteniendo cliente:', error);
+    });
   }
 
   cargarServicios(): void {
@@ -45,17 +69,18 @@ export class FormComponentServi implements OnInit {
   }
 
   cargarReservas(): void {
-    this.reservasService.getReserva().subscribe({
-      next: (reservas) => {
-        this.reservas = reservas;
-        console.log('Reservas cargadas:', this.reservas);
-      },
-      error: (error) => {
-        console.error('Error al cargar reservas:', error);
-      }
-    });
+    if (this.clienteId !== null) {
+      this.reservasService.getReserva().subscribe({
+        next: (reservas) => {
+          this.reservas = reservas.filter(reserva => reserva.idCliente === this.clienteId);  // Filtramos las reservas por el cliente logueado
+          console.log('Reservas cargadas:', this.reservas);
+        },
+        error: (error) => {
+          console.error('Error al cargar reservas:', error);
+        }
+      });
+    }
   }
-  
 
   public create(): void {
     this.servicio2.idHabitaciones = this.reserva.idReserva; // Asigna el ID de la reserva seleccionada

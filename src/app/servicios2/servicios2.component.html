@@ -16,13 +16,26 @@
               <td>{{ obtenerTipoServicio(servicio2.idTipo_servicio) }}</td>
               <td>{{ obtenerNumeroHabitacion(servicio2.idHabitaciones) }}</td>
               <td>{{ servicio2.descripcion }}</td>
-              <td>
-                <button type="button" class="status" [ngClass]="{
-                  'pendiente': servicio2.estado === 'Pendiente',
-                  'realizado': servicio2.estado === 'Realizado'
-                }" (click)="cambiarEstado(servicio2)">
-                  {{ servicio2.estado }}
-                </button>
+              <td class="estado-col">
+                <div class="button-group">
+                  <!-- Mostrar estado actual si el servicio está 'Realizado' o 'Rechazado' -->
+                  <span *ngIf="servicio2.estado === 'Realizado' || servicio2.estado === 'Rechazado'">
+                    {{ servicio2.estado }}
+                  </span>
+                  <!-- Mostrar botones si el estado no es 'Realizado' ni 'Rechazado' -->
+                  <button *ngIf="servicio2.estado !== 'Realizado' && servicio2.estado !== 'Rechazado'"
+                    type="button" class="status" [ngClass]="{
+                      'pendiente': servicio2.estado === 'Pendiente',
+                      'realizado': servicio2.estado === 'Aprobado'
+                    }" (click)="cambiarEstado(servicio2)">
+                    <!-- Cambié el texto aquí -->
+                    {{ servicio2.estado === 'Pendiente' ? 'Aprobar' : servicio2.estado }}
+                  </button>
+                  <button *ngIf="servicio2.estado !== 'Realizado' && servicio2.estado !== 'Rechazado'"
+                    type="button" class="status rechazar" [disabled]="servicio2.estado === 'Rechazado'" (click)="rechazarServicio(servicio2)">
+                    Rechazar
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
