@@ -12,6 +12,7 @@ import { appConfig } from '../enviroment/appConfig';
 export class HabitacionesService {
   private urlEndPoint: string = `${appConfig.baseUrl}/habitaciones`;
   private urlEndPoint1: string = `${appConfig.baseUrl}/categorias`;
+  private urlEndPointComentarios: string = `${appConfig.baseUrl}/comentarios`; 
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -49,5 +50,9 @@ export class HabitacionesService {
     return this.http.get<Habitaciones[]>(`${this.urlEndPoint}/recepcionista/${idRecepcionista}`);
   }
   
+  // Nuevo método para obtener los comentarios de una habitación
+  getComentariosPorHabitacion(idHabitacion: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlEndPointComentarios}/habitacion/${idHabitacion}`);
+  }
 
 }
