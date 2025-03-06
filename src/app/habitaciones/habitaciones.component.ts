@@ -35,7 +35,6 @@ export class HabitacionesComponent implements OnInit {
     porcentajeDisponible: 0,
     porcentajeNoDisponible: 0
   };
-  nuevoComentario: string = ''; // Variable para el comentario nuevo
 
   constructor(
     private habitacionesService: HabitacionesService,
@@ -45,18 +44,6 @@ export class HabitacionesComponent implements OnInit {
   cargarMisHabitaciones(): void {
     this.router.navigate(['/habitaciones/habitacionesrece']);
 }
-
-
-agregarComentario(habitacion: Habitaciones): void {
-    if (this.nuevoComentario.trim()) {
-      const comentario = {
-        nombreCliente: 'Cliente Nombre', // Cambia esto por el nombre del cliente
-        texto: this.nuevoComentario.trim()
-      };
-      habitacion.comentarios.push(comentario);
-      this.nuevoComentario = ''; // Limpiar el campo después de agregar el comentario
-    }
-  }
 
 
 getCaracteristicas(categoria: string): string[] {
