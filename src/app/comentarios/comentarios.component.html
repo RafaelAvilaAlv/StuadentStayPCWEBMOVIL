@@ -1,0 +1,45 @@
+<div *ngIf="authService.isAuthenticated()" class="comentarios-container">
+  <h2 class="titulo-principal">Opiniones y Reseñas</h2>
+  <p class="subtitulo">Tu experiencia es importante para nosotros. ¡Déjanos tu opinión!</p>
+
+  <div *ngIf="isCliente" class="comentario-form">
+    <h3>Comparte tu experiencia</h3>
+    <form (submit)="dejarComentario()">
+      <textarea [(ngModel)]="descripcion" name="descripcion" placeholder="Escribe tu comentario..." required></textarea>
+      
+      <div class="calificacion-container">
+        <label for="calificacion">⭐ Califica tu experiencia:</label>
+        <select [(ngModel)]="calificacion" name="calificacion" required>
+          <option value="1">⭐ Malo</option>
+          <option value="2">⭐⭐ Regular</option>
+          <option value="3">⭐⭐⭐ Bueno</option>
+          <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
+          <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+        </select>
+      </div>
+
+      <button type="submit">Enviar Comentario</button>
+    </form>
+  </div>
+
+  <div *ngIf="!isCliente" class="mensaje-no-cliente">
+    <p>Debes ser un cliente para dejar un comentario.</p>
+  </div>
+</div>
+
+<!-- Sección de comentarios -->
+<h2 class="titulo-comentarios">"Descubre lo que opinan nuestros clientes"</h2>
+<div *ngFor="let comentario of comentarios" class="comentario">
+  <div class="comentario-header">
+    <p class="usuario"><strong>{{ comentario.cliente.usuario }}</strong></p>
+    <p class="estrellas">{{ getEstrellas(comentario.calificacion) }}</p>
+  </div>
+  
+  <p class="comentario-texto">{{ comentario.descripcion }}</p>
+
+  <button *ngIf="comentario.cliente.idCliente === authService.idUsuario" 
+    class="eliminar-btn"
+    (click)="eliminarComentario(comentario.idComentario, comentario.cliente.idCliente)">
+    <i class="fas fa-trash-alt"></i>
+  </button>
+</div>

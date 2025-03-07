@@ -12,28 +12,17 @@ export class AuthService {
   idEncabezado: any;
   idDetalle: any;
   idHabitacion: any;
-  
-  constructor() {
 
+  constructor() {
     try {
       if (typeof localStorage !== 'undefined') {
-        if (typeof localStorage !== 'undefined') {
-          this.loadUserFromLocalStorage();
-        } else {
-          console.error('localStorage no está disponible en este entorno.');
-        }
+        this.loadUserFromLocalStorage();
       } else {
         console.error('localStorage no está disponible en este entorno.');
       }
     } catch (error) {
-      // Manejo de la excepción
       console.error('Ocurrió un error:', error);
-      // Puedes realizar otras acciones de manejo de errores aquí
-      // Por ejemplo, puedes lanzar una nueva excepción personalizada
-      throw new Error('Ocurrió un error inesperado. Por favor, inténtalo de nuevo.');
     }
-   
-   
   }
 
   loadUserFromLocalStorage() {
@@ -49,7 +38,6 @@ export class AuthService {
   }
 
   saveUserToLocalStorage() {
-    // Guarda la información del usuario en localStorage
     localStorage.setItem('user', JSON.stringify({
       isLoggedIn: this.isLoggedIn,
       idUsuario: this.idUsuario,
@@ -61,6 +49,7 @@ export class AuthService {
       idHabitacion: this.idHabitacion
     }));
   }
+
   setCliente() {
     this.tipoUser = 'cliente';
     this.saveUserToLocalStorage();
@@ -85,8 +74,17 @@ export class AuthService {
     this.isLoggedIn = false;
     this.saveUserToLocalStorage();
   }
+
   setCedula(cedula: any) {
     this.cedulaUser = cedula;
     this.saveUserToLocalStorage();
+  }
+
+  isAuthenticated(): boolean {
+    return this.isLoggedIn;
+  }
+
+  getUserType(): string {
+    return this.tipoUser;
   }
 }
