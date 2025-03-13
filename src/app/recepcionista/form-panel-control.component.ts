@@ -34,33 +34,37 @@ export class FormPanelControlComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.obtenerReservasRecepcionista();
   }
 
   obtenerReservasRecepcionista() {
     const usuario = this.userService.getUsuario();
-
+  
+    // Si no hay usuario, mejor definimos uno "por defecto" o hacemos otra acción
     if (!usuario) {
-      console.log('No hay usuario almacenado.');
+      console.log('No hay usuario almacenado. Mostrando reservas sin filtrar.');
+      this.reservaService.getReserva().subscribe(reservas => {
+        this.reservas = reservas;
+        this.buscarDetallesReservas();
+      });
       return;
     }
-
+  
+    // Si sí hay usuario, seguimos con el flujo normal
     this.recepcionistaService.buscarPorUsuario(usuario).subscribe(recepcionista => {
       if (recepcionista) {
         this.recepcionistaId = recepcionista.idRecepcionista;
-
-        // Obtener reservas que coincidan con el recepcionista
         this.reservaService.getReserva().subscribe(reservas => {
           this.reservas = reservas.filter(reserva => reserva.idRecepcionista === this.recepcionistaId);
           this.buscarDetallesReservas();
         });
-
       } else {
         console.log('No se encontró un recepcionista con ese usuario.');
       }
     });
   }
-
+  
   buscarDetallesReservas() {
     const observables = this.reservas.map(reservaInfo => {
       return this.clienteService.getCliente(reservaInfo.idCliente).pipe(

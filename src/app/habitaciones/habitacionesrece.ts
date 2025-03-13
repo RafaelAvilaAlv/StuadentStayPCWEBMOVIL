@@ -43,11 +43,6 @@ export class habitacionesrece implements OnInit {
   ) { }
 
 
-  // Función para cambiar el estado de mostrar las fotos
- 
-  cargarMisHabitaciones(): void {
-    this.router.navigate(['/habitaciones/habitacionesrece']);
-  }
 
   aprobarHabitacion(habitacion: Habitaciones): void {
     habitacion.estado = 'Disponible';  // Cambia el estado de la habitación a 'Disponible'
@@ -96,12 +91,7 @@ export class habitacionesrece implements OnInit {
             this.habitaciones = resultados.map(r => r.habitacion);
             this.nomCat = resultados.map(r => r.nombreCategoria);
 
-            // Inicializar mapas
-            setTimeout(() => {
-              this.habitaciones.forEach(habitacion => {
-                this.initMapForRoom(habitacion);
-              });
-            }, 0);
+        
           },
           error => {
             console.error('Error al cargar categorías:', error);
@@ -134,69 +124,7 @@ export class habitacionesrece implements OnInit {
     );
   }
 
-  // Inicializar mapa
-  initMapForRoom(habitacion: Habitaciones): void {
-    const mapElement = this.elRef.nativeElement.querySelector(`#map-${habitacion.idHabitaciones}`);
-    if (!mapElement || habitacion.longitud == null || habitacion.latitud == null) {
-      return;
-    }
-
-    const coordinates = fromLonLat([habitacion.longitud, habitacion.latitud]);
-
-    const map = new Map({
-      target: mapElement,
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        })
-      ],
-      view: new View({
-        center: coordinates,
-        zoom: 18
-      })
-    });
-
-    this.addMarkerToMap(map, habitacion);
-  }
-
-  addMarkerToMap(map: Map, habitacion: Habitaciones): void {
-    if (habitacion.longitud == null || habitacion.latitud == null) {
-      return;
-    }
-
-    const coordinates = fromLonLat([habitacion.longitud, habitacion.latitud]);
-
-    const marker = new Feature({
-      geometry: new Point(coordinates)
-    });
-
-    marker.setStyle(
-      new Style({
-        image: new Icon({
-          src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-          scale: 0.06,
-        })
-      })
-    );
-
-    const vectorSource = new VectorSource({
-      features: [marker]
-    });
-
-    const vectorLayer = new VectorLayer({
-      source: vectorSource
-    });
-
-    map.addLayer(vectorLayer);
-  }
-  revisarHabitacion(habitacion: any) {
-    habitacion.mostrarFotos = !habitacion.mostrarFotos;
-  }
   
-
-
- 
-
   delete(habitacion: Habitaciones): void {
     Swal.fire({
       title: '¿Estás seguro?',

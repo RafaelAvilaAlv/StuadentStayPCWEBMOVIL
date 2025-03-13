@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { appConfig } from './enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriasService {
-   private urlEndPoint: string = `${appConfig.baseUrl}/categorias`; // Cambia esto según la URL de tu backend
+  private urlEndPoint: string = "https://localhost:8080/api";
 
   constructor(private http: HttpClient) { }
 

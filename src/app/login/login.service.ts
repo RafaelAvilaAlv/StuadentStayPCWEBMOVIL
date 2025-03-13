@@ -5,16 +5,15 @@ import { Observable } from 'rxjs';
 import { Cliente } from '../clientes/cliente';
 import { Administrador } from '../administrador/administrador';
 import { Recepcionista } from '../recepcionista/recepcionista';
-import { appConfig } from '../enviroment/appConfig';
 import { UserService } from './UserService';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private urlEndPoint: string = `${appConfig.baseUrl}/clientes`;
-  private urlEndPoint1: string = `${appConfig.baseUrl}/administrador`;
-  private urlEndPoint2: string = `${appConfig.baseUrl}/recepcionistas`;
+  private urlEndPoint: string = "https://localhost:8080/api";
+  private urlEndPoint1: string = "https://localhost:8080/api";
+  private urlEndPoint2: string = "https://localhost:8080/api";
 
   constructor(
     private http: HttpClient,

@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Provincia } from './provincia';
-import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProvinciaService {
-  private urlEndPoint: string = `${appConfig.baseUrl}`;
+  private urlEndPoint: string = "https://localhost:8080/api";
+  
   constructor(private http: HttpClient) { }
 
   getProvincias(): Observable<Provincia[]> {

@@ -71,7 +71,6 @@ export class FormHbitacionesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initMap();
   }
 
   cargarhabitacion(): void {
@@ -189,53 +188,4 @@ this.habitaciones.mostrarFotos=false;
     }
 }
   
-
-  private initMap(): void {
-    this.map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      view: new View({
-        center: fromLonLat([-79.0046, -2.9006]),
-        zoom: 17,
-      }),
-      controls: [
-        new Zoom(),
-      ],
-    });
-    const vectorSource = new VectorSource();
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-    });
-
-    this.map.addLayer(vectorLayer);
-    this.map.on('click', (event) => {
-      vectorSource.clear();
-      const [lat, lon] = toLonLat(event.coordinate);
-      const marker = new Feature({
-        geometry: new Point(event.coordinate),
-      });
-      marker.setStyle(
-        new Style({
-          image: new Icon({
-            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Icono personalizado
-            scale: 0.07, // Ajustar el tamaño
-          }),
-        })
-      );
-      vectorSource.addFeature(marker);
-      // Muestra las coordenadas en los campos de entrada
-      this.habitaciones.latitud = lon;  // Redondeamos para mayor precisión
-      this.habitaciones.longitud = lat;
-      Swal.fire({
-        title: 'Ubicación seleccionada',
-        text: `Latitud: ${this.habitaciones.latitud}, Longitud: ${this.habitaciones.longitud}`,
-        icon: 'info',
-        confirmButtonText: 'Aceptar',
-      });
-    });
-  }
 }

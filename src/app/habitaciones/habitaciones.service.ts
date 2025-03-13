@@ -4,14 +4,12 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { categorias } from './categorias';
-import { appConfig } from '../enviroment/appConfig';
-
 @Injectable({
   providedIn: 'root'
 })
 export class HabitacionesService {
-  private urlEndPoint: string = `${appConfig.baseUrl}/habitaciones`;
-  private urlEndPoint1: string = `${appConfig.baseUrl}/categorias`;
+  private urlEndPoint: string = "https://localhost:8080/api";
+  private urlEndPoint1: string = "https://localhost:8080/api";
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
