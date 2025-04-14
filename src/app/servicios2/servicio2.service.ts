@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Servicios2 } from './servicios2';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Servicio2Service {
-  private urlEndPoint: string = `${appConfig.baseUrl}/servicio`;
+  private urlEndPoint: string = "https://localhost:8080/api";
+
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }

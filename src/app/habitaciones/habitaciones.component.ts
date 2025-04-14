@@ -87,13 +87,6 @@ getCaracteristicas(categoria: string): string[] {
           resultados => {
             this.habitaciones = resultados.map(r => r.habitacion);
             this.nomCat = resultados.map(r => r.nombreCategoria);
-
-            // Inicializar mapas
-            setTimeout(() => {
-              this.habitaciones.forEach(habitacion => {
-                this.initMapForRoom(habitacion);
-              });
-            }, 0);
           },
           error => {
             console.error('Error al cargar categorías:', error);

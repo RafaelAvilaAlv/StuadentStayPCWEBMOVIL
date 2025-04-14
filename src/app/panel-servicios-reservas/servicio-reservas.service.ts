@@ -5,13 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Reserva } from '../reservas/reserva';
-import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicioReservas {
-  private urlEndPoint: string = `${appConfig.baseUrl}/reservas`;
+  private urlEndPoint: string = "https://localhost:8080/api";
 
   constructor(private http: HttpClient) { }
 

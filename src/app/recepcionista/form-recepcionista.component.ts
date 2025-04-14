@@ -89,35 +89,88 @@ export class FormRecepcionistaComponent implements OnInit {
       }
     }
   }
+  validarFechaNacimiento(): boolean {
+    if (!this.persona.fechaNacimiento) {
+      Swal.fire('Error', 'Debe ingresar una fecha de nacimiento.', 'error');
+      return false;
+    }
+  
+    const fechaNacimiento = new Date(this.persona.fechaNacimiento);
+    if (isNaN(fechaNacimiento.getTime())) {
+      Swal.fire('Error', 'Fecha de nacimiento inválida.', 'error');
+      return false;
+    }
+  
+    return true;
+  }
+
+  validarFormulario(): boolean {
+    if (!this.persona.nombre || !this.persona.apellido || !this.persona.fechaNacimiento) {
+      Swal.fire('Error', 'Todos los campos son obligatorios.', 'error');
+      return false;
+    }
+  
+    if (!this.validarFechaNacimiento()) {
+      return false;
+    }
+  
+    if (this.persona.edad < 18) {
+      Swal.fire('Edad no válida', 'Debe tener al menos 18 años para registrarse.', 'error');
+      return false;
+    }
+  
+    return true;
+  }
 
   guardar() {
+    if (!this.validarFormulario()) {
+      return;
+    }
+  
     this.personaService.createPersona(this.persona).subscribe((personaCreada) => {
       this.recepcionista.cedula_persona = personaCreada.cedula_persona;
       this.recepcionistaService.create(this.recepcionista).subscribe((recepcionistaCreado) => {
-      this.router.navigate(['/panel-recepcion'])
-      Swal.fire('Recepcionista guardado',` Recepcionista ${this.persona.nombre} Guardado con éxito`, 'success')
+        this.router.navigate(['/panel-recepcion']);
+        Swal.fire('Propietario  guardado', `Propietario  ${this.persona.nombre} guardado con éxito`, 'success');
       }, (error) => {
-        console.error('Error al guardar el recepcionista: ', error);
+        console.error('Error al guardar el Propietario : ', error);
       });
     }, (error) => {
       console.error('Error al guardar la persona: ', error);
     });
   }
-
-  // VALIDACIONES
   onKeyPress(event: any): void {
     const char = event.key;
-    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
+    const allowedKeys = ['Backspace', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'Delete', 'Escape'];
+  
+    if (event.ctrlKey || event.altKey || event.metaKey || allowedKeys.includes(char)) {
       return;
     }
+  
     if (char === ' ') {
       event.preventDefault();
       return;
     }
+  
     if (!this.validarLetras(char)) {
       event.preventDefault();
     }
   }
+  
+  onKeyPressNumeros(event: KeyboardEvent): void {
+    const char = event.key;
+    const allowedKeys = ['Backspace', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'Delete', 'Escape'];
+  
+    if (event.ctrlKey || event.altKey || event.metaKey || allowedKeys.includes(char)) {
+      return;
+    }
+  
+    if (isNaN(Number(char))) {
+      event.preventDefault();
+    }
+  }
+  // VALIDACIONES
+ 
 
   onKeyPress2(event: any): void {
     const char = event.key;
@@ -129,15 +182,7 @@ export class FormRecepcionistaComponent implements OnInit {
     }
   }
 
-  onKeyPressNumeros(event: KeyboardEvent): void {
-    const char = event.key;
-    if (event.ctrlKey || event.altKey || event.metaKey || char === 'Enter' || char === 'Tab' || char === 'Backspace') {
-      return;
-    }
-    if (!/^[0-9]*$/.test(char)) {
-      event.preventDefault();
-    }
-  }
+ 
 
   validarLetras(char: string): boolean {
     return /^[a-zA-Z\s]*$/.test(char);

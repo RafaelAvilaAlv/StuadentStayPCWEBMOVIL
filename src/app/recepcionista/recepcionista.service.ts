@@ -3,14 +3,14 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Recepcionista } from './recepcionista';
-import { appConfig } from '../enviroment/appConfig';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecepcionistaService {
-  private urlEndPoint: string = `${appConfig.baseUrl}/recepcionistas`;
+  private urlEndPoint: string = "https://localhost:8080/api";
+
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }

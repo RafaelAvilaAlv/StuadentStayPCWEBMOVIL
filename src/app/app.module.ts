@@ -61,6 +61,8 @@ import { habitacionesrece, } from './habitaciones/habitacionesrece';
 import { ReservasListaModule } from './reservas-lista/reservas-lista.module';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
+import { ComentariosComponent } from './comentarios/comentarios.component';
+
 //import { HabitacionesRecepComponent } from './habitaciones-recep/habitaciones-recep.component';
 //import { HabitacionesRecepComponent } from './habitaciones/habitaciones-recep/habitaciones-recep.component';
 
@@ -151,6 +153,7 @@ const routes: Routes = [
         ClienteDetalleComponent,
         habitacionesrece,
         HabitacionesRecepComponent,
+        ComentariosComponent,
       //  ChatbotComponent,
         //HabitacionesRecepComponent,
         //HabitacionesRecepComponent,

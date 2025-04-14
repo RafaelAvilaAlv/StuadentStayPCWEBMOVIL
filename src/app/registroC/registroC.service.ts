@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { RegistroC } from './registroC';
 import Swal from 'sweetalert2';
 import emailjs from 'emailjs-com';
-import { appConfig } from '../enviroment/appConfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegistroCService {
-  private urlEndPoint: string = `${appConfig.baseUrl}/clientes`;
+  private urlEndPoint: string = "https://localhost:8080/api";
 
   constructor(private http: HttpClient) {}
 
