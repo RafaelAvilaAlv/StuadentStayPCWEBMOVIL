@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/cd288a8d-c89b-4ec4-8782-a04030563941/resourceGroups/LR2_group/providers/Microsoft.Web/sites/luisdavidreyjordan",
+    "appService.deploySubpath": "."
+}
